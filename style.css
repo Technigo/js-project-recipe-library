@@ -1,0 +1,134 @@
+body {
+  background: #FAFBFF;
+  font-family: "Roboto Condensed", serif;
+
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "header"
+    "filter-and-sort"
+    "recipe-card";
+}
+
+.header {
+  grid-area: header;
+
+
+}
+
+h1 {
+  font-size: 64px;
+  color: #0018A4;
+  margin: 64px 0 64px 32px;
+}
+
+
+.filter-and-sort {
+  grid-area: filter-and-sort;
+  display: flex;
+  flex-direction: column;
+  margin: 16px 0;
+  gap: 16px;
+
+}
+
+input[type="button"] {
+  border: 2px solid transparent;
+  border-radius: 50px;
+  background: #CCFFE2;
+  padding: 8px 16px;
+  color: #0018A4;
+  font-family: "Roboto Condensed", serif;
+  font-size: 24px;
+  margin: 5px 0;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+
+input.sort-btn {
+  background: #FFECEA;
+}
+
+input[type="button"]:hover {
+  border: 2px solid #0018A4;
+  transform: scale(1.05);
+}
+
+input.food-btn:hover {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+input.food-btn.selectedButton {
+  background: #0018A4;
+  color: #FFF;
+}
+
+input.sort-btn:hover {
+  background: #FF6589;
+  color: #FFF;
+
+}
+
+input.sort-btn.selectedButton {
+  background: #FF6589;
+  color: #FFF;
+}
+
+.recipe-card {
+  grid-area: recipe-card;
+}
+
+.more-filter {
+  border: 3px solid #0018A4;
+  height: 250px;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.card {
+  border: 2px solid transparent;
+  padding: 16px;
+  padding-bottom: 24px;
+  border-radius: 16px;
+  border: 1px solid #E9E9E9;
+  background: #FFF;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: all 0.1s ease-in-out;
+}
+
+.card:hover {
+  border: 2px solid #0018A4;
+  box-shadow: 0px 0px 15px 0px rgba(0, 24, 164, 0.20);
+}
+
+img {
+  height: 200px;
+  border-radius: 12px;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .recipe-card {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+  }
+}
+
+@media (min-width: 901px) {
+  .recipe-card {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+}

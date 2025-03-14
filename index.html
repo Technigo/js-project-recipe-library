@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <title>Recipe Library</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Recipe <br>Library</h1>
+    </div>
+    <div class="filter-and-sort">
+      <div class="filter">
+        <h2>Filter on kitchen</h2>
+
+        <input type="button" value="All" class="food-btn" id="all" data-cuisines="all">
+        <input type="button" value="Mediterranean" class="food-btn" id="mediterranean" data-cuisines="mediterranean">
+        <input type="button" value="Middle Eastern" class="food-btn" id="middle-eastern" data-cuisines="middle-eastern">
+        <input type="button" value="Asian" class="food-btn" id="asian" data-cuisines="asian">
+        <input type="button" value="Italian" class="food-btn" id="italian" data-cuisines="italian">
+        <input type="button" value="Mexican" class="food-btn" id="mexican" data-cuisines="mexican">
+        <input type="button" value="American" class="food-btn" data-cuisines="American">
+        <input type="button" value="Random" class="food-btn" id="random" data-cuisines="random">
+
+
+      </div>
+      <div class="sort">
+        <h2>Sorting on time</h2>
+        <input type="button" value="Ascending" class="sort-btn" id="ascending">
+        <input type="button" value="Descending" class="sort-btn" id="descending">
+      </div>
+    </div>
+    <section class="recipe-card" id="recipe-container">
+      <div class="more-filter" id="more-filter">
+        <h2>Loading...</h2>
+      </div>
+    </section>
+  </div>
+  <script src="./script.js"></script>
+</body>
+
+</html>
