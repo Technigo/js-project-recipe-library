@@ -1,0 +1,44 @@
+@media (min-width: 600px) {
+  html {
+    font-size: 110%;
+  }
+
+  .recipes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 800px) {
+  html {
+    font-size: 115%;
+  }
+}
+
+@media (min-width: 1000px) {
+  h1 {
+    text-align: left;
+  }
+
+  .section {
+    padding: 3rem;
+  }
+
+  .btns {
+    flex-direction: row;
+  }
+
+  .filters-container {
+    flex-direction: row;
+    justify-content: left;
+  }
+
+  .recipes {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .recipes {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

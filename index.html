@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="queries.css" />
+
+    <title>Recipe Library</title>
+  </head>
+
+  <body>
+    <section class="section main-section">
+      <h1>Recipe Library</h1>
+      <div class="btns">
+        <button class="btn recipe-btn">Random recipe!</button>
+        <button class="btn fav-btn">View Favourites</button>
+      </div>
+      <div class="filters-container">
+        <div class="filter diet-filter">
+          <h2 class="filter-label">Filter by diet</h2>
+          <div class="dropdown">
+            <div class="dropdown-selected" data-dropdown>Select an option</div>
+            <div class="dropdown-items">
+              <div class="dropdown-option diet-option" data-filter="all">
+                All
+              </div>
+              <div class="dropdown-option diet-option" data-filter="vegan">
+                Vegan
+              </div>
+              <div class="dropdown-option diet-option" data-filter="vegetarian">
+                Vegetarian
+              </div>
+              <div
+                class="dropdown-option diet-option"
+                data-filter="gluten free"
+              >
+                Gluten-free
+              </div>
+              <div class="dropdown-option diet-option" data-filter="dairy free">
+                Dairy-free
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter cuisine-filter">
+          <h2 class="filter-label">Filter by cuisine</h2>
+          <div class="dropdown">
+            <div class="dropdown-selected" data-dropdown>Select an option</div>
+            <div class="dropdown-items">
+              <div class="dropdown-option cuisine-option" data-filter="all">
+                All
+              </div>
+              <div
+                class="dropdown-option cuisine-option"
+                data-filter="mediterranean"
+              >
+                Mediterranean
+              </div>
+              <div
+                class="dropdown-option cuisine-option"
+                data-filter="middle eastern"
+              >
+                Middle Eastern
+              </div>
+              <div class="dropdown-option cuisine-option" data-filter="asian">
+                Asian
+              </div>
+              <div class="dropdown-option cuisine-option" data-filter="italian">
+                Italian
+              </div>
+              <div class="dropdown-option cuisine-option" data-filter="mexican">
+                Mexican
+              </div>
+              <div
+                class="dropdown-option cuisine-option"
+                data-filter="southern"
+              >
+                Southern
+              </div>
+              <div
+                class="dropdown-option cuisine-option"
+                data-filter="european"
+              >
+                European
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter sort-filter">
+          <h2 class="filter-label">Sort by</h2>
+          <div class="dropdown sort">
+            <div class="dropdown-selected sort" data-dropdown>
+              Select an option
+            </div>
+            <div class="dropdown-items sort">
+              <div
+                class="dropdown-option sort time-sort"
+                data-sort="cook-time-asc"
+              >
+                Cooking time &uarr;
+              </div>
+              <div
+                class="dropdown-option sort time-sort"
+                data-sort="cook-time-desc"
+              >
+                Cooking time &darr;
+              </div>
+              <div
+                class="dropdown-option sort ingredients-sort"
+                data-sort="ingredients-asc"
+              >
+                Ingredient number &uarr;
+              </div>
+              <div
+                class="dropdown-option sort ingredients-sort"
+                data-sort="ingredients-desc"
+              >
+                Ingredient number &darr;
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recipes"></div>
+    </section>
+  </body>
+  <script src="script.js"></script>
+</html>
