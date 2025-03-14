@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omnomnomnom</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Recipe Library</h1>
+            <div class="header-buttons">
+                <button id="clearFiltersBtn" class="clear-filters-btn">Clear All Filters</button>
+                <button id="randomRecipeBtn" class="random-recipe-btn">Random Recipe</button>
+            </div>
+        </div>
+        
+        <div class="filters">
+            <div class="filter-section">
+                <div class="custom-select" data-filter-type="dietary">
+                    <button class="select-button">
+                        <span class="selected-value">Dietary Preferences</span>
+                        <span class="arrow"></span>
+                    </button>
+                    <ul class="select-dropdown">
+                        <li>
+                            <label class="checkbox-label">
+                                <input type="checkbox" data-value="vegan"> Vegan
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox-label">
+                                <input type="checkbox" data-value="vegetarian"> Vegetarian
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox-label">
+                                <input type="checkbox" data-value="gluten-free"> Gluten-free
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox-label">
+                                <input type="checkbox" data-value="dairy-free"> Dairy-free
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="custom-select" data-filter-type="time">
+                    <button class="select-button">
+                        <span class="selected-value">Cooking Time</span>
+                        <span class="arrow"></span>
+                    </button>
+                    <ul class="select-dropdown">
+                        <li>
+                            <label class="checkbox-label">
+                                <input type="checkbox" data-value="15"> Under 15 min
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox-label">
+                                <input type="checkbox" data-value="30"> 15-30 min
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox-label">
+                                <input type="checkbox" data-value="60"> 30-60 min
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox-label">
+                                <input type="checkbox" data-value="61"> Over 60 min
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="custom-select" data-filter-type="ingredients">
+                    <button class="select-button">
+                        <span class="selected-value">No. of Ingredients</span>
+                        <span class="arrow"></span>
+                    </button>
+                    <ul class="select-dropdown">
+                        <li>
+                            <label class="checkbox-label">
+                                <input type="checkbox" data-value="5"> Under 5 ingredients
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox-label">
+                                <input type="checkbox" data-value="10"> 6-10 ingredients
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox-label">
+                                <input type="checkbox" data-value="15"> 11-15 ingredients
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox-label">
+                                <input type="checkbox" data-value="16"> Over 16 ingredients
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sort-section">
+                <div class="custom-select" data-filter-type="sort">
+                    <button class="select-button">
+                        <span class="selected-value">No sorting</span>
+                        <span class="arrow"></span>
+                    </button>
+                    <ul class="select-dropdown">
+                        <li data-value="none">No sorting</li>
+                        <li data-value="time">Sort by Time</li>
+                        <li data-value="popularity">Sort by Popularity</li>
+                        <li data-value="price">Sort by Price</li>
+                        <li data-value="ingredients">Sort by Ingredients</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search recipes...">
+            <button id="searchBtn" class="search-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="recipes-grid" id="recipesContainer">
+            <!-- Recipes will be inserted here by JavaScript -->
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Recipe Library. All recipes sourced from Spoonacular API.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
