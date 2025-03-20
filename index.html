@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Recipe Library</title>
+  <link
+    rel="stylesheet"
+    href="./style.css"
+  >
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+  <link
+    href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet"
+  >
+</head>
+
+<body>
+
+  <header>
+    <h1>Recipe Library</h1>
+  </header>
+
+  <section class="options-section">
+    <!-- Filter options -->
+    <div class="filters">
+      <div class="filters-header dropdown">
+        <h2>Filter <span class="dropdown-icon">&#9660</span></h2>
+      </div>
+      <div class="filters-container">
+        <!-- reset button -->
+        <div>
+          <button
+            type="button"
+            id="reset-filters-button"
+            class="filter-button"
+          >Show All</button>
+        </div>
+        <!-- Diet -->
+        <div class="option-container">
+          <div class="dropdown">
+            <h3>Diet <span class="dropdown-icon">&#9660</span></h3>
+          </div>
+          <div class="filter-options">
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="diets"
+                id="vegan"
+                value="vegan"
+              >
+              <label
+                class="filter-button"
+                for="vegan"
+              >Vegan</label>
+            </span>
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="diets"
+                id="vegetarian"
+                value="vegetarian"
+              >
+              <label
+                class="filter-button"
+                for="vegetarian"
+              >Vegetarian</label>
+            </span>
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="diets"
+                id="glutenFree"
+                value="gluten-free"
+              >
+              <label
+                class="filter-button"
+                for="glutenFree"
+              >Gluten-free</label>
+            </span>
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="diets"
+                id="dairyFree"
+                value="dairy-free"
+              >
+              <label
+                class="filter-button"
+                for="dairyFree"
+              >Dairy-free</label>
+            </span>
+          </div>
+        </div>
+        <!-- Cuisine -->
+        <div class="option-container">
+          <div class="dropdown">
+            <h3>Cuisine <span class="dropdown-icon">&#9660</span></h3>
+          </div>
+          <div class="filter-options">
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="cuisines"
+                id="mediterranean"
+                value="mediterranean"
+              >
+              <label
+                class="filter-button"
+                for="mediterranean"
+              >Mediterranean</label>
+            </span>
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="cuisines"
+                id="middle-eastern"
+                value="middle-eastern"
+              >
+              <label
+                class="filter-button"
+                for="middle-eastern"
+              >Middle Eastern</label>
+            </span>
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="cuisines"
+                id="asian"
+                value="asian"
+              >
+              <label
+                class="filter-button"
+                for="asian"
+              >Asian</label>
+            </span>
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="cuisines"
+                id="italian"
+                value="italian"
+              >
+              <label
+                class="filter-button"
+                for="italian"
+              >Italian</label>
+            </span>
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="cuisines"
+                id="mexican"
+                value="mexican"
+              >
+              <label
+                class="filter-button"
+                for="mexican"
+              >Mexican</label>
+            </span>
+          </div>
+        </div>
+        <!-- Cooking time -->
+        <div class="option-container">
+          <div class="dropdown">
+            <h3>Cooking Time <span class="dropdown-icon">&#9660</span></h3>
+          </div>
+          <div class="filter-options">
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="cookingTime"
+                id="under-15-min"
+                value="under-15-min"
+              >
+              <label
+                class="filter-button"
+                for="under-15-min"
+              >Under 15 min</label>
+            </span>
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="cookingTime"
+                id="15-30-min"
+                value="15-30-min"
+              >
+              <label
+                class="filter-button"
+                for="15-30-min"
+              >15-30 min</label>
+            </span>
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="cookingTime"
+                id="30-60-min"
+                value="30-60-min"
+              >
+              <label
+                class="filter-button"
+                for="30-60-min"
+              >30-60 min</label>
+            </span>
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="cookingTime"
+                id="over-60-min"
+                value="over-60-min"
+              >
+              <label
+                class="filter-button"
+                for="over-60-min"
+              >Over 60 min</label>
+            </span>
+          </div>
+        </div>
+        <!-- Amount of ingredients -->
+        <div class="option-container">
+          <div class="dropdown">
+            <h3>Amount of Ingredients <span class="dropdown-icon">&#9660</span></h3>
+          </div>
+          <div class="filter-options">
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="numberOfIngredients"
+                id="under-5-ingredients"
+                value="under-5-ingredients"
+              >
+              <label
+                class="filter-button"
+                for="under-5-ingredients"
+              >Under 5 ingredients</label>
+            </span>
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="numberOfIngredients"
+                id="5-10-ingredients"
+                value="5-10-ingredients"
+              >
+              <label
+                class="filter-button"
+                for="5-10-ingredients"
+              >5-10 ingredients</label>
+            </span>
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="numberOfIngredients"
+                id="11-15-ingredients"
+                value="11-15-ingredients"
+              >
+              <label
+                class="filter-button"
+                for="11-15-ingredients"
+              >11-15 ingredients</label>
+            </span>
+            <span>
+              <input
+                class="filter-option"
+                type="checkbox"
+                name="numberOfIngredients"
+                id="over-15-ingredients"
+                value="over-15-ingredients"
+              >
+              <label
+                class="filter-button"
+                for="over-15-ingredients"
+              >Over 15 ingredients</label>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sorting options -->
+    <div class="sorting">
+      <div class="filters-header dropdown">
+        <h2>Sort <span class="dropdown-icon">&#9660</span></h2>
+      </div>
+      <div class="sorting-container">
+        <!-- reset button -->
+        <div>
+          <button
+            type="button"
+            id="reset-sorting-button"
+            class="sorting-button"
+          >Reset sorting</button>
+        </div>
+        <!-- Cooking time -->
+        <div class="option-container">
+          <div class="dropdown">
+            <h3>Cooking Time <span class="dropdown-icon">&#9660</span></h3>
+          </div>
+          <div class="sorting-options">
+            <span>
+              <input
+                type="radio"
+                class="sorting-option"
+                name="sorting"
+                id="time-descending"
+                value="time-descending"
+              >
+              <label
+                class="sorting-button"
+                for="time-descending"
+              >Descending</label>
+            </span>
+            <span>
+              <input
+                type="radio"
+                class="sorting-option"
+                name="sorting"
+                id="time-ascending"
+                value="time-ascending"
+              >
+              <label
+                class="sorting-button"
+                for="time-ascending"
+              >Ascending</label>
+            </span>
+          </div>
+        </div>
+        <!-- Popularity -->
+        <div class="option-container">
+          <div class="dropdown">
+            <h3>Popularity <span class="dropdown-icon">&#9660</span></h3>
+          </div>
+          <div class="sorting-options">
+            <span>
+              <input
+                type="radio"
+                class="sorting-option"
+                name="sorting"
+                id="popularity-descending"
+                value="popularity-descending"
+              >
+              <label
+                class="sorting-button"
+                for="popularity-descending"
+              >Descending</label>
+            </span>
+            <span>
+              <input
+                type="radio"
+                class="sorting-option"
+                name="sorting"
+                id="popularity-ascending"
+                value="popularity-ascending"
+              >
+              <label
+                class="sorting-button"
+                for="popularity-ascending"
+              >Ascending</label>
+            </span>
+          </div>
+        </div>
+        <!-- Price per Serving -->
+        <div class="option-container">
+          <div class="dropdown">
+            <h3>Price per Serving <span class="dropdown-icon">&#9660</span></h3>
+          </div>
+          <div class="sorting-options">
+            <span>
+              <input
+                type="radio"
+                class="sorting-option"
+                name="sorting"
+                id="price-descending"
+                value="price-descending"
+              >
+              <label
+                class="sorting-button"
+                for="price-descending"
+              >Descending</label>
+            </span>
+            <span>
+              <input
+                type="radio"
+                class="sorting-option"
+                name="sorting"
+                id="price-ascending"
+                value="price-ascending"
+              >
+              <label
+                class="sorting-button"
+                for="price-ascending"
+              >Ascending</label>
+            </span>
+          </div>
+        </div>
+        <!-- Amount of Ingredients -->
+        <div class="option-container">
+          <div class="dropdown">
+            <h3>Amount of Ingredients <span class="dropdown-icon">&#9660</span></h3>
+          </div>
+          <div class="sorting-options">
+            <span>
+              <input
+                type="radio"
+                class="sorting-option"
+                name="sorting"
+                id="ingredients-descending"
+                value="ingredients-descending"
+              >
+              <label
+                class="sorting-button"
+                for="ingredients-descending"
+              >Descending</label>
+            </span>
+            <span>
+              <input
+                type="radio"
+                class="sorting-option"
+                name="sorting"
+                id="ingredients-ascending"
+                value="ingredients-ascending"
+              >
+              <label
+                class="sorting-button"
+                for="ingredients-ascending"
+              >Ascending</label>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Random recipe option-->
+    <div class="random-container">
+      <h2>Feeling Adventurous?</h2>
+      <button
+        type="button"
+        id="random-button"
+      >Pick for Me!</button>
+    </div>
+  </section>
+
+  <section id="cards-section">
+    <article class="card placeholder">
+      <h2>Loading recipes...</h2>
+      <div class="loader"></div>
+    </article>
+  </section>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>

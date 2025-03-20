@@ -1,0 +1,300 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Futura, Jost;
+}
+
+body {
+  background: #FAFBFF;
+  margin: 3vw;
+  font-size: 100%;
+}
+
+header {
+  color: #0018A4;
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 2%;
+}
+
+.options-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.options-section h2 {
+  font-size: 1.375em;
+  font-weight: 700;
+}
+
+.options-section h3 {
+  font-size: 1.125em;
+  font-weight: 700;
+}
+
+.filters,
+.sorting {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filters-header {
+  display: flex;
+  gap: 12px;
+}
+
+.dropdown {
+  cursor: pointer;
+}
+
+.filter-button {
+  background: #ccffe2;
+  color: #0018A4;
+  font-size: 1em;
+  padding: 8px 16px;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.filter-button:hover {
+  border-color: #0018A4;
+}
+
+.sorting-button {
+  background: #ffecea;
+  color: #0018A4;
+  font-size: 1em;
+  padding: 8px 16px;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.sorting-button:hover {
+  color: #FFF;
+  background: #ff6589;
+  border-color: #0018A4;
+}
+
+/* filters/sortings hidden by default */
+.filters-container,
+.sorting-container {
+  display: none;
+  flex-wrap: wrap;
+  flex-direction: column;
+  column-gap: 50px;
+  row-gap: 16px;
+}
+
+.option-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* filter/sorting options hidden by default */
+.sorting-options,
+.filter-options {
+  display: none;
+  flex-wrap: wrap;
+  column-gap: 12px;
+  row-gap: 26px;
+}
+
+/* class to show the filter/sorting options */
+.expanded {
+  display: flex;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  display: none;
+}
+
+/* style label when checkbox is checked */
+.filter-option:checked+label {
+  color: #fff;
+  background: #0018A4;
+}
+
+/* style label when radio button is checked */
+.sorting-option:checked+label {
+  color: #FFF;
+  background: #ff6589;
+}
+
+.random-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 20px;
+  row-gap: 12px;
+}
+
+#random-button {
+  background: #fff7d6;
+  color: #0018A4;
+  font-size: 1em;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+#random-button:hover {
+  border-color: #0018A4;
+}
+
+#cards-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-rows: auto;
+  justify-content: stretch;
+  gap: 20px;
+  margin: 5vh 0;
+}
+
+.results-count {
+  grid-column: 1/-1;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 24px 16px;
+  gap: 16px;
+  background: #FFF;
+  border: 2px solid #e9e9e9;
+  border-radius: 16px;
+}
+
+.card:hover {
+  border-color: #0018A4;
+  box-shadow: 0px 0px 30px 0px rgba(0, 24, 164, 0.20);
+}
+
+.card h3 {
+  font-size: 1.125em;
+  font-weight: 700;
+}
+
+.card a {
+  all: unset;
+  cursor: pointer;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.card hr {
+  border: 0;
+  height: 1px;
+  background: #e9e9e9;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.information span {
+  display: flex;
+  gap: 4px;
+}
+
+.details-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.details-buttons-container {
+  display: flex;
+  gap: 16px;
+}
+
+.details-button {
+  background: #d8deff;
+  color: #0018A4;
+  font-size: 1em;
+  padding: 4px 16px;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.details-button:hover {
+  border-color: #0018A4;
+}
+
+.details-button.active {
+  color: #fff;
+  background: #0018A4;
+}
+
+.details {
+  display: none;
+}
+
+.details.active {
+  display: flex;
+}
+
+.details ul {
+  list-style: none;
+}
+
+.details ol {
+  list-style-position: inside;
+}
+
+.details ol li {
+  margin-bottom: 10px;
+}
+
+.placeholder {
+  grid-column: 1/-1;
+  align-items: center;
+  text-align: center;
+}
+
+.loader {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #0018A4;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* change layout of the filter/sorting section for larger screens */
+@media (min-width: 1024px) {
+  .options-section {
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 50px;
+  }
+
+  .filters,
+  .sorting {
+    width: 45%;
+  }
+}
