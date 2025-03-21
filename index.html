@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Library</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Recipe Library</h1>
+
+  <div class="filter-container">
+     <div class="filter-group">
+        <div class="filter-title">Filter options</div>
+        <div class="filter-options">
+            <label class="filter-label">
+                <input type="radio" name="cuisine" value="all" checked class="filter-input">
+                <span class="filter-button" data-type="">All</span>
+            </label>
+            <label class="filter-label">
+                <input type="radio" name="cuisine" value="Italian" class="filter-input">
+                <span class="filter-button">Italy</span>
+            </label>
+            <label class="filter-label">
+                <input type="radio" name="cuisine" value="Asian" class="filter-input">
+                <span class="filter-button">Asian</span>
+            </label>
+            <label class="filter-label">
+                <input type="radio" name="cuisine" value="Mexican" class="filter-input">
+                <span class="filter-button">Mexican</span>
+            </label>
+            <label class="filter-label">
+                <input type="radio" name="cuisine" value="Middle Eastern" class="filter-input">
+                <span class="filter-button">Middle Eastern</span>
+            </label>
+            <label class="filter-label">
+                <input type="radio" name="cuisine" value="European" class="filter-input">
+                <span class="filter-button">European</span>
+            </label>
+            <label class="filter-label">
+                <input type="radio" name="cuisine" value="Mediterranean" class="filter-input">
+                <span class="filter-button">Mediterranean</span>
+            </label>
+            <label class="filter-label">
+                <input type="radio" name="cuisine" value="American" class="filter-input">
+                <span class="filter-button">American</span>
+            </label>
+
+            
+        </div>
+    </div>
+    
+    <div class="filter-group">
+        <div class="filter-title">Sorting options</div>
+        <div class="filter-options">
+            <label class="sort-label">
+                <input type="radio" name="sort" value="time" checked class="sort-input">
+                <span class="sort-button">Cooking time</span>
+            </label>
+            <label class="sort-label">
+                <input type="radio" name="sort" value="popularity" class="sort-input">
+                <span class="sort-button">Popularity</span>
+            </label>
+            <label class="sort-label">
+                <input type="radio" name="sort" value="price" class="sort-input">
+                <span class="sort-button">Price</span>
+            </label> 
+            <button id="random">Random Recipe</button>           
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+<main>
+
+    <div class="card" data-type="italian">
+        <img src="images/avocado.jpg" alt="Food Image">
+        <div class="card-title">Cheat's cheesy Focaccia</div>
+        <div class="divider"></div>
+        <div class="details">
+            <div class="detail-item">
+                <div class="detail-label">Cuisine:</div>
+                <div class="detail-value">Italian</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Time:</div>
+                <div class="detail-value">40 minutes</div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="ingredients-title">Ingredients</div>
+        <div class="ingredients-list">
+            500 pack bread mix<br>
+            2 tbsp. olive oil, plus a little extra for drizzling<br>
+            25g parmesan (or vegetarian alternative), grated<br>
+            75g dolcelatte cheese (or vegetarian alternative)
+        </div>
+    </div>
+  
+</main>  
+
+<script src="script.js"></script>
+</body>
+</html>

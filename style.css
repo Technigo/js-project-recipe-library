@@ -1,0 +1,230 @@
+body {
+  font-family: Futura, sans-serif;
+  background-color: #FAFBFF;
+}
+
+h1{
+  color: #0018A4;
+font-family: Futura;
+font-size: 64px;
+font-weight: 700;
+}
+.filter-container {
+  width: 694px;
+  height: 85px;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 88px;
+  margin-left: 40px;
+}
+
+.filter-group {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.filter-title {
+  text-align: center;
+  color: black;
+  font-size: 22px;
+  font-family: Futura, sans-serif;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.filter-options {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 22px;
+}
+
+.filter-button, .sort-button {
+  padding: 8px 16px;
+  border-radius: 50px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-family: Futura, sans-serif;
+  font-weight: 500;
+  border: 2px solid transparent;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 0px 10px rgba(0, 23.74, 163.62, 0.2);
+}
+
+.filter-button {
+  background: #CCFFE2;
+  color: #0018A4;
+}
+
+.sort-button {
+  background: #FFECEA;
+  color: #0018A4;
+  width: 150px;
+}
+
+.filter-button:hover {
+  box-shadow: 0px 0px 30px rgba(0, 23.74, 163.62, 0.4);
+  transform: translateY(-3px);
+  border-color: #0018A4; 
+}
+.sort-button:hover {
+  box-shadow: 0px 0px 30px rgba(0, 23.74, 163.62, 0.4);
+  transform: translateY(-3px);
+  border-color: #0018A4; 
+}
+
+.filter-button:active {
+  background-color: #0018A4; 
+  color: white; 
+  border-color: #0018A4; 
+}
+
+.sort-button:active {
+  background-color: #FF6589; 
+  color: white; 
+  border-color: #FF6589; 
+}
+
+.filter-input {
+  display: none;
+}
+
+.filter-label {
+  display: inline-flex;
+  cursor: pointer;
+}
+
+
+.filter-input:checked + .filter-button {
+  background-color: #0018A4; 
+  color: white;
+  border-color: #0018A4;
+}
+
+
+.sort-input {
+  display: none;
+}
+
+.sort-label {
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.sort-input:checked + .sort-button {
+  background-color: #FF6589; 
+  color: white;
+  border-color: #FF6589;
+}
+
+/* From Uiverse.io by levxyca */ 
+button {
+  font-size: 1.5rem;
+  color: #FF6589;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid #FF6589;
+  background: white;
+  box-shadow: 3px 3px #FF6589;
+  cursor: pointer;
+}
+
+button:active {
+  box-shadow: none;
+  transform: translate(3px, 3px);
+}
+
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: start;
+  padding: 42px;
+}
+
+.recipe-card {
+  width: 300px;
+  height: 621px;
+  padding: 16px 16px 24px 16px;
+  background: white;
+  box-shadow: 0px 0px 30px rgba(0, 23.74, 163.62, 0.20);
+  border-radius: 16px;
+  border: 2px solid #0018A4;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 0px 10px 40px rgba(0, 23, 164, 0.4);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(0deg, #899CCC 0%, #899CCC 100%);
+  border-radius: 12px;
+}
+
+.card-title {
+  color: black;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.divider {
+  height: 1px;
+  background: #E9E9E9;
+  width: 100%;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-item {
+  display: flex;
+  gap: 4px;
+}
+
+.detail-label {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.detail-value {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.ingredients-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.ingredients-list {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 20px;
+  }
+
+  .recipe-card {
+    width: 100%;
+  }
+}
