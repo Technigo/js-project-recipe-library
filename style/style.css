@@ -1,0 +1,287 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Futura', 'Trebuchet MS', Arial, sans-serif;
+  margin: 0;
+}
+
+header {
+  border-bottom: 1px solid #E9E9E9;
+}
+
+/* max-width makes the content look good on larger screens */
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 18px;
+}
+
+/* Filter/sorting buttons */
+form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+  padding-bottom: 16px;
+}
+
+form p {
+  margin-bottom: 8px;
+}
+
+.form {
+  padding: 8px 6px;
+}
+
+/* hide the "no recipe found" message */
+#displayMessage {
+  display: none;
+}
+
+/* hide the instructions in the card from the start*/
+.instructionList {
+  display: none;
+  padding: 5px;
+}
+
+/* pop up loading message */
+#loadingMessage {
+  display: none;
+  position: fixed;
+  width: 250px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#loadingText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* animation on loading message emoji*/
+.animation {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* hide the input thingy inside my label */
+label input {
+  display: none;
+}
+
+/* button/radio input styling */
+.button {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 50px;
+  box-shadow: 0 2px 6px 1px rgba(0, 0, 0, 0.25);
+  margin: 8px;
+  cursor: pointer;
+  border: 2px solid;
+  transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+.btn-filter {
+  background-color: #CCFFE2;
+  color: #0018A4;
+  border: 2px solid #CCFFE2;
+}
+
+.btn-filter:has(:checked) {
+  background-color: #0018A4;
+  color: #FFFFFF;
+  border: 2px solid #0018A4;
+}
+
+.btn-filter:hover {
+  border: 2px solid #0018A4;
+}
+
+.btn-sort {
+  background-color: #FFECEA;
+  color: #0018A4;
+  border: 2px solid #FFECEA;
+}
+
+.btn-sort:hover {
+  background-color: #FF6589;
+  color: #FFFFFF;
+  border: 2px solid #0018A4;
+}
+
+.btn-sort:has(:checked) {
+  background-color: #FF6589;
+  color: #FFFFFF;
+  border: 2px solid #FF6589;
+}
+
+.btn-random {
+  background-color: #FF6589;
+  color: #FFFFFF;
+  border: 2px solid #FF6589;
+  margin: 16px 6px;
+}
+
+.btn-random:hover {
+  background-color: #FFECEA;
+  color: #FF6589;
+  border: 2px solid #FF6589;
+}
+
+/* animation on random button */
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animationBtn {
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+.instructionsBtn {
+  padding: 8px 16px;
+}
+
+/* Cards styling */
+.card-parent {
+  display: grid;
+  justify-content: space-evenly;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 290px));
+  padding: 24px 0px;
+}
+
+.card {
+  border: 2px solid #E9E9E9;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.card:hover {
+  box-shadow: 4px 1px 10px 1px rgba(0, 0, 0, 0.25);
+  border: 2px solid #0018A4;
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* sections inside the cards */
+.instructions {
+  display: flex;
+  align-items: center;
+  padding: 5px 5px;
+}
+
+.ingredients {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Headings/text styling */
+h1 {
+  text-align: center;
+  color: #0018A4;
+  font-size: 42px;
+}
+
+a {
+  color: #0018A4;
+  margin: 10px 5px;
+  text-decoration: none;
+}
+
+.card a:hover {
+  border-bottom: 2px solid #0018A4;
+}
+
+h2 {
+  padding: 16px 0;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 8px;
+  padding: 4px 0;
+}
+
+p,
+button {
+  font-size: 16px;
+}
+
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+hr {
+  border: 1px solid #E9E9E9;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+footer {
+  border-top: 1px solid #E9E9E9;
+  padding: 32px;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+i {
+  color: #000000;
+  font-size: 25px;
+}
+
+i:hover {
+  opacity: 0.6;
+}

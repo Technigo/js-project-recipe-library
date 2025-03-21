@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <!-- Using some fontawesome icons -->
+  <script
+    src="https://kit.fontawesome.com/beb1bc6f21.js"
+    crossorigin="anonymous"
+  ></script>
+  <link
+    rel="stylesheet"
+    href="./style/style.css"
+  >
+  <title>Project 2 - Recipe Library</title>
+</head>
+
+<body>
+  <header>
+    <a href="./index.html">
+      <h1>Recipe Library</h1>
+    </a>
+  </header>
+
+  <main>
+
+    <!-- Diet Filter Form -->
+    <form id="dietForm">
+      <div class="form">
+        <p>Filter on Diet</p>
+        <label class="button btn-filter">
+          <input
+            type="radio"
+            name="diet"
+            value="all"
+          > 🍽️ All
+        </label>
+        <label class="button btn-filter">
+          <input
+            type="radio"
+            name="diet"
+            value="vegan"
+          > 🌱 Vegan
+        </label>
+        <label class="button btn-filter">
+          <input
+            type="radio"
+            name="diet"
+            value="vegetarian"
+          > 🥕 Vegetarian
+        </label>
+        <label class="button btn-filter">
+          <input
+            type="radio"
+            name="diet"
+            value="glutenFree"
+          > 🌾 Gluten-Free
+        </label>
+        <label class="button btn-filter">
+          <input
+            type="radio"
+            name="diet"
+            value="dairyFree"
+          > 🧀 Dairy-Free
+        </label>
+      </div>
+
+      <!-- Sort Filter Form -->
+      <div class="form">
+        <p>Sort by Time</p>
+        <label class="button btn-sort">
+          <input
+            type="radio"
+            name="timeFilter"
+            value="ascending"
+          > 🕑 A quick one
+        </label>
+        <label class="button btn-sort">
+          <input
+            type="radio"
+            name="timeFilter"
+            value="descending"
+          > ⏳ I got time!
+        </label>
+      </div>
+    </form>
+
+    <!-- Random recipe button-->
+    <div class="form">
+      <p>In need of Inspo?</p>
+      <button
+        class="button btn-random animationBtn"
+        id="randomBtn"
+      >✨ Surprise me!</button>
+    </div>
+
+    <!-- If an error happens, the message shows here -->
+    <p
+      id="errorMessage"
+      class="form"
+    ></p>
+
+    <!-- Loading message showing while fetching for recipes with som animation -->
+    <div id="loadingMessage">
+      <div id="loadingText">
+        <p class="animation">⏳</p>
+        <h4>Hang on! We are loading some super yummy recipes just for you ✨</h4>
+      </div>
+    </div>
+
+    <!-- One <section> per recipe displays here -->
+    <section
+      id="cards"
+      class="card-parent"
+    >
+    </section>
+
+  </main>
+
+  <!-- Icons and links-->
+  <footer>
+    <div class="icons">
+      <p>Project by:
+        <a href="https://github.com/ssofiejohansson"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/sofie-j-011155310/"><i class="fa-brands fa-linkedin"></i></a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="./js/script.js"></script>
+</body>
+
+</html>
