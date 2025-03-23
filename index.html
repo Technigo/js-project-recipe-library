@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Recipe library</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+<header>
+<h1>Recipe library</h1>
+</header>
+
+<section class="filter-group">
+<div class="filter-container">
+<h3 class="small-head">Filter by cuisine</h3>
+<div class="filter-options">
+<input type="checkbox" id="all" class="filter-checkbox" checked />
+<label for="all">All</label>
+
+<input type="checkbox" id="asian" class="filter-checkbox" />
+<label for="asian">Asian</label>
+
+<input type="checkbox" id="european" class="filter-checkbox" />
+<label for="european">European</label>
+
+<input type="checkbox" id="american" class="filter-checkbox" />
+<label for="american">American</label>
+
+<input type="checkbox" id="mexican" class="filter-checkbox" />
+<label for="mexican">Mexican</label>
+
+<input type="checkbox" id="italian" class="filter-checkbox" />
+<label for="italian">Italian</label>
+
+<input type="checkbox" id="french" class="filter-checkbox" />
+<label for="french">French</label>
+
+</div>
+</div>
+
+<div class="sort-container">
+<h3 class="small-head">Sort by cooking time</h3>
+<div class="sort-options">
+ <input type="radio" id="ascending" name="sort" class="sort-radio" />
+<label for="ascending">Ascending</label>
+    
+<input type="radio" id="descending" name="sort" class="sort-radio" />
+<label for="descending">Descending</label>
+</div>
+</div>
+    
+
+<div class="lazy-container">
+<h3 class="small-head">Difficult to decide?</h3>
+<div class="lazy-option">
+<input type="button" id="lazy" name="lazy" />
+<label for="lazy">Let me choose for you</label>
+</div>
+</div>
+</section>
+
+<div id="loading-spinner" class="spinner-container">
+<div class="spinner"></div>
+<p>Loading recipes... please wait...</p>
+</div>
+
+<main id="recipe-container" class="recipe-container">
+    Loading...
+</main>
+<script src="recipes.js"></script>
+
+<script src="script.js"></script>
+</body>
+
+</html>
