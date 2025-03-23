@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Library</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<header>
+    <h1>Recipe Library</h1>
+</header>
+
+<main>
+    <section class="filter-container" id="filter-container">
+        <form class="recipe-filter-form" id="recipe-filter-form">
+            <div class="filer-on-diet" id="filter-on-diet">             
+                <h2>Filter on diet</h2>         
+                <select id="diet-filter" name="diet">             
+                    <option value="">All Diets</option>             
+                    <option value="vegetarian">Vegetarian</option>             
+                    <option value="vegan">Vegan</option>         
+                </select>         
+            </div>          
+            
+            <div class="sort-recipes-ingredients" id="sort-recipes-ingredients">             
+                <h2>Sort on ingredients</h2>             
+                <div class="sort-options" id="sort-options-ingredients">                 
+                    <button type="button" class="sort-btn-ingredients" id="btn-descending-ingredients">Descending</button>                 
+                    <button type="button" class="sort-btn-ingredients" id="btn-ascending-ingredients">Ascending</button>             
+                </div>         
+            </div>
+            
+            <div class="sort-recipes" id="sort-recipes">             
+                <h2>Sort on time</h2>             
+                <div class="sort-options" id="sort-options-time">                 
+                    <button type="button" class="sort-btn" id="btn-descending">Descending</button>                 
+                    <button type="button" class="sort-btn" id="btn-ascending">Ascending</button>             
+                </div>         
+            </div>
+            
+            <div class="random-recipe">             
+                <h2>What should I eat today?</h2>             
+                <button type="button" class="random-btn" id="btn-random">Get recipe</button>         
+            </div>
+        </form>
+    </section>
+
+    <section class="recipes-container" id="recipes-container">
+    </section>
+</main>
+
+<script src="./script.js"></script>
+
+</div>
+</body>
+</html>
