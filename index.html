@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=favorite"
+  />
+  <title>Recipe Library – Project 3</title>
+</head>
+
+<body>
+  <header>
+    <section class="header-container">
+      <h1>Recipe Library</h1>
+      <button
+        class="favorite-recipe-button select-option"
+        id="favorite-recipe-button"
+      >
+        Favorite Recipes
+      </button>
+    </section>
+  </header>
+
+  <main>
+    <h2>Find your recipe</h2>
+
+    <section class="search-container">
+      <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        placeholder="Search ingredient or recipe..."
+      >
+      <button
+        class="filter-button select-option"
+        id="filter-button"
+        type="button"
+      >
+        filter
+      </button>
+    </section>
+
+    <section class="recipe-filter-section">
+      <h2>Filter recipes</h2>
+      <div class="filter-container">
+        <h3
+          id="filter-cuisine"
+          class="filter-header"
+        >
+          Filter by Cuisine
+        </h3>
+        <ul class="filter-options">
+          <li>
+            <input
+              type="checkbox"
+              id="filter1"
+              name="filter"
+              value="Mediterranean"
+            />
+            <label for="filter1">Mediterranean</label>
+          </li>
+          <li>
+            <input
+              type="checkbox"
+              id="filter2"
+              name="filter"
+              value="Middle Eastern"
+            />
+            <label for="filter2">Middle Eastern</label>
+          </li>
+          <li>
+            <input
+              type="checkbox"
+              id="filter3"
+              name="filter"
+              value="Asian"
+            />
+            <label for="filter3">Asian</label>
+          </li>
+          <li>
+            <input
+              type="checkbox"
+              id="filter4"
+              name="filter"
+              value="Italian"
+            />
+            <label for="filter4">Italian</label>
+          </li>
+          <li>
+            <input
+              type="checkbox"
+              id="filter5"
+              name="filter"
+              value="Mexican"
+            />
+            <label for="filter5">Mexican</label>
+          </li>
+          <li>
+            <input
+              type="checkbox"
+              id="filter6"
+              name="filter"
+              value="European"
+            />
+            <label for="filter6">European</label>
+          </li>
+          <li>
+            <input
+              type="checkbox"
+              id="filter7"
+              name="filter"
+              value="Banana"
+            />
+            <label for="filter7">Banana</label>
+          </li>
+        </ul>
+      </div>
+      <hr>
+      <button
+        class="random-recipe-button select-option"
+        id="random-recipe-button"
+      >
+        Suprise me
+      </button>
+    </section>
+
+    <section class="display-recipes-container">
+      <section class="recipe-count-sort">
+        <h3 class="recipe-count"></h3>
+        <div class="sort-container">
+          <button class="sort-button select-option">Sort recipes</button>
+          <ul class="sort-options">
+            <li>
+              <input
+                type="radio"
+                id="sort1"
+                name="sort"
+                value="mostPopularRecipes"
+              />
+              <label for="sort1">Most Popular Recipes</label>
+            </li>
+            <li>
+              <input
+                type="radio"
+                id="sort2"
+                name="sort"
+                value="shortestCookingTime"
+              />
+              <label for="sort2">Shortest Cooking Time</label>
+            </li>
+            <li>
+              <input
+                type="radio"
+                id="sort3"
+                name="sort"
+                value="fewestIngredients"
+              />
+              <label for="sort3">Fewest Ingredients</label>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="recipe-card-section">
+        <div class="loading-indicator"></div>
+      </section>
+    </section>
+  </main>
+  <div class="overlay"></div>
+  <script src="./script.js"></script>
+</body>
+
+</html>
