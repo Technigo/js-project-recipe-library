@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Finder</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <h1>Recipe Library:</h1>
+  <section class="options-container">
+    
+    <div class="filters">
+      <div class="filters-title">
+        <h2>I'm in the mood for...</h2>
+        <span class="toggle-arrow rotated">▶</span>
+      </div>
+      <div class="filters-buttons">
+        <button class="filter-button">Mexican</button>
+        <button class="filter-button">Italian</button>
+        <button class="filter-button">Thai</button>
+        <button class="filter-button">Indian</button>
+        <button class="filter-button">Japanese</button>
+        <button id="all-button" class="filter-button">All</button>
+      </div>
+    </div>
+    
+    <div class="sorting">
+      <div class="sorting-title">
+        <h2>Sort by...</h2>
+        <span class="toggle-arrow rotated">▶</span>
+      </div>
+      <div class="sorting-buttons">
+        <button class="sorting-button">Popularity</button>
+        <button class="sorting-button">Time</button>
+      </div>
+    </div>
+
+    <div class="surprise">
+      <div class="surprise-title">
+        <h2>Surprise me!</h2>
+        <span class="toggle-arrow rotated">▶</span>
+      </div>
+      <div class="random-buttons">
+        <button id="random-button" class="random-button">Random 🔀</button>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="recipes-container">
+
+    <div class="recipe-grid-container"></div>
+
+  </section>
+  <script src="./script.js"></script>
+</body>
+</html>

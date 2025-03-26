@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  font-family: 'Lexend', sans-serif;
+}
+
+h1 {
+  color: #0418A4;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1.5rem;
+}
+
+h2 {
+  color: #0418A4;
+  font-size: 1.5rem;
+}
+
+h3 {
+  color: black;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.filters-buttons, .sorting-buttons, .random-buttons {
+  margin: 0 1.25rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.filter-button, .sorting-button, .random-button {
+  color: #0418A4;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  margin: 0.125rem;
+  border-radius: 25px;
+  width: 8.5rem;
+  border: 2px solid #0417a400;
+}
+
+.filter-button {
+  background-color: #CCFFE2;
+}
+
+.sorting-button {
+  background-color: #FFECEA;
+}
+
+.random-button {
+  background-image: linear-gradient(135deg, #ae88ff 0%, #7f9fff  51%, #aa88ff 100%)
+}
+
+.active-filter {
+  background-color: #0418A4;
+  color: #FFFFFF;
+}
+
+.active-sorting {
+  background-color: #FF6589;
+  color: #FFFFFF;
+}
+
+button:hover {
+  cursor: pointer;
+  border: 2px solid #0418A4;
+}
+
+.recipe-grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+
+}
+
+.recipe-card {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+  border: 2px solid silver;
+  border-radius: 17px;
+  padding-bottom: 0.75rem;
+}
+
+.recipe-card:hover {
+  border: 2px solid #0418A4;
+}
+
+.recipe-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 15px 15px 0 0;
+}
+
+.recipe-card p, h3 {
+  margin: 0.5rem;
+}
+
+hr {
+  height: 1px;
+  width: 50%;
+  background-color: silver;
+  margin: 0.25rem;
+}
+
+.ingredient-list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+li {
+  list-style-type: none;
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.toggle-hidden {
+  display: none;
+}
+
+.filters-title, .sorting-title, .surprise-title {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 0.5rem 1.5rem 1.5rem 1.5rem;
+}
+
+.toggle-arrow {
+  color: #0418A4;
+  font-size: 1.25rem;
+  transition: transform 0.3s ease;
+  margin-left: 1rem;
+}
+
+.rotated {
+  transform: rotate(90deg);
+}
+
+.error-message {
+  margin: 2rem;
+}
+
+/* Media Queries */
+
+@media screen and (min-width: 600px) {
+  .recipe-grid-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .recipe-grid-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .options-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .filters {
+    grid-column: 1 / 3;
+  }
+
+  .sorting {
+    grid-column: 1;
+  }
+
+  .surprise {
+    grid-column: 2;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .options-container {
+    display: grid;
+    grid-template-columns: 50% 20% 30%;
+  }
+
+  .filters {
+    grid-column: 1;
+  }
+
+  .sorting {
+    grid-column: 2;
+  }
+
+  .surprise {
+    grid-column: 3;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .options-container {
+    display: flex;
+  }
+}
+
