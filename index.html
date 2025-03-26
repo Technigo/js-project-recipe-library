@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Library</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Recipe Library</h1>
+    </header>
+
+    <main>
+        <!-- Filter section -->
+        <section class="filters">
+
+            <select id="diet-filter">
+                <option value="all">Diets</option>
+                <option value="vegan">Vegan</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="gluten-free">Gluten-free</option>
+                <option value="dairy-free">Dairy-free</option>
+            </select>
+
+            <select id="cuisine-filter">
+                <option value="all">Cuisines</option>
+                <option value="mediterranean">Mediterranean</option>
+                <option value="middle-eastern">Middle Eastern</option>
+                <option value="asian">Asian</option>
+                <option value="italian">Italian</option>
+                <option value="american">American</option>
+            </select>
+
+            <select id="time-filter">
+                <option value="all">Cooking time</option>
+                <option value="under-15">Under 15 min</option>
+                <option value="15-30">15-30 min</option>
+                <option value="30-60">30-60 min</option>
+                <option value="over-60">Over 60 min</option>
+            </select>
+
+            <select id="sort-filter">
+                <option value="none">Sort by</option>
+                <option value="time-asc">Time</option>
+                <option value="popularity-desc">Popularity</option>
+            </select>
+
+            <button id="randomBtn">Random recipe</button>
+            <button id="clearBtn">Clear filters</button>
+        </section>
+
+        <div id="filters-info"></div>
+
+        <div id="search-and-count">
+            <input type="text" id="search-input" placeholder="Search recipes..." autocomplete="off" />
+            <p id="recipe-count"></p>
+        </div>
+
+        <section id="recipe-container">
+            <div id="loading" style="display: none;"></div>
+            <div id="error-container"></div>
+        </section>
+
+        <div id="pagination-controls">
+            <button id="prevPage">←</button>
+            <span id="currentPageDisplay"></span>
+            <button id="nextPage">→</button>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

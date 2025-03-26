@@ -1,0 +1,335 @@
+/* GLOBAL */
+body {
+    font-family: arial;
+    background-color: #FAFBFF;
+    text-align: center;
+}
+
+/* HEADER */
+header {
+    color: #0018a4;
+    padding: 20px;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+/* FILTERS */
+.filters {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    padding: 0 15px;
+}
+
+.filters select,
+#randomBtn,
+#clearBtn {
+    padding: 10px 12px;
+    border: 2px solid #FAFBFF;
+    border-radius: 10px;
+    background-color: white;
+    color: #0018a4;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    max-width: none;
+}
+
+.filters select {
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px;
+    padding-right: 35px;
+    outline: none;
+}
+
+select option {
+    background-color: white;
+    color: #0018a4;
+    padding: 10px;
+}
+
+#diet-filter,
+#cuisine-filter,
+#time-filter {
+    background-color: #ccffe2;
+}
+
+#sort-filter {
+    background-color: #ffecea;
+}
+
+select:hover {
+    border: 2px solid #0018a4;
+}
+
+select.active-filter {
+    background-color: #0018a4 !important;
+    color: white !important;
+    border: 2px solid #0018a4 !important;
+    outline: none !important;
+}
+
+select.sort-active {
+    background-color: #ff6589 !important;
+    color: white !important;
+    border: 2px solid #ff6589 !important;
+    outline: none !important;
+}
+
+#randomBtn,
+#clearBtn {
+    background-color: #ff6589;
+    color: white;
+}
+
+#randomBtn:hover,
+#clearBtn:hover {
+    border: 2px solid #0018a4;
+}
+
+/* FILTER INFO */
+#filters-info {
+    margin: 20px auto;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    color: #0018a4;
+}
+
+#filters-info p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.filter-text {
+    font-weight: bold;
+}
+
+.sort-text {
+    color: #ff6589;
+    font-weight: bold;
+}
+
+/* TEXT FOR NO RESULTS, HOW MANY RECIPES FOUND AND SELECTED FILTERS */
+#selected-filters,
+#selected-sorting,
+#recipe-count,
+.no-recipes {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0018a4;
+    text-align: center;
+    margin: 10px;
+    padding: 8px;
+}
+
+/* ERROR MESSAGE*/
+.error-message {
+    color: rgb(255, 255, 255);
+    background: #ff6589;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+/* SEARCH BAR */
+.search-and-count {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 80%;
+    margin: 10px auto;
+    padding: 15px;
+    gap: 10px;
+}
+
+#search-input {
+    outline-color: #0018a4;
+    border: 2px solid #0018a4 !important;
+    margin: 10px;
+    font-size: 16px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+#search-input:focus {
+    border: 2px solid #0018a4;
+}
+
+/* RECIPE CARD */
+#recipe-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.recipe-card {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 280px;
+    min-height: 250px;
+    text-align: left;
+    border: 2px solid #0018a4;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-card:hover {
+    transform: scale(1.005);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.recipe-card h3 {
+    margin: 10px 0px 5px 0px;
+    color: #0018a4;
+    font-size: 18px;
+}
+
+.recipe-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.recipe-card p {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+    color: #000000;
+    margin: 3px 0px;
+}
+
+.recipe-divider {
+    border: none;
+    height: 2px;
+    background-color: #E9E9E9;
+    margin: 8px 0;
+}
+
+.recipe-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* VIEW FULL RECIPE BUTTON */
+.view-recipe-btn {
+    background-color: #ff6589;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    margin-top: auto;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+}
+
+.view-recipe-btn:active {
+    background-color: #0018a4;
+    color: white;
+}
+
+#pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+#pagination-controls button {
+    padding: 8px 16px;
+    font-weight: bold;
+    border: 2px solid #0018a4;
+    background-color: #ff6589;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#pagination-controls span {
+    font-weight: bold;
+    color: #0018a4;
+}
+
+
+/* MEDIA QUERIES FOR LARGER SCREENS */
+@media screen and (min-width: 768px) {
+    .filters {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0 20px;
+        gap: 15px;
+    }
+
+    .filters select,
+    #randomBtn,
+    #clearBtn {
+        width: 200px;
+        font-size: 16px;
+        padding: 14px;
+        margin: 0;
+    }
+
+    #selected-filters,
+    #selected-sorting,
+    #recipe-count,
+    .no-recipes {
+        font-size: 16px;
+    }
+
+    .recipe-card h3 {
+        font-size: 22px;
+    }
+
+    .recipe-card p {
+        font-size: 18px;
+    }
+
+    .view-recipe-btn {
+        font-size: 18px;
+    }
+
+    header {
+        font-size: 32px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .filters {
+        gap: 20px;
+        padding: 0 40px;
+    }
+
+    .filters select,
+    #randomBtn,
+    #clearBtn {
+        width: 180px;
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    #search-input {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .recipe-card {
+        max-width: 250px;
+    }
+}
