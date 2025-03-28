@@ -1,0 +1,390 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #FAFBFF;
+  font-family: sans-serif;
+}
+
+/* Header top: title and hamburger aligned side by side */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.main-title {
+  color: #0018A4;
+  font-family: futura-pt-bold, sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Hamburger menu icon */
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  user-select: none;
+}
+
+.menu-icon span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 3px 0;
+  background: #0018A4;
+  border-radius: 3px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Transform hamburger icon to an "X" when open */
+.menu-icon.open span:nth-child(1) {
+  transform: translateY(9px) rotate(-45deg);
+}
+
+.menu-icon.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-icon.open span:nth-child(3) {
+  transform: translateY(-9px) rotate(45deg);
+}
+
+/* Navbar container */
+.navbar {
+  background-color: #FAFBFF;
+  padding: 10px;
+}
+
+/* Navigation links for mobile: hidden by default */
+.nav-links {
+  display: none;
+  flex-direction: column;
+}
+
+.nav-links.active {
+  display: flex;
+}
+
+/* Each dropdown container (mobile and desktop) */
+.dropdown-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navigation link styling (dropdown trigger) */
+.dropdown-trigger {
+  font-family: futura-pt-bold, sans-serif;
+  font-size: 23px;
+  font-weight: 700;
+  color: #000;
+  text-decoration: none;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Arrow icon styling */
+.arrow-icon {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+  transition: transform 0.3s ease;
+}
+
+/* Rotate arrow when active (pointing up) */
+.arrow-icon.active {
+  transform: rotate(180deg);
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+  display: none; /* hidden by default */
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: #fff;
+  width: 100%;
+  padding: 10px;
+}
+
+.dropdown-menu.active {
+  display: flex;
+}
+
+/* Dropdown button styling for non-sort buttons */
+.dropdown-btn {
+  display: flex;
+  padding: 8px 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 50px;
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+  background-color: #CCFFE2;
+  border: 2px solid transparent; /* Added transparent border to avoid jump on hover */
+  color: #0018A4;
+  cursor: pointer;
+  transition: border 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  text-align: center;
+  font-family: futura-pt, sans-serif;
+  font-size: 19px;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.dropdown-btn:hover {
+  border: 2px solid #0018A4;
+}
+
+/* Selected state for non-sort dropdown buttons */
+.dropdown-btn.selected {
+  background-color: #0018A4;
+  color: #fff;
+  border: 2px solid transparent; /* Added transparent border to avoid jump on hover */
+}
+
+/* Sort-by buttons: different color palette */
+.sort-btn {
+  background-color: #FFECEA;
+  color: #0018A4;
+  box-shadow: none;
+  border: 2px solid transparent; /* Added transparent border to avoid jump on hover */
+}
+
+.sort-btn.selected {
+  background-color: #FF6589;
+  color: #fff;
+  box-shadow: none;
+  border: 2px solid transparent;
+}
+
+.sort-btn:hover {
+  background-color: #FF6589;
+  color: #fff;
+  border: 2px solid #0018A4;
+  box-shadow: none;
+}
+
+/* Surprise me! icon styling */
+.surprise-icon {
+  width: 20px; /* Adjust size if necessary */
+  height: 20px;
+  margin: 0; /* Remove unwanted margins */
+  vertical-align: middle; /* Ensures proper text alignment */
+}
+
+.surprise-container .dropdown-btn {
+  width: auto; /* Only take the necessary width */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+  margin: 0 auto; /* Center the button */
+  text-align: center;
+}
+
+/* Recipe cards container */
+.recipes {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  row-gap: 32px;
+  column-gap: 32px;
+  flex-wrap: wrap;
+  margin: auto; /* Centering the flexbox */
+  padding: 20px;
+}
+
+/* Recipe card styles */
+.recipe-card {
+  display: flex;
+  width: 100%; /* Ensures proper spacing on tablets */
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  border-radius: 16px;
+  border: 2px solid #E9E9E9;
+}
+
+.recipe-card:hover {
+  transform: scale(1.05);
+  border: 2px solid #0018A4;
+  background: #FFF;
+  box-shadow: 0px 0px 30px 0px rgba(0, 24, 164, 0.20);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Image inside the recipe card */
+.recipe-card img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.divider {
+  width: 100%;
+  height: 2px;
+  background-color: #E9E9E9;
+  margin: 1px auto;
+}
+
+/* Recipe's title */
+.recipe-card h2 {
+  color: #333;
+  font-family: futura-pt, sans-serif;
+  font-size: 23px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 0;
+}
+
+.recipe-card h3 {
+  color: #333;
+  font-family: futura-pt, sans-serif;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 0;
+}
+
+.recipe-card p {
+  color: #333;
+  font-family: futura-pt, sans-serif;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  margin: 0;
+}
+
+.cuisine-time {
+  display: flex;
+  flex-direction: column; /* Ensures "Time" appears below "Cuisine" */
+  gap: 4px; /* Adds space between the two rows */
+}
+
+.cuisine-time-row {
+  display: flex;
+  align-items: baseline; /* Aligns text properly */
+  gap: 5px; /* Adds spacing between elements */
+}
+
+.cuisine-time h3,
+.cuisine-time p {
+  margin: 0; /* Removes default margin */
+}
+
+.ingredients {
+  list-style: none; /* Removes bullets */
+  padding: 0; /* Removes default left indentation */
+  margin: 0; /* Adjust as needed */
+}
+
+.ingredients li {
+  font-family: futura-pt, sans-serif;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1; /* Adjust spacing */
+  padding: 4px 0; /* Adds some vertical spacing */
+}
+
+/* Button */
+.view-recipe-btn {
+  padding: 10px 16px;
+  background-color: #0018A4;
+  font-family: futura-pt, sans-serif;
+  font-size: 19px;
+  font-weight: 500;
+  font-style: normal;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.view-recipe-btn:hover {
+  background-color: #0033FF;
+}
+
+/* TABLET VIEW */
+@media (min-width: 668px) {
+  .recipe-card {
+    width: calc(50% - 16px); /* Two per row with spacing */
+  }
+}
+
+/* Desktop view adjustments */
+@media (min-width: 1024px) {
+  .header-top {
+    padding: 20px;
+  }
+  .main-title {
+    font-size: 64px;
+  }
+  .menu-icon {
+    display: none;
+  }
+
+  .nav-links {
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+  }
+  /* Force each navigation (dropdown container) to take 20% width */
+  .dropdown-container {
+    flex: 0 0 17%;
+    position: relative;
+  }
+
+  .dropdown-container.surprise-container {
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  /* Move arrow icons close to the text */
+  .dropdown-trigger {
+    justify-content: flex-start;
+    gap: 4px;
+  }
+  .arrow-icon {
+    margin-left: 4px;
+  }
+  .recipes {
+    width: 100%;
+    justify-content: center;
+    row-gap: 32px;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%; /* Position the dropdown right below the trigger */
+    left: 0;
+    width: 100%;
+    border-radius: 10px;
+    z-index: 1000; /* A high z-index so it appears on top */
+  }
+
+  .recipe-card {
+    width: calc(25% - 24px); /* Four per row with spacing */
+  }
+}
