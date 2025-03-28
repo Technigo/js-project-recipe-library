@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+        content="Discover a variety of recipes from different cuisines.">
+  <meta name="keywords"
+        content="recipes, cooking, cuisine, food">
+  <title>Recipe Library</title>
+  <link rel="stylesheet"
+        href="style.css">
+  <script src="https://kit.fontawesome.com/04d91e792e.js"
+          crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Recipe Library</h1>
+    <nav class="filtersort-larger"
+         id="filterSort">
+      <div class="flex filter">
+        <h2>Filter by Cuisine</h2>
+        <form class="selectors green"
+              id="filterButtonsContainer"
+              aria-label="Filter by Cuisine"></form>
+      </div>
+      <div class="flex sort">
+        <h2>Sort by</h2>
+        <form id="sortButtons"
+              class="selectors pink"
+              aria-label="Sort by options"></form>
+      </div>
+      <div class="right-side-nav">
+        <label for="search-mobile"
+               hidden> Search for cuisines, diets and ingredients </label>
+        <div class="search-container">
+          <input type="text"
+                 class="search-input"
+                 id="search"
+                 placeholder=" &#x2315;  What sounds good?"
+                 aria-label="Search Recipes" />
+        </div>
+        <button type="button"
+                id="randomRecipeButton"
+                class="random lrg"
+                aria-label="Get a random recipe"> I don't Know! </button>
+      </div>
+    </nav>
+    <nav class="filtersort-mobile"
+         id="mobileDropdown">
+      <!-- Filter Dropdown -->
+      <div class="dropdown filter">
+        <button class="dropbtn"
+                aria-haspopup="true"
+                aria-expanded="false">Filter</button>
+        <ul id="filterDropdown"
+            class="selectors filter-content"
+            aria-label="Filter options"></ul>
+      </div>
+      <!-- Sort Dropdown -->
+      <div class="dropdown sort">
+        <button class="dropbtn"
+                aria-haspopup="true"
+                aria-expanded="false">Sort</button>
+        <ul id="sortDropdown"
+            class="selectors sort-content"
+            aria-label="Sort options"></ul>
+      </div>
+      <div class="search-mobile">
+        <label for="search-mobile"
+               hidden> Search for cuisines, diets and ingredients </label>
+        <input type="text"
+               class="search-input"
+               id="searchMobile"
+               placeholder=" &#x2315;  What sounds good?"
+               aria-label="Search Recipes" />
+      </div>
+      <button id="randomMobile"
+              class="random mobile"
+              aria-label="Get a random recipe"> I don't Know! </button>
+    </nav>
+  </header>
+  <main>
+    <section id="recipe-container"
+             class="recipe-container"
+             aria-live="polite"
+             aria-atomic="true"></section>
+  </main>
+  <footer>
+    <div class="footer-parent">
+      <div class="footer-left">
+        <h6>©Jonny Hicks 2025 </h6>
+      </div>
+      <ul class="footer-right">
+        <li>
+          <a href="https://github.com/KidFromCalifornia"
+             target="_blank"
+             class="Github"
+             aria-label="Link to Github">
+            <i class="fa-brands fa-github"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/jonathanwhicks/"
+             target="_blank"
+             class="linkedin"
+             aria-label="Link to LinkedIn">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/thekidfromcalifornia"
+             target="_blank"
+             class="instagram"
+             aria-label="Link to Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+
+</html>
