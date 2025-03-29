@@ -1,0 +1,285 @@
+/* #region ----- Basic ----- */
+* {
+  box-sizing: border-box;
+  margin: 5px;
+}
+
+body {
+  color: var(--secondary);
+  background-color: var(--body);
+  font-size: clamp(.8rem, 1vw, 5rem);
+  margin: 50px 6%;
+  color: var(--font-primary);
+}
+
+h1 {
+  color: var(--secondary);
+  margin-bottom: 30px;
+}
+
+p {
+  font-size: clamp(.7rem, 1.1vw, 5rem);
+}
+
+span {
+  margin-left: 0px;
+  margin-right: 0;
+}
+
+ul {
+  font-size: clamp(.7rem, 1.2vw, 5rem);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  border: none;
+  background-color: var(--complementary);
+  color: var(--secondary);
+  font-size: clamp(.8rem, 1vw, 4rem);
+  padding: 10px 15px;
+  margin: 5px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect */
+.radio-label:hover {
+  background-color: #a1caf7;
+  color: white;
+}
+
+*/ button:hover {
+  transform: scale(1.03);
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+.bold {
+  font-weight: bolder;
+}
+
+/* #endregion */
+
+/* #region ----- Sort section ----- */
+.kitchen-sort-container {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 3em;
+  margin: 0;
+}
+
+.kitchen-btn {
+  background-color: var(--complementary);
+  color: var(--secondary);
+  border: solid 2px transparent;
+}
+
+.kitchen-btn:hover {
+  border: solid 2px var(--secondary);
+}
+
+.kitchen-btn-active {
+  background-color: var(--secondary);
+  color: var(--font-secondary);
+  border: solid 2px var(--secondary);
+}
+
+.time-btn {
+  background-color: var(--tri);
+  color: var(--secondary);
+  border: solid 2px transparent;
+}
+
+.time-btn:hover {
+  border: solid 2px var(--secondary);
+}
+
+.time-btn-active {
+  background-color: var(--tri-hover);
+  color: var(--font-secondary);
+  border: solid 2px var(--tri-hover);
+}
+
+.search-and-price-container {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  margin-bottom: 30px;
+}
+
+input {
+  font-size: 1.2rem;
+  padding: 6px 8px;
+  border-radius: 5px;
+  border: solid 1px rgba(0, 0, 0, 0.169);
+}
+
+fieldset::-webkit-scrollbar {
+  display: none;
+  /* Hides scrollbar in Chrome, Safari, and newer Edge */
+}
+
+/* #endregion */
+
+/* #region ----- Recipe section ----- */
+.recipe-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(250px, 23%, 340px), 1fr));
+  gap: .3em;
+  cursor: pointer;
+}
+
+.recipe-card {
+  gap: 2em;
+  padding: 20px;
+  background-color: var(--font-secondary);
+  border-radius: 8px;
+  transition: transform ease .4s;
+  border: solid 2px transparent;
+  max-width: 550px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.recipe-card:hover {
+  border: solid 2px var(--secondary);
+  transform: scale(1.02);
+}
+
+.food-img-bg {
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.img-food-card {
+  object-fit: cover;
+  border-radius: 8px;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.food-card-text {
+  overflow: hidden;
+}
+
+/* #endregion */
+
+/* #region ----- Extra classes ----- */
+.hidden {
+  display: none;
+}
+
+#darkmode-switch {
+  cursor: pointer;
+}
+
+/* #endregion */
+
+/* #region ----- Phone viewport ----- */
+@media (max-width: 900px) {
+
+  /* #region ----- Basic --- Manual Fold ----- */
+  body {
+    margin: 20px 0 0 0;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+  }
+
+  button {
+    border: none;
+    background-color: var(--complementary);
+    color: var(--secondary);
+    font-size: clamp(.9rem, 1vw, 4rem);
+    /* padding: 3% 7%; */
+    padding: 7px 15px;
+    margin: 5px 5px;
+  }
+
+  /* #endregion */
+
+  /* #region ----- Sort section --- Manual Fold ----- */
+  fieldset {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+  }
+
+  .button-scroll {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+
+  .kitchen-sort-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    margin: 0 0 0 0;
+  }
+
+  .search-and-price-container {
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  input {
+    font-size: 1.2rem;
+    padding: 6px 8px;
+    border-radius: 5px;
+    border: solid 1px rgba(0, 0, 0, 0.169);
+    width: 100%;
+
+  }
+
+  /* #endregion */
+
+  /* #region ----- Recipe section --- Manual Fold ----- */
+  .recipe-card {
+    padding: 10px;
+  }
+
+  .food-img-bg {
+    padding: 0;
+    display: flex;
+    border-radius: 8px;
+  }
+
+  .img-food-card {
+    object-fit: cover;
+    border-radius: 8px;
+    aspect-ratio: 16 / 9;
+    margin: 0;
+  }
+
+  /* #endregion */
+
+}
+
+/* #endregion */
+
+/* #region ----- Small Phone viewport ----- */
+@media (max-width: 320px) {
+
+  button {
+    margin: 5px 5px;
+    padding: 8px 12px;
+  }
+
+}
+
+/* #endregion */

@@ -1,0 +1,79 @@
+<!--*--- Head --- Manual Fold  ----->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Library</title>
+  <link rel="stylesheet" href="style/color-pallet.css">
+  <link rel="stylesheet" href="style/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <script src="script/objectRecepies.js" defer></script>
+  <script src="script/script.js" defer></script>
+
+</head>
+
+<body id="body">
+
+  <!--*--- Header --- Manual Fold  ----->
+  <header>
+    <h1 id="darkmode-switch">Recipe Library</h1>
+  </header>
+
+  <main id="main">
+
+    <!--*--- Sort Section --- Manual Fold  ----->
+
+    <section class="kitchen-sort-container">
+      <form action="">
+        <div class="kithen-sort-title">
+          <h2>Filter on kitchen</h2>
+          <fieldset>
+            <div class="button-scroll">
+              <button id="mexico-btn" class="kitchen-btn all-btn" data-cuisine="Mexican">Mexican</button>
+              <button id="italy-btn" class="kitchen-btn italy-btn" data-cuisine="Italian">Italy</button>
+              <button id="asia-btn" class="kitchen-btn asia-btn" data-cuisine="Asian">Asia</button>
+              <button id="mediterranean-btn" class="kitchen-btn us-btn" data-cuisine="USA">Mediterranean</button>
+            </div>
+          </fieldset>
+        </div>
+
+      </form>
+
+      <form action="">
+        <div class="time-sort-container">
+          <div class="time-sort-title">
+            <h2>Sort on time</h2>
+            <fieldset>
+              <div class="button-scroll">
+                <button id="decend-btn" class="time-btn">Decending</button>
+                <button id="acend-btn" class="time-btn">Acending</button>
+                <button id="random-btn" class="time-btn">Random</button>
+                <button id="empthy-btn" class="time-btn">Empthy</button>
+              </div>
+            </fieldset>
+          </div>
+      </form>
+
+    </section>
+
+    <section id="temp-placeholder"></section>
+
+    <!--*--- Recipie Section --- Manual Fold  ----->
+    <section id="recipes-placeholder" class="recipe-card-container">
+
+
+
+  </main>
+
+</body>
+
+
+</html>

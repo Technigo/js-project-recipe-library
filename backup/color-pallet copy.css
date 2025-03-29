@@ -1,0 +1,78 @@
+/** ----- Color Pallet --- Manual Fold -----  */
+:root {
+  --primary: ;
+  --primary-hover: ;
+  --primary-fixed: ;
+
+  --secondary: #0018A4;
+  --secondary-hover: rgb(53, 102, 53);
+  --secondary-fixed: rgb(43, 83, 43);
+
+  --complementary: #CCFFE2;
+  --complementary-hover: ;
+  --complementary-fixed: ;
+
+  --aditional: lightgray;
+  --aditional-hover: ;
+  --aditional-fixed: ;
+
+  --tri: #FFECEA;
+  --tri-hover: #FF6589;
+  --tri-fixed: ;
+
+  --body: #F5F5F5;
+  --body-hover: ;
+  --body-fixed: ;
+
+  --font-primary: #222222;
+  --font-primary-hover: #5a5a5a;
+  --font-primary-fixed: ;
+
+  --font-secondary: white;
+  --font-secondary-hover: ;
+  --font-secondary-fixed: white;
+
+  --font-complementary-: ;
+  --font-complementary-hover: ;
+  --font-complementary-fixed: ;
+
+  --font-aditional: ;
+  --font-aditional-hover: ;
+  --font-aditional-fixed: ;
+}
+
+.dark-mode {
+  --primary: ;
+  --primary-hover: ;
+
+  --secondary: rgb(48, 140, 182);
+  --secondary-hover: rgb(30, 30, 245);
+
+  --complementary: rgb(46, 107, 72);
+  --complementary-hover: rgb(6, 137, 56);
+
+  --aditional: rgb(47, 47, 48);
+  --aditional-hover: ;
+
+  --body: rgb(23, 26, 32);
+  --body-hover: ;
+
+  --font-primary: white;
+  --font-primary-hover: rgb(211, 211, 211);
+
+  --font-secondary: #222222;
+  --font-secondary-hover: ;
+
+  --font-complementary-: ;
+  --font-complementary-hover: ;
+
+  --font-aditional: ;
+  --font-aditional-hover: ;
+}
+
+body {
+  font-family: "Jost", serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
