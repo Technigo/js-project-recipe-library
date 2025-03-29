@@ -1,0 +1,239 @@
+body {
+  font-family: "Jost";
+  font-style: normal;
+  padding: 0;
+  /*padding: 10px 20px 0px 20px;*/
+  margin: 0;
+}
+
+h1 {
+  color: #0018A4;
+  padding-left: 10px;
+}
+
+.form-holder {
+  display: grid;
+  /*grid-template-columns: repeat(3, 1fr);*/
+  grid-template-columns: repeat(1, 1fr);
+  width: 100%;
+}
+
+form {
+  grid-column: 1fr;
+  margin: 0 10px 0 10px;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+.flex-parent {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-holder label {
+  cursor: pointer;
+}
+
+.radio-style-first {
+  background-color: #CCFFE2;
+  border: 2px solid #CCFFE2;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  color: #0018A4;
+  padding: 2px 4px;
+  text-decoration: none;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 25px;
+  width: 80px;
+}
+
+.radio-style-second {
+  background-color: #FFECEA;
+  border: 2px solid #FFECEA;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  color: #0018A4;
+  padding: 2px 4px;
+  text-decoration: none;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 25px;
+  width: 80px;
+}
+
+.form-holder input {
+  display: none;
+}
+
+.form-holder .radio-style-first:hover {
+  border: 2px solid #0018A4;
+}
+
+.form-holder .radio-style-first:checked+span {
+  background-color: #0018A4;
+  border: 2px solid #0018A4;
+  color: white;
+}
+
+.form-holder .radio-style-second:hover {
+  border: 2px solid #FF6589;
+}
+
+.form-holder .radio-style-second:checked+span {
+  background-color: #FF6589;
+  border: 2px solid #FF6589;
+  color: white;
+}
+
+.form-holder .radio-style-second:active+span {
+  background-color: #FF6589;
+  border: 2px solid #FF6589;
+  color: white;
+}
+
+.grid-holder {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  /*grid-template-columns: repeat(4, 1fr);*/
+  place-items: center;
+  align-items: flex-start;
+}
+
+.card-holder {
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 1px rgb(48, 48, 48);
+  padding: 20px 20px;
+  width: 80%;
+  border: 2px solid white;
+  margin: 20px 0;
+  color: black;
+  text-decoration: none;
+
+}
+
+#loader {
+  border-radius: 50%;
+  height: 150px;
+  box-shadow: 0px 0px 2px 1px rgb(48, 48, 48);
+  padding: 20px 20px;
+  width: 150px;
+  background-color: white;
+  border: 2px solid black;
+  display: none;
+  position: fixed;
+  top: 40%;
+  left: 45%;
+  z-index: 99;
+}
+
+#loader.display {
+  display: flex;
+}
+
+#spinner {
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  height: 10px;
+  width: 100px;
+  margin: auto;
+  animation: spin 1s infinite linear;
+  display: none;
+}
+
+#spinner.display-spinner {
+  display: block;
+}
+
+.card-holder:hover {
+  border: 2px solid #0018A4;
+}
+
+picture {
+  height: auto;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  border-radius: 8px;
+  height: 200px;
+  align-self: stretch;
+}
+
+.border-radius {
+  border-radius: 10px;
+}
+
+.middle-text {
+  border-top: 1px solid rgb(175, 175, 175);
+  border-bottom: 1px solid rgb(175, 175, 175);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.end-text ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 470px) {
+  body {
+    padding: 10px 20px 0px 20px;
+  }
+
+  .grid-holder {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .form-holder {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  img {
+    height: 250px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-holder {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  img {
+    height: 300px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .grid-holder {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .form-holder {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  img {
+    height: 200px;
+  }
+}

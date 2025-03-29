@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+  <link
+    href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Jost:ital,wght@0,100..900;1,100..900&family=Merienda:wght@300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet"
+  >
+  <link
+    href="styles.css"
+    rel="stylesheet"
+    1
+  >
+  <script
+    defer
+    src="script.js"
+  ></script>
+
+  <title>js-project-recipe-library</title>
+
+</head>
+
+<body>
+  <div id="loader">
+    <div id="spinner"></div>
+  </div>
+  <!--a header-->
+  <header>
+    <h1>
+      Recipe Library
+    </h1>
+  </header>
+
+  <!--section is form all forms-->
+  <section class="form-holder">
+    <form>
+      <div>
+        <h2>
+          Filter by diet
+        </h2>
+      </div>
+      <div class="flex-parent">
+        <label>
+          <input
+            type="checkbox"
+            id="vegan"
+            name="diet"
+            class="radio-style-first"
+          >
+          <span class="radio-style-first">Vegan</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            id="vegetarian"
+            name="diet"
+            class="radio-style-first"
+          >
+          <span class="radio-style-first">Vegetarian</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            id="gluten free"
+            name="diet"
+            class="radio-style-first"
+          >
+          <span class="radio-style-first">Gluten-free</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            id="dairy free"
+            name="diet"
+            class="radio-style-first"
+          >
+          <span class="radio-style-first">Dairy-free</span>
+        </label>
+      </div>
+    </form>
+
+    <form>
+      <div>
+        <h2>
+          Sort by cost
+        </h2>
+      </div>
+      <div class="flex-parent">
+        <label>
+          <input
+            type="checkbox"
+            id="low-cost"
+            name="cost"
+            class="radio-style-second"
+            value="low"
+          >
+          <span class="radio-style-second">Low</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            id="high-cost"
+            name="cost"
+            class="radio-style-second"
+            value="high"
+          >
+          <span class="radio-style-second">High</span>
+        </label>
+      </div>
+    </form>
+
+    <form>
+      <div>
+        <h2>
+          Sort by time
+        </h2>
+      </div>
+      <div class="flex-parent">
+        <label>
+          <input
+            type="radio"
+            id="15-min"
+            name="time"
+            value="15"
+            class="radio-style-first"
+          >
+          <span class="radio-style-first">15 min</span>
+        </label>
+        <label>
+          <input
+            type="radio"
+            id="30-min"
+            name="time"
+            value="30"
+            class="radio-style-first"
+          >
+          <span class="radio-style-first">30 min</span>
+        </label>
+        <label>
+          <input
+            type="radio"
+            id="45-min"
+            value="45"
+            name="time"
+            class="radio-style-first"
+          >
+          <span class="radio-style-first">45 min</span>
+        </label>
+        <label>
+          <input
+            type="radio"
+            id="60-min"
+            value="200"
+            name="time"
+            class="radio-style-first"
+            checked
+          >
+          <!--value is higher to represent 60+ and to display all recipes which are above 60-->
+          <span class="radio-style-first">60+ min</span>
+        </label>
+      </div>
+    </form>
+
+    <form>
+      <div>
+        <h2>
+          Randomize
+        </h2>
+      </div>
+      <div class="flex-parent">
+        <label>
+          <input
+            type="button"
+            id="randomize"
+            name="randomize"
+            class="radio-style-second"
+          >
+          <span class="radio-style-second">Random</span>
+        </label>
+      </div>
+    </form>
+
+  </section>
+
+  <main
+    id="recipeHolder"
+    class="grid-holder"
+  >
+    <!--each recipe is a "section" and added through JS-->
+  </main>
+
+</body>
+
+</html>
