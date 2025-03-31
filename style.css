@@ -1,0 +1,291 @@
+:root {
+  --primary-color: navy;
+  --secondary-color: #44ffba;
+  --hover-color: rgb(255, 105, 105);
+  --font-family: "Kumbh Sans";
+  --padding: 16px 24px;
+  --border-radius: 20px;
+}
+
+body {
+  padding: 40px;
+  background-color: #fff7f4;
+  font-family: var(--font-family);
+  margin: 0;
+}
+
+h1 {
+  color: var(--primary-color);
+  font-size: 66px;
+  font-family: var(--font-family);
+  font-weight: bold;
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+  margin-top: 25px;
+  padding: 10px 10px 0 0;
+}
+
+h2 {
+  line-height: 1.2;
+}
+
+span {
+  font-weight: bold;
+}
+
+p {
+  line-height: 1.5;
+}
+
+img {
+  border-radius: 40px;
+}
+
+h3 {
+  color: var(--primary-color);
+  font-size: 24px;
+  font-family: var(--font-family);
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: var(--primary-color);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0 10px;
+  grid-auto-flow: row;
+}
+
+.filterOnKitchen {
+  grid-column: 1 / 1;
+}
+
+.filterOnTime {
+  grid-column: 2 / 2;
+}
+
+.randomButton {
+  grid-column: 2 / 3;
+}
+
+.buttonCuisine,
+.buttonTime,
+.buttonRandom,
+.buttonDiet {
+  background-color: var(--secondary-color);
+  border: 2px solid transparent;
+  padding: var(--padding);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  margin: 5px;
+}
+
+.buttonCuisine:hover,
+.buttonTime:hover,
+.buttonRandom:hover,
+.buttonDiet:hover {
+  border: 2px solid var(--primary-color);
+  color: white;
+  cursor: pointer;
+}
+
+.buttonCuisine:has(:checked),
+.buttonTime:has(:checked),
+.buttonRandom:has(:checked),
+.buttonDiet:has(:checked) {
+  background-color: var(--primary-color);
+  color: white;
+  border: 2px solid transparent;
+}
+
+.buttonTime,
+.buttonRandom {
+  background-color: pink;
+}
+
+.buttonTime:hover,
+.buttonRandom:hover {
+  background-color: var(--hover-color);
+}
+
+input[type="radio"],
+input[type="button"] {
+  display: none;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". . . ."
+    ". . . ."
+    ". . . ."
+    ". . . ."
+    ". . . ."
+    ". . . .";
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: #ffffff;
+  width: 80%;
+  height: 90%;
+  margin: 10px;
+  border-radius: var(--border-radius);
+  padding: 20px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cards:hover {
+  box-shadow: 10px 10px 10px rgba(231, 56, 12, 0.2);
+}
+
+.card-content {
+  flex-grow: 1;
+}
+
+.view-recipe {
+  align-self: flex-end;
+  margin-top: auto;
+}
+
+.errorMessages {
+  width: 250px;
+  background-color: #b1b1b1;
+  color: white;
+  border-radius: 25px;
+  text-align: center;
+  padding: 25px;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loader {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.8);
+  justify-content: center;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ccc;
+  border-top-color: #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+	transform: translate(-50%, -50%);
+	top: 50%;
+  left: 50%;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+.errorButton {
+  background-color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(59, 59, 59);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.errorButton:hover {
+  background-color: #44ffba;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+img {
+  width: 100%;
+  border-radius: var(--border-radius);
+}
+
+.search-container {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  margin-top: 20px;
+}
+
+#search {
+  width: 300px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  outline: none;
+  font-size: 16px;
+  background-color: rgb(243, 243, 243);
+}
+
+button {
+  background-color: var(--secondary-color);
+  border: 2px solid transparent;
+  padding: var(--padding);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  margin: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: navy;
+  color: white;
+}
+
+#loadMore {
+  background-color: var(--secondary-color);
+  border: 2px solid transparent;
+  padding: var(--padding);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  margin: 5px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .container {
+    display: grid;
+    gap: 10px;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(1, 1fr) !important;
+  }
+}

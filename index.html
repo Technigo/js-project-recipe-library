@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Library</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>Recipe Library</h1>
+  <div id="loader" class="loader">
+		<div class="spinner"></div>
+	</div>
+  <h2>Search</h2>
+  <div class="search-container">
+    <input type="text" id="search" placeholder="Search for recipes...">
+    <button type="submit">Search 🔍</button>
+  </div>
+
+  <div class="menu">
+    <div class="diets">
+      <h2>Diets</h2>
+      <label class="buttonDiet">
+        <input type="radio" name="diet" data-diet="all">All 
+      </label>
+      <label class="buttonDiet">
+        <input type="radio" name="diet" data-diet="Dairy Free">Dairy Free
+      </label>
+      <label class="buttonDiet">
+        <input type="radio" name="diet" data-diet="fodmap friendly">Low FODMAP
+      </label>
+      <label class="buttonDiet">
+        <input type="radio" name="diet" data-diet="Gluten Free">Gluten Free
+      </label>
+      <label class="buttonDiet">
+        <input type="radio" name="diet" data-diet="Ketogenic">Ketogenic
+      </label>
+      <label class="buttonDiet">
+        <input type="radio" name="diet" data-diet="Lacto Ovo Vegetarian">Lacto Ovo Vegetarian
+      </label>
+      <label class="buttonDiet">
+        <input type="radio" name="diet" data-diet="Paleolithic">Paleo
+      </label>
+      <label class="buttonDiet">
+        <input type="radio" name="diet" data-diet="Pescatarian">Pescatarian
+      </label>
+      <label class="buttonDiet">
+        <input type="radio" name="diet" data-diet="Primal">Primal
+      </label>
+      <label class="buttonDiet">
+        <input type="radio" name="diet" data-diet="Vegan">Vegan
+      </label>
+      <label class="buttonDiet">
+        <input type="radio" name="diet" data-diet="Vegetarian">Vegetarian
+      </label>
+      <label class="buttonDiet">
+        <input type="radio" name="diet" data-diet="Whole 30">Whole30
+      </label>
+    </div>
+    <div class="filterOnTime">
+      <h2>Filter on Time</h2>
+      <label id="ascending" class="buttonTime">
+        <input type="radio" name="timeFilter" value="ascending" />Ascending 🕙
+      </label>
+      <label id="descending" class="buttonTime">
+        <input type="radio" name="timeFilter" value="descending" />Descending 🕓
+      </label>
+    </div>
+    <div class="randomButton">
+      <h2>Random</h2>
+      <label class="buttonRandom">
+        <input type="button" name="random" value="random" />Random 💥
+      </label>
+    </div>
+  </div>
+
+  <div class="container">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
