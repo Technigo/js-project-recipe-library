@@ -1,0 +1,406 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: #f5f5f5;
+  padding: 2rem;
+}
+
+.header-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+h1 {
+  color: #0018a4;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+.random-button-container {
+  margin-left: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.random-btn {
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  background: #fff;
+  color: #0018a4;
+  border: solid 2px transparent;
+  display: flex;
+}
+
+.random-btn:hover {
+  background: #0018a4;
+  color: #fff;
+  border: #0018a4 solid 2px;
+}
+
+.hidden {
+  display: none;
+}
+
+.random-button-container.hidden {
+  display: none;
+}
+
+.spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  text-align: center;
+  display: none;
+}
+
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #333;
+  border-radius: 100%;
+  display: inline-block;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  animation-delay: -0.16s;
+}
+
+.spinner .bounce3 {
+  animation-delay: 0s;
+}
+
+@keyframes sk-bouncedelay {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+.filters-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.dropdown-btn {
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-dropdown,
+.sort-dropdown {
+  position: relative;
+}
+
+.filter-dropdown .dropdown-btn {
+  background: #ccffe2;
+  color: #0018a4;
+  border: solid 2px transparent;
+  z-index: 2;
+}
+
+.filter-dropdown .dropdown-btn:hover {
+  background: #ccffe2;
+  color: #0018a4;
+  border: #0018a4 solid 2px;
+}
+
+.filter-dropdown .dropdown-btn.active {
+  background: #0018a4;
+  color: #ffffff;
+}
+
+.sort-dropdown .dropdown-btn {
+  background: #ffecea;
+  color: #0018a4;
+  border: solid 2px transparent;
+  z-index: 2;
+}
+
+.sort-dropdown .dropdown-btn:hover {
+  background: #ff6589;
+  color: #ffffff;
+  border: #0018a4 solid 2px;
+}
+.sort-dropdown .dropdown-btn.active {
+  background: #ff6589;
+  color: white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  max-width: 100vw;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.filter-group,
+.sort-group {
+  margin-bottom: 1rem;
+}
+
+.filter-group h3,
+.sort-group h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #0018a4;
+}
+
+.filter-group label,
+.sort-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.recipe-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  border: #e9e9e9 solid 2px;
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border: 2px solid #0018a4;
+}
+
+.recipe-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.recipe-content {
+  padding: 0 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.recipe-content hr {
+  border-color: #e9e9e9;
+  border-style: solid;
+}
+
+.recipe-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #000000;
+}
+
+.recipe-subtitle {
+  font-size: 1.15rem;
+}
+
+.recipe-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.recipe-meta {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5em;
+}
+
+.recipe-meta .material-icons {
+  font-size: 1.1rem;
+  position: relative;
+  top: 0.15rem;
+}
+
+.recipe-card.hidden {
+  display: none;
+}
+
+.ingredient-list-item {
+  list-style: none;
+}
+
+.quota-message {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.show {
+  display: block;
+}
+
+.quota-message.show {
+  display: block;
+  opacity: 1;
+}
+
+.reset-filters-btn {
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  transition: all 0.2s;
+  background: #fff;
+  color: #0018a4;
+  border: solid 2px transparent;
+}
+
+.reset-filters-btn:hover {
+  background: #0018a4;
+  color: #fff;
+  border: #0018a4 solid 2px;
+}
+
+.recipes-grid.no-recipes-active {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  position: relative;
+  z-index: 1;
+}
+
+.no-recipes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 300px;
+  width: 100%;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.quota-description {
+  padding: 1em 0 0;
+  font-size: 1em;
+  line-height: 1.6;
+}
+
+.no-recipes img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.filter-btn.active {
+  background: #0018a4;
+  color: white;
+}
+
+.sort-btn.active {
+  background: #ff6589;
+  color: white;
+}
+
+@media (max-width: 361px) {
+  .filters-container {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .dropdown-btn,
+  .reset-filters-btn {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .dropdown-content {
+    max-width: 95vw;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .recipes-grid {
+    grid-template-columns: 1fr;
+    padding: 0.25rem;
+    gap: 1rem;
+  }
+
+  .recipe-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .no-recipes {
+    align-items: center;
+    height: 600px;
+  }
+  .recipes-grid {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .filters-container {
+    /* flex-direction: column; */
+  }
+
+  .dropdown-content {
+    display: none;
+  }
+
+  .dropdown-btn.active + .dropdown-content {
+    display: block;
+  }
+}

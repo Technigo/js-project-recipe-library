@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Library</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+  </head>
+  <body>
+    <div class="header-container">
+      <h1>Recipe Library</h1>
+    </div>
+
+    <div id="loader" class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+
+    <div class="filters-container">
+      <div class="filter-dropdown">
+        <button class="dropdown-btn">
+          <span class="material-icons">filter_list</span> Filters
+        </button>
+        <div class="dropdown-content">
+          <div class="filter-group">
+            <h3>Diet</h3>
+            <label
+              ><input type="checkbox" name="diet" value="vegan" /> Vegan</label
+            >
+            <label
+              ><input type="checkbox" name="diet" value="vegetarian" />
+              Vegetarian</label
+            >
+            <label
+              ><input type="checkbox" name="diet" value="gluten-free" />
+              Gluten-Free</label
+            >
+            <label
+              ><input type="checkbox" name="diet" value="dairy-free" />
+              Dairy-Free</label
+            >
+          </div>
+          <div class="filter-group">
+            <h3>Cuisine</h3>
+            <label
+              ><input type="checkbox" name="cuisine" value="mediterranean" />
+              Mediterranean</label
+            >
+            <label
+              ><input type="checkbox" name="cuisine" value="asian" />
+              Asian</label
+            >
+            <label
+              ><input type="checkbox" name="cuisine" value="italian" />
+              Italian</label
+            >
+            <label
+              ><input type="checkbox" name="cuisine" value="mexican" />
+              Mexican</label
+            >
+          </div>
+          <div class="filter-group">
+            <h3>Cooking Time</h3>
+            <label
+              ><input type="checkbox" name="time" value="under15" /> Under 15
+              min</label
+            >
+            <label
+              ><input type="checkbox" name="time" value="15-30" /> 15 to 30
+              min</label
+            >
+            <label
+              ><input type="checkbox" name="time" value="30-60" /> 30 to 60
+              min</label
+            >
+            <label
+              ><input type="checkbox" name="time" value="over60" /> Over 60
+              min</label
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="sort-dropdown">
+        <button class="dropdown-btn">
+          <span class="material-icons">sort</span> Sort
+        </button>
+        <div class="dropdown-content">
+          <div class="sort-group">
+            <label
+              ><input type="radio" name="sort" value="time-asc" /> Cooking Time
+              (Low to High)</label
+            >
+            <label
+              ><input type="radio" name="sort" value="time-desc" /> Cooking Time
+              (High to Low)</label
+            >
+            <label
+              ><input type="radio" name="sort" value="popularity-desc" />
+              Popularity</label
+            >
+            <label
+              ><input type="radio" name="sort" value="price-asc" /> Price (Low
+              to High)</label
+            >
+            <label
+              ><input type="radio" name="sort" value="price-desc" /> Price (High
+              to Low)</label
+            >
+          </div>
+        </div>
+      </div>
+
+      <section class="random-button-container">
+        <button class="random-btn">
+          <span class="material-icons">shuffle</span>
+        </button>
+      </section>
+    </div>
+
+    <div class="recipes-grid">
+      <div class="quota-message">
+        <h2>Daily Limit Reached</h2>
+        <p class="quota-description">
+          It's amazing that you want more recipes! However, you've reached the
+          daily limit of recipe requests. Come back tomorrow ♥️!
+        </p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
