@@ -1,0 +1,263 @@
+/* Mobile-first CSS for Recipe Library */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    overflow-x: hidden;
+    /* text-align: center; */
+}
+
+header {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #000080;
+    font-size: 2em;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.search-section {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(to right, #f3c6e4, #c3c9f2);
+    padding: 8px;
+    border-radius: 25px;
+    width: 80%;
+    /* Adjust for mobile */
+    max-width: 300px;
+    /* Prevent it from getting too big */
+    margin: auto;
+}
+
+#searchInput {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 8px;
+    font-size: 16px;
+    width: 100%;
+}
+
+#searchButton {
+    border: none;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    /* Change to row to align items horizontally */
+    align-items: center;
+    /* Center items vertically */
+    justify-content: center;
+    ;
+    /* Add space between items */
+    margin-top: 10px;
+    gap: 10px;
+    /* Add gap between filter elements */
+}
+
+.filter-section,
+.sort-section,
+.placeholder-section,
+.random-section,
+.clear-section {
+    margin: 10px 0;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filter-btn,
+.sort-btn,
+.random-btn,
+.clear-btn {
+    background-color: #c8f7c5;
+    border: none;
+    padding: 8px 16px;
+    margin: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+select {
+    background-color: #c8f7c5;
+    border: none;
+    padding: 8px 16px;
+    margin: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    /* Match the font size of the buttons */
+    color: #000;
+    /* Ensure text is visible */
+}
+
+select:focus {
+    outline: none;
+    /* Remove default focus outline */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    /* Add a subtle shadow for focus */
+}
+
+.clear-btn:hover {
+    background-color: #d9534f;
+}
+
+.sort-btn {
+    background-color: #fcdada;
+}
+
+.sort-btn.active {
+    background-color: #f08080;
+    /* Adjust based on your theme */
+}
+
+.recipe-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+    box-sizing: border-box;
+    /* Ensure padding is included in the width */
+    max-width: 100%;
+    /* Prevent horizontal scrolling */
+    margin: 0 auto;
+    /* Center the container */
+}
+
+
+.loading {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    color: #ff4500;
+}
+
+.hidden {
+    display: none;
+}
+.spinner {
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #ff4500;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+@media (min-width: 768px) {
+    .recipe-container {
+        grid-template-columns: repeat(2, 1fr);
+        /* Two columns on larger screens */
+    }
+
+    .filters {
+        display: flex;
+        flex-direction: row;
+        /* Change to row to align items horizontally */
+        align-items: center;
+        /* Center items vertically */
+        justify-content: center;
+        ;
+        /* Add space between items */
+        margin-top: 10px;
+        gap: 10px;
+        /* Add gap between filter elements */
+    }
+}
+
+@media (min-width: 1024px) {
+    .recipe-container {
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 columns for small desktops */
+    }
+
+    .filters {
+        display: flex;
+        flex-direction: row;
+        /* Change to row to align items horizontally */
+        align-items: center;
+        /* Center items vertically */
+        justify-content: center;
+        ;
+        /* Add space between items */
+        margin-top: 10px;
+        gap: 10px;
+        /* Add gap between filter elements */
+    }
+}
+
+@media (min-width: 1400px) {
+    .recipe-container {
+        grid-template-columns: repeat(4, 1fr);
+        /* 4 columns for large screens */
+    }
+
+    .filters {
+        display: flex;
+        flex-direction: row;
+        /* Change to row to align items horizontally */
+        align-items: center;
+        /* Center items vertically */
+        justify-content: center;
+        ;
+        /* Add space between items */
+        margin-top: 10px;
+        gap: 10px;
+        /* Add gap between filter elements */
+    }
+}
+
+.recipe-card {
+    background-color: rgb(238, 217, 239);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    /* Adjusted width for grid alignment */
+    max-width: 100%;
+    /* Ensure it doesn't exceed the container width */
+    height: auto;
+    /* Increase height dynamically */
+    margin: 0;
+    box-sizing: border-box;
+    /* Ensure padding is included in the width */
+}
+
+.recipe-card img {
+    width: 100%;
+    border-radius: 10px;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.placeholder {
+    min-height: 200px;
+    /* Increased height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}

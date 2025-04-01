@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Library</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Recipe Library</h1>
+        <div class="search-section">
+            <span class="search-icon"></span>
+            <input type="text" id="searchInput" placeholder="Search for a recipe..." />
+            <button id="searchBtn">🔍</button>
+        </div>
+        <div class="filters">
+            <div class="filter-section">
+
+                <h2>Filter on Time and Cursines</h2>
+
+                <select id="filterDropdown">
+                    <option value="All">All Cuisines</option>
+                    <option value="Italian">Italian</option>
+                    <option value="American">American</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="Mexican">Mexican</option>
+                    <option value="Indian">Indian</option>
+                </select>
+
+                <select id="filterDropdownTime">
+                    <option value="All">All TIme durations </option>
+                    <option value="30">0 to 30 minutes</option>
+                    <option value="60">30 to 60 minutes </option>
+                    <option value="120">more than 60 minutes</option>
+                </select>
+            </div>
+            <div class="sort-section">
+                <h2>Sort on Popularity and Time</h2>
+                <button class="sort-btn" id="sort-desc">Descending on Popularity</button>
+                <button class="sort-btn" id="sort-asc">Ascending on Popularity</button>
+                <button class="sort-btn" id="sort-time">Sort by time</button>
+            </div>
+            <div class="random-section">
+                <h2>Surprise me</h2>
+                <button class="random-btn" id="random-btn">Random Receipe</button>
+            </div>
+            
+            <div class="clear-section">
+                <h2>Clear me</h2>
+                <button id="clearFilters" class="clear-btn">Clear Filters</button>
+            </div>
+            
+        </div>
+        <div class="placeholder-section" id="placeholder">
+            <h4> <p>You have selected</p><span id="selectedFilters">None</span></h4>
+        </div>
+    </header>
+
+    <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>Loading recipes...</p>
+   </div>
+
+    <section id="container" class="recipe-container"></section>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
