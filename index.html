@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Metal+Mania&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Press+Start+2P&display=swap"
+    rel="stylesheet"
+  >
+  <title>Recipe Library</title>
+</head>
+
+<body>
+  <h1>Recipe Library</h1>
+  <section class="filters">
+    <div>
+      <button
+        class="random"
+        id="randomRecipe"
+      >Random Recipe</button>
+    </div>
+    <div>
+      <h2>Filter on Cuisine</h2>
+      <button
+        class="filter"
+        id="all"
+      >All</button>
+      <button
+        class="filter"
+        id="italy"
+      >Italy</button>
+      <button
+        class="filter"
+        id="usa"
+      >USA</button>
+      <button
+        class="filter"
+        id="mexican"
+      >Mexican</button>
+      <button
+        class="filter"
+        id="asian"
+      >Asian</button>
+    </div>
+
+    <div>
+      <h2>Filter on Diet</h2>
+      <button
+        class="diet"
+        id="vegan"
+      >Vegan</button>
+      <button
+        class="diet"
+        id="vegetarian"
+      >Vegetarian</button>
+      <button
+        class="diet"
+        id="gluten-Free"
+      >Gluten-Free</button>
+      <button
+        class="diet"
+        id="dairy-Free"
+      >Dairy-Free</button>
+    </div>
+
+    <div>
+      <h2>Sort on Time</h2>
+      <button
+        class="sort"
+        id="highToLow"
+      >Descending</button>
+      <button
+        class="sort"
+        id="lowToHigh"
+      >Ascending</button>
+    </div>
+  </section>
+
+  <section
+    class="recipes"
+    id="recipes"
+  ></section>
+
+  <section
+    id="messages"
+    style="display: none;"
+  >
+    <p>No recipes available. Please try again later.</p>
+  </section>
+
+
+  <script src="script.js"></script>
+</body>
+
+</html>
