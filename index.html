@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Library</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header>
+    <h1>Recipe Library</h1>
+    <div class="filters">
+
+      <label for="servings-filter">Servings:</label>
+      <select id="servings-filter">
+        <option value="all">All</option>
+        <option value="1">1 serving</option>
+        <option value="2-4">2-4 servings </option>
+        <option value="4+">4+ servings</option>
+      </select>
+
+
+      <label for="sort-filter">Sort by:</label>
+      <select id="sort-filter">
+        <option value="popularity">Popularity (Most Popular First)</option>
+        <option value="time">Cooking Time (Shortest First)</option>
+        <option value="ingredients">Ingredients Count (Fewest First)</option>
+      </select>
+
+      <button class="buttons" id="random-recipe-btn">Get a Random Recipe</button>
+      <button class="buttons" onclick="fetchRecipes()">Fetch New Recipes</button>
+
+
+    </div>
+
+
+  </header>
+
+  <main>
+
+    <div id="recipe-container"></div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
