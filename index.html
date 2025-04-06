@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Grubhubby</title>
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+</head>
+
+<body>
+  <header>
+    <h1>Grubhubby</h1>
+  </header>
+
+  <section class="filter-group">
+    <div class="filter-container">
+      <h3 class="small-head">Filter on Diets</h3>
+      <div class="filter-options">
+        <input
+          type="checkbox"
+          id="all"
+          class="filter-checkbox"
+          checked
+        >
+        <label for="all">All</label>
+
+        <input
+          type="checkbox"
+          id="vegan"
+          class="filter-checkbox"
+        >
+        <label for="vegan">Vegan</label>
+
+        <input
+          type="checkbox"
+          id="vegetarian"
+          class="filter-checkbox"
+        >
+        <label for="vegetarian">Vegetarian</label>
+
+        <input
+          type="checkbox"
+          id="glutenFree"
+          class="filter-checkbox"
+        >
+        <label for="glutenFree">Gluten free</label>
+
+        <input
+          type="checkbox"
+          id="dairyFree"
+          class="filter-checkbox"
+        >
+        <label for="dairyFree">Dairy free</label>
+
+      </div>
+    </div>
+
+    <div class="sort-container">
+      <h3 class="small-head">Sort by cooking time</h3>
+      <div class="sort-options">
+        <input
+          type="radio"
+          id="ascending"
+          name="sort"
+          class="sort-radio"
+        >
+        <label for="ascending">Ascending</label>
+
+        <input
+          type="radio"
+          id="decending"
+          name="sort"
+          class="sort-radio"
+        >
+        <label for="decending">Decending</label>
+
+      </div>
+    </div>
+
+    <div class="lazy-container">
+      <h3 class="small-head">Feeling uninspired?</h3>
+      <div class="lazy-option">
+        <input
+          type="button"
+          id="lazy"
+          name="lazy"
+        >
+        <label for="lazy">Let me give you a hand</label>
+      </div>
+    </div>
+
+  </section>
+
+  <main
+    id="recipe-container"
+    class="recipe-container"
+  >
+    Loading...
+
+  </main>
+  <script src="recipes.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+-Use locar storage instead of fetching every time, CHECK
+-Add filter for Cuisine
+-Add the source and pointer for hovering on recipes CHECK
+-Show Loading satate while loading data. CHECK
+-Allow users to save (like) their favourite recipies 
