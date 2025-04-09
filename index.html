@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.cdnfonts.com/css/futura-std-4" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <title>Recipe Library Project</title>
+</head>
+<body>
+  <header>
+    <h1>Recipe Library</h1>
+  </header>
+
+  <main>
+    <div class="filters-container">
+      <section>
+        <h2>Filter by Kitchen</h2>
+        <button id="all" class="filtered" type="button">All</button>
+        <button id="mediterranean" class="filtered" type="button">Mediterranean</button>
+        <button id="mexican" class="filtered" type="button">Mexican</button>
+        <button id="asian" class="filtered" type="button">Asian</button>
+      </section>
+
+      <section>
+        <h2>Sort by Time</h2>
+        <div id="sort-btns">
+          <button id="ascending" class="sorted" type="button">Ascending</button>
+          <button id="descending" class="sorted" type="button">Descending</button>
+        </div>
+      </section>
+      
+      <section>
+        <h2>Too lazy to search...</h2>
+          <button id="random-recipe-btn" type="button">Surprise Me with a Recipe!</button>
+      </section>
+    </div>
+
+    <section id="message"></section>
+    
+    <div class="grid-container" id="js-recipe-container">      
+    </div>
+  </main>
+  
+<script src="./recipes.js"></script>
+<script src="./script.js"></script>
+</body>
+</html>

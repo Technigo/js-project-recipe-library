@@ -1,0 +1,120 @@
+
+body {
+  margin: 16px;
+  box-sizing: border-box;
+  background-color: #FAFBFF;
+  font-family: 'Futura Std', sans-serif;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 64px;
+  color: #0018A4;
+}
+
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+button {
+  border: 2px solid transparent;
+  border-radius: 30px;
+  background: #CCFFE2;
+  color: #0018A4;
+  padding: 15px 20px;
+  outline: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .3s ease, color .3s ease, border .3s ease;
+}
+
+button:hover {
+  border: 2px solid #0018A4;
+}
+
+button.active {
+  background: #0018A4;
+  color: white;
+}
+
+button.sorted:not(.active) {
+  background: #FFECEA;
+}
+
+#random-recipe-btn:hover {
+  border: 2px solid #0018A4;
+}
+
+.grid-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1rem;
+  justify-content: center;
+  margin: 2rem  0;
+  margin-inline: auto;
+}
+
+img {
+  width: 100%;
+  height: 200px;
+}
+
+.recipe-cards {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #fff;
+  padding: 16px 16px 24px 16px;
+  border-radius: 16px;
+  border: 1px solid #cecdcd;
+  gap: 16px;
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.10);
+}
+
+.recipe-cards:hover {
+  border: 2px solid #0018A4;
+  cursor: pointer;
+  box-shadow: 0px 0px 30px 0px rgba(0, 24, 164, 0.20);
+}
+
+.recipe-title, .recipe-details {
+  border-bottom: solid 2px rgba(219, 221, 223, 0.9);
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #0018A4;
+}
+
+#random-recipe-btn.active {
+  background: linear-gradient(45deg, #ff0000, #ff7300, #ffeb00, #47ff00, #00ffb7, #0018A4, #7a00ff);
+  background-size: 200% 200%;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+  padding: 15px 20px;
+  font-weight: bold;
+  border-radius: 30px;
+  animation: gradientMove 5s ease-in-out infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Responsive Design */
+@media (min-width: 1008px) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
