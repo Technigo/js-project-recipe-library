@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Library</title>
+  <link rel="stylesheet" href="./style.css">
+  </head>
+<body>
+  <header> 
+    <h1>Recipe Library</h1>   
+  </header>
+
+ <main>
+    <section class="filter-sort-section">      
+      <button id="random-button" class="random-button">🎁 Surprise me 🎁</button>            
+      <h2 class="filter-h3">Filter on diets</h2>
+      <form id="filter-section" class="filter-section">      
+        <label class="filter-section-buttons">      
+          <button id="filter-button-all" class="filter-button">All</button>
+        </label>
+        <label class="filter-section-buttons"> 
+          <button id="filter-button-vegan" class="filter-button">Vegan</button>
+        </label>
+        <label class="filter-section-buttons"> 
+          <button id="filter-button-vegetarian" class="filter-button">Vegetarian</button>
+        </label>
+        <label class="filter-section-buttons">
+          <button id="filter-button-gluten-free" class="filter-button">Gluten-free</button>
+        </label>
+        <label class="filter-section-buttons">
+            <button id="filter-button-dairy-free" class="filter-button">Dairy-free</button>
+        </label>   
+      
+      </form>
+        <h2 class="sort-h3">Sort by popularity</h2>
+      <form id="sort-section" class="sort-section">   
+        <label  class="sort-buttons"> 
+          Most popular     
+          <input type="radio" name="sort-button" value="ascending" id="sort-button-ascending" class="sort-button">          
+        </label>
+        <label   class="sort-buttons">
+          Least popular
+          <input type="radio" name="sort-button" value="descending" id="sort-button-descending" class="sort-button">          
+        </label>
+      </form>
+    </section> 
+
+  <section id="recipe-cards-API" class="recipe-cards">
+    <article id="recipe-card-API">
+    </article>    
+  </section>
+</main>
+  
+  <script src="./script.js"></script>
+</body>
+</html>
