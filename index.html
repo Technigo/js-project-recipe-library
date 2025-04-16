@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Library</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="title">Recipe Library</h1>
+      </header>
+      <nav>
+        <div class="filters-container"></div>
+      </nav>
+
+      <div class="sort-randome-conatiner">
+        <div class="sort-select-container">
+          <label for="sort-select">Sort on cooking time</label>
+          <select id="sort-select">
+            <option value="">None</option>
+            <option value="longest">Longest time</option>
+            <option value="shortest">Shortest time</option>
+          </select>
+        </div>
+
+        <button id="random-recipe-btn">Surprise Me! 🎲</button>
+      </div>
+
+      <p id="selected-filters">Valda filter: Inga</p>
+      <p id="match-count"></p>
+
+      <main>
+        <div class="recipes-container"></div>
+      </main>
+    </div>
+  </body>
+</html>

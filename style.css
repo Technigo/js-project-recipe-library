@@ -1,0 +1,266 @@
+/* Ta bort standardmarginal och padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: Futura;
+  src: url('fonts/futura.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --backgroud-color: #fafbff;
+  --text-color-blue: #0018a4;
+  --text-color-white: #fff;
+  --text-color-black: #000;
+
+  --button-color-blue: #0018a4;
+  --button-color-magenta: #ccffe2;
+
+  --button-color-light-pink: #ffecea;
+  --button-color-pink: #ff6589;
+
+  --border-color-blue: #0018a4;
+  --border-color-black: #000;
+}
+
+h2::first-letter {
+  text-transform: uppercase;
+}
+
+/* .dark-mode {
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
+    --primary-color: #1E90FF;
+} */
+
+body {
+  font-family: Futura, 'Arial', sans-serif;
+  background-color: var(--backgroud-color);
+}
+
+.wrapper {
+  max-width: 1400px;
+  margin: 0 auto; /* Centrerar innehållet horisontellt */
+  padding: 20px;
+}
+
+.sort-select-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sort-randome-conatiner {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  padding: 40px 0px;
+}
+header {
+  padding: 30px 0px 30px 0px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.title {
+  color: #0018a4;
+  font-size: 40px;
+}
+
+.filters-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.filter-container-child {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filter-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filter-diets,
+.filter-cuisine,
+.filter-cooking-time,
+.filter-amount-of-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#random-recipe-btn {
+  background-color: var(--button-color-magenta);
+  color: var(--text-color-blue);
+}
+
+button {
+  cursor: pointer;
+  width: fit-content;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  text-transform: capitalize;
+}
+
+.filter-diets button:hover,
+.filter-cooking-time button:hover,
+.filter-cuisine button:hover,
+#random-recipe-btn:hover {
+  border-radius: 50px;
+  border: 2px solid #0018a4;
+}
+
+.filter-diets button,
+.filter-cooking-time button {
+  background: var(--button-color-magenta);
+  color: var(--text-color-blue);
+}
+
+.filter-diets button.active,
+.filter-cooking-time button.active {
+  color: var(--text-color-white);
+  background-color: var(--button-color-blue);
+}
+
+.filter-cuisine button,
+.filter-amount-of-ingredients button {
+  background: var(--button-color-light-pink);
+  color: var(--text-color-blue);
+}
+
+.filter-cuisine button.active,
+.filter-amount-of-ingredients button.active {
+  background-color: var(--button-color-pink);
+  color: var(--text-color-white);
+}
+
+.recipes-container {
+  padding: 40px 0 40px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.recipe-card {
+  animation: fadeIn 0.5s ease-out;
+  cursor: pointer;
+  display: flex;
+  width: 300px;
+  padding: 16px 16px 24px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+
+  border-radius: 16px;
+  border: 2px solid #0018a4;
+}
+
+.recipe-card:hover {
+  border-radius: 16px;
+  border: 2px solid #0018a4;
+  background: #fff;
+  box-shadow: 0px 0px 30px 0px rgba(0, 24, 164, 0.2);
+}
+
+hr {
+  width: 100%;
+  border: none;
+  height: 1px;
+  background-color: #e9e9e9; /* Blå linje */
+}
+
+/* IMG behöver göras om för att bli responsiv, vi tar det senare när vi har bilder */
+.img-container {
+  height: 200px;
+  align-self: stretch;
+  background-color: #000;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+img {
+  height: 100%;
+}
+
+.time-and-cuisine {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ingredients ul {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5px;
+}
+
+@media (min-width: 768px) {
+  .filters-container {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .wrapper {
+    padding: 20px;
+  }
+
+  .recipes-container {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px;
+    align-items: start;
+  }
+
+  .recipe-card {
+    justify-self: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .recipes-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1300px) {
+  .filters-container {
+    flex-direction: row;
+  }
+
+  .recipes-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
