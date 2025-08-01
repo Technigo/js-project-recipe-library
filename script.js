@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
       //template literal. 
       recipesContainer.innerHTML += `
       <div class="recipe-item">
-        <img src="${recipe.image}" alt="${recipe.title}" />
+       <img src="${recipe.image}" alt="Recipe image for ${recipe.title}" />
         <h2>${recipe.title}</h2>
 
         <hr>
