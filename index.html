@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <link
+    rel="stylesheet"
+    href="./styles.css"
+  />
+  <title>Snack a Bite</title>
+</head>
+
+<body>
+  <div class="main-heading">
+    <div class="main-heading-box">
+      <h1>Snack a Bite</h1>
+    </div>
+  </div>
+
+  <main class="main">
+    <section class="search-recipies">
+      <!-- Cuisine Filter -->
+      <div class="chip-section">
+        <h4>Filter on kitchen</h4>
+        <div
+          id="cuisineButtons"
+          class="chip-group"
+        >
+          <button
+            class="chip active"
+            data-cuisine="All"
+          >All</button>
+          <button
+            class="chip"
+            data-cuisine="Italian"
+          >Italy</button>
+          <button
+            class="chip"
+            data-cuisine="American"
+          >USA</button>
+          <button
+            class="chip"
+            data-cuisine="Chinese"
+          >China</button>
+        </div>
+      </div>
+
+      <!-- Sort Options -->
+      <div class="chip-section">
+        <h4>Sorting options</h4>
+        <div
+          id="sortButtons"
+          class="chip-group"
+        >
+          <button
+            class="chip active"
+            data-sort="time"
+          >Cooking time</button>
+          <button
+            class="chip"
+            data-sort="popularity"
+          >Popularity</button>
+          <button
+            class="chip"
+            data-sort="price"
+          >Price</button>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="actions">
+        <button
+          class="btn"
+          id="randomBtn"
+        >🎲 Random recipe</button>
+        <button
+          class="btn"
+          id="resetBtn"
+        >Reset</button>
+      </div>
+    </section>
+
+    <!-- Status / errors -->
+    <div
+      id="status"
+      role="status"
+      aria-live="polite"
+    ></div>
+
+    <!-- Cards container -->
+    <section
+      class="recipe-container"
+      id="recipeContainer"
+    ></section>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>

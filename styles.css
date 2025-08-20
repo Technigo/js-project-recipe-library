@@ -1,0 +1,232 @@
+/* Base Styles */
+body {
+  background-color: whitesmoke;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+/********************* HEADER, NAVBAR *********************/
+.header {
+  width: 95vw;
+  height: 100px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+}
+
+ul {
+  list-style: none;
+}
+
+a:link {
+  word-wrap: none;
+  color: black;
+}
+
+/***************** MAIN SECTION ******************/
+.main {
+  margin: 0;
+  width: 100vw;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.main-heading {
+  text-align: center;
+  font-size: 20px;
+  height: 10vh;
+  background-image: url(header-photo-light.jpg);
+  background-size: cover;
+  width: 100vw;
+}
+
+.main-heading-box {
+  position: relative;
+  top: 40%;
+}
+
+/*************** FILTERING SECTION ****************/
+.chip-section {
+  margin: 12px 0;
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #e9ecff;
+  color: #222;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.05s ease-out;
+}
+
+.chip:active {
+  transform: scale(0.97);
+}
+
+.chip.active {
+  background: #7c3aed;
+  /* purple accent */
+  color: #fff;
+}
+
+.actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+/******************** RECIPES SECTION **********************/
+.recipe-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 100vw;
+}
+
+.recipe-cards {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 30px;
+  margin: 10px;
+  background-color: white;
+  width: 80%;
+  border: 3px solid lightgray;
+  border-radius: 2%;
+}
+
+.recipe-img {
+  width: 100%;
+  border-radius: 3%;
+  filter: saturate(1.8) brightness(0.8) contrast(1.5);
+}
+
+.recipe-card-label {
+  font-size: 30px;
+}
+
+.recipe-time {
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 10px 0;
+}
+
+.recipe-time p {
+  font-size: 24px;
+}
+
+p {
+  margin: 3px;
+  font-size: 20px;
+}
+
+.health-labels {
+  display: flex;
+  justify-content: space-around;
+}
+
+.health-labels button {
+  background-color: lightseagreen;
+  border-radius: 20%;
+  font-size: 14px;
+  margin: 10px 4px 0 0;
+  width: 20%;
+}
+
+/****************** MEDIA QUERIES******************/
+
+/********************* TABLET *********************/
+@media (min-width: 768px) {
+  .header {
+    justify-content: space-between;
+  }
+
+  nav {
+    display: flex;
+    width: 50%;
+    align-items: center;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 60%;
+  }
+
+  h1 {
+    padding: 10px;
+    font-size: 50px;
+  }
+
+  .search-recipies {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    margin: 50px 0 50px 0;
+    gap: 24px;
+  }
+
+  .select-field {
+    width: 80%;
+    font-size: 22px;
+  }
+
+  .recipe-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100vw;
+    margin: auto;
+  }
+
+  .recipe-cards {
+    width: 35%;
+  }
+
+  .footer {
+    margin-top: 40px;
+  }
+}
+
+/********************* DESKTOP *********************/
+@media (min-width: 992px) {
+  .nav {
+    width: 50%;
+  }
+
+  .main-heading {
+    height: 30vh;
+  }
+
+  h1 {
+    font-size: 100px;
+  }
+
+  .recipe-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 80%;
+  }
+
+  .recipe-cards {
+    width: 25%;
+  }
+}
