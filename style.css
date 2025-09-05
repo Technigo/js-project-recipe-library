@@ -1,0 +1,217 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0 40px;
+  color: #333;
+}
+
+h1 {
+  margin: 30px 0 40px 0;
+}
+
+/* Hide the quota message initially */
+.hidden {
+  display: none;
+}
+
+/* Show the quota message when quota is exceeded */
+.visible {
+  display: block;
+  background-color: none; 
+  color: #990000; 
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+  border: 1px solid #990000;
+  margin: 20px 0;
+  border-radius: 5px;
+}
+
+
+/* Filter buttons starts here */
+.filter-btn {
+  background-color: rgb(224, 238, 185);
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  margin: 10px 4px 10px 0;
+  border: 1px solid rgb(224, 238, 185); 
+  border-radius: 20px;
+  transition: all 0.3s ease; 
+}
+
+.filter-buttons button:hover {
+  background-color: rgb(190, 208, 138); 
+  cursor: pointer;
+  box-shadow: 0 0 0 4px rgb(160, 180, 100); 
+}
+
+
+/* Sort buttons starts here */
+.sort-btn {
+  background-color: rgb(224, 238, 185);
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  margin: 10px 4px 10px 0;
+  border: 1px solid rgb(224, 238, 185); 
+  border-radius: 20px;
+  transition: all 0.3s ease; 
+}
+
+.sort-buttons h2 {
+  margin-top: 10px;
+}
+
+.sort-btn:hover {
+  background-color: rgb(190, 208, 138);
+  cursor: pointer;
+  box-shadow: 0 0 0 4px rgb(160, 180, 100); 
+}
+
+/* Random button starts here */
+.random-btn {
+  background-color: rgb(216, 183, 241);
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  margin: 10px 0;
+  border: 1px solid rgb(216, 183, 241); /* Initial border same as background */
+  border-radius: 20px;
+}
+
+.random-button h2 {
+  margin-top: 10px;
+}
+
+.random-btn:hover {
+  background-color: rgb(193, 146, 228);
+  cursor: pointer;
+  box-shadow: 0 0 0 4px rgb(168, 111, 212); /* Darker outline with box-shadow */
+}
+
+/* Random button animation */
+.random-btn:active {
+  animation: bounce 0.5s ease;
+}
+
+.filter-buttons button.selected,
+.sort-btn.selected,
+.random-btn.selected {
+  background-color: #333;
+  color: white;
+  box-shadow: none;
+}
+
+/* Style for "No recipes found" message */
+.no-recipes-message {
+  display: block;
+  background-color: none; /* Light red background to indicate an issue */
+  color: #990000; /* Dark red text */
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+  border: 1px solid #990000;
+  margin: 20px 0;
+  border-radius: 5px;
+}
+
+/* Recipe starts here */
+#recipes-container {
+  display: grid;
+  grid-template-columns: repeat(autofit,minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  border: 2px solid rgb(245, 245, 245); /* Match background to prevent shifting */
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.recipe-card:hover {
+  box-shadow: 0 0 0 4px rgb(190, 208, 138);
+  cursor: pointer;
+}
+
+.recipe-card img {
+width: 100%;
+height: 200px;
+object-fit: cover; /* Ensure the image covers the area without disorting */
+ /* Center the image if it gets cropped */
+}
+
+.recipe-card h2 {
+  font-size: 1.2rem;
+  margin: 16px 20px 10px 20px;
+}
+
+.recipe-card h3 {
+  font-size: 1rem;
+  margin: 10px 20px;
+}
+
+.recipe-card p {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 10px 20px;
+}
+
+.recipe-card ul li {
+  list-style: none;
+  margin: 0 20px;
+}
+
+hr {
+  border-top: 1px solid lightgrey;
+  margin: 0 20px;
+}
+
+
+/* Media Querie Mobile Device */
+@media (min-width: 320px) and (max-width: 480px) {
+body {
+  padding: 0 20px;
+  color: #333;
+}
+
+.filter-btn {
+  margin: 10px 4px 0px 0;
+}
+
+#recipes-container {
+  grid-template-columns: 1fr;
+}
+
+.recipe-card {
+  grid-column: 1;
+}
+}
+
+/* Media Querie Tablet Device */
+@media (min-width: 481px) and (max-width: 768px) {
+  #recipes-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Media Querie Tablets (landscape mode or small laptops) Device */
+@media (min-width: 769px) and (max-width: 1023px) {
+  #recipes-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Media Querie Desktop Device */
+@media (min-width: 1024px) and (max-width: 1600px) {
+  #recipes-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
