@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
+  <title>Recipe Library</title>
+</head>
+
+<body>
+
+  <main>
+    <h1>Recipe Library</h1>
+
+    <button id="button">Surprise me!</button>
+    <button id="button1">Chefs Choice</button>
+
+    <section class="parent">
+      <fieldset class="filter-container">
+        <legend>Filter on diets</legend>
+        <input
+          type="radio"
+          name="diet"
+          id="all-button"
+          value="all"
+          checked
+        >
+        <label
+          for="all-button"
+          class="filter-button"
+        >All</label>
+
+        <input
+          type="radio"
+          name="diet"
+          id="vegan-button"
+          value="vegan"
+        >
+        <label
+          for="vegan-button"
+          class="filter-button"
+        >Vegan</label>
+
+        <input
+          type="radio"
+          name="diet"
+          id="veg-button"
+          value="vegetarian"
+        >
+        <label
+          for="veg-button"
+          class="filter-button"
+        >Vegetarian</label>
+
+        <input
+          type="radio"
+          name="diet"
+          id="pescatarian-button"
+          value="pescatarian"
+        >
+        <label
+          for="pescatarian-button"
+          class="filter-button"
+        >Pescatarian</label>
+      </fieldset>
+
+      <fieldset class="sort-container">
+        <legend>Time options</legend>
+        <input
+          type="radio"
+          name="time"
+          id="descending-button"
+          value="descending"
+        >
+        <label
+          for="descending-button"
+          class="sort-button"
+        >Descending ⬇</label>
+
+        <input
+          type="radio"
+          name="time"
+          id="ascending-button"
+          value="ascending"
+        >
+        <label
+          for="ascending-button"
+          class="sort-button"
+        >Ascending ⬆</label>
+
+      </fieldset>
+
+    </section>
+
+
+
+    <section id="recipes-container">
+    </section>
+
+  </main>
+</body>
+<script src="script.js"></script>
+
+</html>
