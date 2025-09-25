@@ -1,1 +1,82 @@
 
+body{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color:  #FAFBFF;
+    margin: 0;
+    padding: 10px
+}
+
+h1{
+    color: #0018A4;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.filters{
+    display: flex;
+    margin: 20px 0;
+}
+
+.filters div{
+    margin-right: 10px;
+}
+
+/* buttons*/
+.filter{
+    background: #ccffe2;
+}
+
+.sort{
+    background-color: #ffecea;
+}
+
+
+button{
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    color: #0018A4;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 5px 5px 0;
+}
+
+button:hover{
+    cursor: pointer;
+
+    
+}
+
+h2{
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    
+}
+
+.recipes{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.card{
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 288px;
+    padding: 16px;
+    color: black;
+    
+    
+}
+
+img{
+    width: 288px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: clip;
+}
