@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <h1>Recipe Library</h1>
+    <main>
+      <section class="filter-container">
+        <div class="filter-wrapper">
+          <h3>Filter on kitchen</h3>
+          <div class="filter filter-kitchen">
+            <button class="btn btn-filter-kitch">All</button>
+            <button class="btn btn-filter-kitch">Asian</button>
+            <button class="btn btn-filter-kitch">Middle Eastern</button>
+            <button class="btn btn-filter-kitch">Mexican</button>
+            <button class="btn btn-filter-kitch">Italian</button>
+          </div>
+        </div>
+
+        <div class="filter-wrapper">
+          <h3>Sort on time</h3>
+          <div class="filter filter-time">
+            <button class="btn btn-filter-time">Cooking time</button>
+            <button class="btn btn-filter-time">Popularity</button>
+            <button class="btn btn-filter-time">Price per serving</button>
+            <button class="btn btn-filter-time">Amount of ingredients</button>
+          </div>
+        </div>
+      </section>
+
+      <article class="cards-container">
+        <div class="card">
+          <h2 class="card-big-heading">
+            Temporary placeholder for filters/sorting options
+          </h2>
+        </div>
+        <div class="card">
+          <a
+            href="https://www.kingarthurbaking.com/blog/2025/01/03/recipe-of-the-year-focaccia"
+            class="temporary-receipe-link"
+            ><img
+              class="card-img"
+              src="./Assets/focaccia.png"
+              alt="close-up photo of a focaccia with cherry tomatoes on it"
+          /></a>
+          <h2 class="card-big-heading">Cheat's cheesy Focaccia</h2>
+          <hr class="card-line" />
+          <dl class="details-card">
+            <div class="card-detail">
+              <dt>Cuisine:</dt>
+              <dd>Italian</dd>
+            </div>
+            <div class="card-detail">
+              <dt>Time:</dt>
+              <dd>40 minutes</dd>
+            </div>
+          </dl>
+          <hr class="card-line" />
+          <h3>Ingredients</h3>
+          <ul class="ingredient-list">
+            <li class="ingredient">500 pack bread mix</li>
+            <li class="ingredient">
+              2tbsp. olive oil, plus a little extra for drizzling
+            </li>
+            <li class="ingredient">
+              25g parmesan (or vegetarian alternative), grated
+            </li>
+            <li class="ingredient">
+              75g dolcelatte cheese (or vegetarian alternative)
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <img class="card-img" src="./Assets/scallion.png" alt="" />
+          <h2 class="card-big-heading">Burnt-Scallion Fish</h2>
+          <hr class="card-line" />
+          <dl class="details-card">
+            <div class="card-detail">
+              <dt>Cuisine:</dt>
+              <dd>Chinese</dd>
+            </div>
+            <div class="card-detail">
+              <dt>Time:</dt>
+              <dd>1h 10 minutes</dd>
+            </div>
+          </dl>
+          <hr class="card-line" />
+          <h3>Ingredients</h3>
+          <ul class="ingredient-list">
+            <li class="ingredient">2 bunches scallions</li>
+            <li class="ingredient">8 tbsp. butter</li>
+            <li class="ingredient">2 8-oz. fish filets</li>
+          </ul>
+        </div>
+        <div class="card">
+          <img class="card-img" src="./Assets/bakedchicken.png" alt="" />
+          <h2 class="card-big-heading">Baked Chicken</h2>
+          <hr class="card-line" />
+          <dl class="details-card">
+            <div class="card-detail">
+              <dt>Cuisine:</dt>
+              <dd>American</dd>
+            </div>
+            <div class="card-detail">
+              <dt>Time:</dt>
+              <dd>1h 30 minutes</dd>
+            </div>
+          </dl>
+          <hr class="card-line" />
+          <h3>Ingredients</h3>
+          <ul class="ingredient-list">
+            <li class="ingredient">
+              6 bone-in chicken breast halves, or 6 chicken thighs and wings,
+              skin-on
+            </li>
+            <li class="ingredient">1/2 tsp. coarse salt</li>
+            <li class="ingredient">1/2 tsp. Mrs. Dash seasoning</li>
+            <li class="ingredient">1/4 tsp. freshly ground black pepper</li>
+          </ul>
+        </div>
+      </article>
+    </main>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
