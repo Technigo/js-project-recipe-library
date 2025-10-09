@@ -1,5 +1,6 @@
 # js-project-recipe-library
 Basic structure HTML, Style in CSS, Add functionalities in js.
+ 
  Week 1
  Start to build a Recipe Library
  HTML structure:

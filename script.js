@@ -5,7 +5,7 @@ const msgEl = document.getElementById("msg"); // element used for messages (like
 const pills = document.querySelectorAll(".pill"); // selects all filter and sort buttons with the class pill.
 
 // Setting up the API, spoonacular API
-const API_KEY = "3319087d72d048f0a75900b28f967eef";
+const API_KEY = "2065aff4499d4fe29bdfbad342732432"
 const BASE_URL = "https://api.spoonacular.com/recipes/complexSearch"; // the main address for the API where tofetch recipes from.
 
 // Setting up stprage and filter 
@@ -109,7 +109,7 @@ const sortRecipes = list => {
   const key = state.sort;
   const sorted = [...list];
   sorted.sort((a, b) =>
-    state.order === "asc" ? a[key] - b[key] : b[key] - a[key] // ✅ It copies the list ([...list]), sorts it, and returns the sorted result.
+    state.order === "asc" ? a[key] - b[key] : b[key] - a[key] // sorting logic based on selected key and order
   );
   return sorted;
 };
