@@ -1,11 +1,15 @@
-const recipesEl = document.getElementById("recipes");
-const msgEl = document.getElementById("msg");
-const pills = document.querySelectorAll(".pill");
+// conecting Js with my HTML file,
 
-const API_KEY = "df0bfbeda16544f99c228b0621c5662a";
-const BASE_URL = "https://api.spoonacular.com/recipes/complexSearch";
+const recipesEl = document.getElementById("recipes"); // points to the <main id="recipes"> element where recipe cards will be shown.
+const msgEl = document.getElementById("msg"); // element used for messages (like “Loading…”
+const pills = document.querySelectorAll(".pill"); // selects all filter and sort buttons with the class pill.
 
-let DATA = [];
+// Setting up the API, spoonacular API
+const API_KEY = "3319087d72d048f0a75900b28f967eef";
+const BASE_URL = "https://api.spoonacular.com/recipes/complexSearch"; // the main address for the API where tofetch recipes from.
+
+// Setting up stprage and filter 
+let DATA = []; //an empty array where stores the recipes data when fetched.
 let state = {
   kitchen: "all",
   diet: "all",
@@ -15,16 +19,15 @@ let state = {
   order: "asc"
 };
 
-// --- FETCH DATA ---
+// Fetching data from the API, Spoonacular
 const fetchData = () => {
-  recipesEl.innerHTML = `<p>Loading recipes...</p>`;
+  recipesEl.innerHTML = `<p>Loading recipes...</p>`; // shows a loading message while fetching data. 
 
   // Build dynamic query string based on selected filters
-  const params = new URLSearchParams({
-    number: 12,
-    addRecipeInformation: true,
-    apiKey: API_KEY,
-  });
+  const params = new URLSearchParams({ //this is to help to build the query string (everything after the ? in a URL).
+    number: 12, // number of recipes to fetch
+    addRecipeInformation: true, // include detailed recipe details
+    apiKey: API_KEY, //required to use API 
 
   if (state.kitchen !== "all") params.append("cuisine", state.kitchen);
   if (state.diet !== "all") params.append("diet", state.diet);
@@ -35,7 +38,7 @@ const fetchData = () => {
     .then(res => {
       if (res.status === 402) {
         recipesEl.innerHTML = `<p>Daily API quota exceeded. Please try again tomorrow.</p>`;
-        msgEl.textContent = "⚠️ API limit reached";
+        msgEl.textContent = "API limit reached";
         throw new Error("Quota reached");
       }
       return res.json();
@@ -153,4 +156,3 @@ pills.forEach(btn => {
 
 // --- INIT ---
 fetchData();
-
