@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+  <title>Recipe Library</title>
+</head>
+
+<body>
+
+
+  <div class="header">
+    <h1>Recipe Library</h1>
+  </div>
+
+  <section class="grid-parent">
+
+
+    <div class="filter-and-buttons">
+      <h2> Filter on kitchen </h2>
+      <button> All </button>
+      <button> Vietnamese </button>
+      <button> American </button>
+      <button> Mediterranean </button>
+
+    </div>
+
+    <div class="sorting-and-buttons">
+      <h2> Sort on time</h2>
+      <button> Quick meals </button>
+      <button> Slow cook's </button>
+    </div>
+
+    <div class="preferences">
+      <h2> Preferences </h2>
+      <button onclick="toggleDropdown()"> Choose here</button>
+      <div
+        id="dropdownMenu"
+        class="preferences-content"
+      >
+        <div data-value="Gluten Free">Gluten Free</div>
+        <div data-value="Vegetarian">Vegetarian</div>
+        <div data-value="Vegan">Vegan</div>
+      </div>
+
+    </div>
+
+
+    <div class="random-button">
+      <h2> Surprise me!</h2>
+      <button> Random </button>
+    </div>
+  </section>
+
+  <section id=recipe-card>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
