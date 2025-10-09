@@ -12,33 +12,57 @@
     <main>
       <section class="filter-container">
         <div class="filter-wrapper">
-          <h3>Filter on kitchen</h3>
+          <h3>Filter by kitchen</h3>
           <div class="filter filter-kitchen">
-            <button class="btn btn-filter-kitch">All</button>
-            <button class="btn btn-filter-kitch">Asian</button>
-            <button class="btn btn-filter-kitch">Middle Eastern</button>
-            <button class="btn btn-filter-kitch">Mexican</button>
-            <button class="btn btn-filter-kitch">Italian</button>
+            <button id="btnAll" class="btn btn-filter-kitch">All</button>
+            <button id="asianCuisine" class="btn btn-filter-kitch">
+              Asian
+            </button>
+            <button id="frenchCuisine" class="btn btn-filter-kitch">
+              French
+            </button>
+            <button id="mexicanCuisine" class="btn btn-filter-kitch">
+              Mexican
+            </button>
+            <button id="italianCuisine" class="btn btn-filter-kitch">
+              Italian
+            </button>
           </div>
         </div>
 
         <div class="filter-wrapper">
-          <h3>Sort by</h3>
+          <h3>Filter by cooking time</h3>
           <div class="filter filter-time">
-            <button class="btn btn-sort">Cooking time</button>
-            <button class="btn btn-sort">Popularity</button>
-            <button class="btn btn-sort">Price per serving</button>
-            <button class="btn btn-sort">Amount of ingredients</button>
+            <button class="btn btn-filter-min">Under 30 min</button>
+            <button class="btn btn-filter-min">Under 45 min</button>
+            <button class="btn btn-filter-min">Under 1,5 hour</button>
+            <button class="btn btn-filter-min">Under 3 hours</button>
           </div>
+        </div>
+
+        <div class="filter-wrapper">
+          <h3>Sort by time</h3>
+          <div class="filter sort-options">
+            <button class="btn btn-sort" id="sortShortest">
+              Shortest Time ⏱️
+            </button>
+            <button class="btn btn-sort" id="sortLongest">
+              Longest Time ⏱️
+            </button>
+          </div>
+        </div>
+
+        <div class="filter filter-random">
+          <button id="btnRandom" class="btn">✨Get a random recipe✨</button>
         </div>
       </section>
 
       <article class="cards-container">
-        <div class="card">
+        <!-- <div class="card">
           <h2 class="card-big-heading">
             Temporary placeholder for filters/sorting options
           </h2>
-        </div>
+        </div> -->
         <div class="card">
           <a
             href="https://www.kingarthurbaking.com/blog/2025/01/03/recipe-of-the-year-focaccia"
@@ -75,7 +99,7 @@
             </li>
           </ul>
         </div>
-        <div class="card">
+        <!--   <div class="card">
           <img class="card-img" src="./Assets/scallion.png" alt="" />
           <h2 class="card-big-heading">Burnt-Scallion Fish</h2>
           <hr class="card-line" />
@@ -122,7 +146,7 @@
             <li class="ingredient">1/2 tsp. Mrs. Dash seasoning</li>
             <li class="ingredient">1/4 tsp. freshly ground black pepper</li>
           </ul>
-        </div>
+        </div> -->
       </article>
     </main>
 
