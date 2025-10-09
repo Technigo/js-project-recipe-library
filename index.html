@@ -12,116 +12,58 @@
 
   <h1>Recipe Library</h1>
 
-  <div class="filterMenu">
-    <div class="filterBox">
+  <div class="filter-menu">
+    <div class="filters">
+    <div class="filter-box">
+      <h2>Filter on dish</h2>
+
+      <div class="filter-buttons filter-dish" id="filterDishType">
+        <button>All</button>
+        <button>Main Course</button>
+        <button>Side Dish</button>
+        <button>Something</button>
+      </div>
+      
+    </div>
+    
+    <div class="filter-box">
       <h2>Filter on kitchen</h2>
 
-      <div class="filterButton">
-        <Button>All</Button>
-        <Button>Italy</Button>
-        <Button>USA</Button>
-        <Button>China</Button>
+      <div class="filter-buttons filter-cuisine" id="filterCuisine">
+        <button>All</button>
+        <button>Italian</button>
+        <button>Mexican</button>
+        <button>Asian</button>
       </div>
-      <!-- Radiobuttons? -->
+
     </div>
 
-    <div class="sortBox">
+    <div class="filter-box">
+      <h2>Gluten free?</h2>
+
+      <div class="filter-buttons filter-gluten-free">
+        <button id="glutenFreeButton">No</button>
+      </div>
+      
+    </div>
+    </div>
+
+    <div class="sort-box">
       <h2>Sort on time</h2>
 
-      <div class="sortButton">
-        <Button>Descending</Button>
-        <Button>Ascending</Button>
+      <div class="sort-button" id="sortRecipe">
+        <button>Descending ⬇️</button>
+        <button>Ascending ⬆️</button>
       </div>
     </div>
-  </div>
-
-  <div class="card-grid">
-
-    <div class="resultCard">
-      <h3 id="promptFilterMessage">Recipes are filtered here</h3>
-    </div>
-
-    <div class="card">
-      <img src="images/focaccia.jpg" alt="picture of food">
-
-      <h3><b>Dish name 1</b></h3>
-
-      <hr>
-
-      <p><b>Cuisine:</b> place</p>
-      <p><b>Time:</b> h/min</p>
-
-      <hr>
-
-      <h4>Ingredients</h4>
-
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati nemo maiores velit ipsa excepturi expedita,
-        consectetur ipsam necessitatibus laboriosam quas a ex, totam inventore vel nihil distinctio itaque placeat
-        veniam.</p>
-
-    </div>
-
-    <div class="card">
-      <img src="images/focaccia.jpg" alt="picture of food">
-
-      <h3><b>Dish name 2</b></h3>
-
-      <hr>
-
-      <p><b>Cuisine:</b> place</p>
-      <p><b>Time:</b> h/min</p>
-
-      <hr>
-
-      <h4>Ingredients</h4>
-
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati nemo maiores velit ipsa excepturi expedita,
-        consectetur ipsam necessitatibus laboriosam quas a ex, totam inventore vel nihil distinctio itaque placeat
-        veniam.</p>
-
-    </div>
-
-    <div class="card">
-      <img src="images/focaccia.jpg" alt="picture of food">
-
-      <h3><b>Dish name 3</b></h3>
-
-      <hr>
-
-      <p><b>Cuisine:</b> place</p>
-      <p><b>Time:</b> h/min</p>
-
-      <hr>
-
-      <h4>Ingredients</h4>
-
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati nemo maiores velit ipsa excepturi expedita,
-        consectetur ipsam necessitatibus laboriosam quas a ex, totam inventore vel nihil distinctio itaque placeat
-        veniam.</p>
-
-    </div>
-
-    <div class="card">
-      <img src="images/focaccia.jpg" alt="picture of food">
-
-      <h3><b>Dish name 4</b></h3>
-
-      <hr>
-
-      <p><b>Cuisine:</b> place</p>
-      <p><b>Time:</b> h/min</p>
-
-      <hr>
-
-      <h4>Ingredients</h4>
-
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati nemo maiores velit ipsa excepturi expedita,
-        consectetur ipsam necessitatibus laboriosam quas a ex, totam inventore vel nihil distinctio itaque placeat
-        veniam.</p>
-
-    </div>
 
   </div>
+
+  <section class="card-grid" id="card">
+
+    <div class="card" id="loadingCard">Loading...</div>
+
+  </section>
 
   <script src="index.js"></script>
 </body>
