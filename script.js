@@ -1,6 +1,8 @@
-const apiKey = "9aa66e4ff117445592b772f3a4b89e80";
+// Replace this with your valid Spoonacular API key
+const apiKey = "edf4c3d520ec43ff9f8def394e4820e9";
 
 // DOM refs
+const formEl = document.getElementById("search-form");
 const inputEl = document.getElementById("ingredient-input");
 const mealTypeEl = document.getElementById("meal-type");
 const countryEl = document.getElementById("country-select");
@@ -9,19 +11,18 @@ const sortEl = document.getElementById("sort-select");
 const resultsEl = document.getElementById("results");
 const detailsEl = document.getElementById("recipe-details");
 const detailsContentEl = document.getElementById("recipe-content");
+const searchBtn = document.getElementById("search-button");
+const randomBtn = document.getElementById("random-button");
 
 // Map diet selection to Spoonacular params
 function buildDietParams(selected) {
-  // vegetarian, vegan, gluten free → diet=
-  // dairy free → intolerances=dairy
   const params = new URLSearchParams();
   if (!selected) return params;
 
   if (selected === "dairy free") {
     params.set("intolerances", "dairy");
   } else {
-    // Spoonacular accepts "gluten free" as a diet too
-    params.set("diet", selected);
+    params.set("diet", selected); // Spoonacular accepts "gluten free" here too
   }
   return params;
 }
@@ -49,20 +50,35 @@ function card(recipe) {
   return div;
 }
 
+function setLoading(loading, message = "Searching…") {
+  if (loading) {
+    resultsEl.innerHTML = `<p>${message}</p>`;
+    searchBtn.disabled = true;
+    randomBtn.disabled = true;
+    searchBtn.style.opacity = 0.7;
+    randomBtn.style.opacity = 0.7;
+  } else {
+    searchBtn.disabled = false;
+    randomBtn.disabled = false;
+    searchBtn.style.opacity = "";
+    randomBtn.style.opacity = "";
+  }
+}
+
 async function searchRecipes() {
   const ingredient = (inputEl?.value || "").trim();
-  const type = mealTypeEl.value;
-  const cuisine = countryEl.value;
-  const diet = dietEl.value;
-  const sort = sortEl.value; // "popularity" or ""
-
   if (!ingredient) {
     resultsEl.innerHTML = "<p>Please enter an ingredient.</p>";
     return;
   }
 
+  const type = mealTypeEl.value;
+  const cuisine = countryEl.value;
+  const diet = dietEl.value;
+  const sort = sortEl.value;
+
   try {
-    resultsEl.innerHTML = "<p>Searching…</p>";
+    setLoading(true, "Searching…");
 
     const qs = new URLSearchParams({
       query: ingredient,
@@ -75,27 +91,31 @@ async function searchRecipes() {
     if (cuisine) qs.set("cuisine", cuisine);
     if (sort) qs.set("sort", sort);
 
-    // diet / intolerances
     const dietParams = buildDietParams(diet);
     dietParams.forEach((v, k) => qs.set(k, v));
 
     const url = `https://api.spoonacular.com/recipes/complexSearch?${qs.toString()}`;
     const response = await fetch(url);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    if (!response.ok) {
+      const msg = response.status === 402 || response.status === 401
+        ? "API key error or quota reached. Please check your Spoonacular API key."
+        : `Request failed (HTTP ${response.status}).`;
+      throw new Error(msg);
+    }
 
     const data = await response.json();
     const items = data.results || [];
 
-    if (items.length === 0) {
-      resultsEl.innerHTML = "<p>No recipes found.</p>";
-      return;
-    }
+    resultsEl.innerHTML = items.length
+      ? ""
+      : "<p>No recipes found. Try another ingredient or adjust filters.</p>";
 
-    resultsEl.innerHTML = "";
     items.forEach((r) => resultsEl.appendChild(card(r)));
   } catch (err) {
     console.error(err);
-    resultsEl.innerHTML = "<p>Something went wrong. Please try again.</p>";
+    resultsEl.innerHTML = `<p>${err.message || "Something went wrong. Please try again."}</p>`;
+  } finally {
+    setLoading(false);
   }
 }
 
@@ -105,37 +125,38 @@ async function randomRecipe() {
   const diet = dietEl.value;
 
   try {
-    resultsEl.innerHTML = "<p>Picking a random recipe…</p>";
+    setLoading(true, "Picking a random recipe…");
 
-    // Build tags for /random
     const tags = [];
     if (type) tags.push(type);
     if (cuisine) tags.push(cuisine);
-    if (diet) tags.push(diet); // Spoonacular accepts "dairy free" as a tag too
+    if (diet) tags.push(diet); // Spoonacular accepts "dairy free" tag too
 
-    const qs = new URLSearchParams({
-      number: "1",
-      apiKey
-    });
+    const qs = new URLSearchParams({ number: "1", apiKey });
     if (tags.length) qs.set("tags", tags.join(","));
 
     const url = `https://api.spoonacular.com/recipes/random?${qs.toString()}`;
     const response = await fetch(url);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    if (!response.ok) {
+      const msg = response.status === 402 || response.status === 401
+        ? "API key error or quota reached. Please check your Spoonacular API key."
+        : `Request failed (HTTP ${response.status}).`;
+      throw new Error(msg);
+    }
 
     const data = await response.json();
     const recipes = data.recipes || [];
-    if (recipes.length === 0) {
-      resultsEl.innerHTML = "<p>No random recipe found. Try different filters.</p>";
-      return;
-    }
 
-    // Render single card
-    resultsEl.innerHTML = "";
-    resultsEl.appendChild(card(recipes[0]));
+    resultsEl.innerHTML = recipes.length
+      ? ""
+      : "<p>No random recipe found. Try different filters.</p>";
+
+    if (recipes.length) resultsEl.appendChild(card(recipes[0]));
   } catch (err) {
     console.error(err);
-    resultsEl.innerHTML = "<p>Couldn’t fetch a random recipe.</p>";
+    resultsEl.innerHTML = `<p>${err.message || "Couldn’t fetch a random recipe."}</p>`;
+  } finally {
+    setLoading(false);
   }
 }
 
@@ -143,6 +164,7 @@ async function showRecipeDetails(recipeId) {
   try {
     detailsContentEl.innerHTML = "<p>Loading…</p>";
     detailsEl.style.display = "flex";
+    detailsEl.setAttribute("aria-hidden", "false");
 
     const response = await fetch(
       `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}`
@@ -156,7 +178,7 @@ async function showRecipeDetails(recipeId) {
       : "Not available";
 
     detailsContentEl.innerHTML = `
-      <button id="close-card-btn" onclick="closeDetails()">✖ Close</button>
+      <button id="close-card-btn" aria-label="Close details" onclick="closeDetails()">✖ Close</button>
       <h2>${recipe.title}</h2>
       <img src="${recipe.image}" alt="${recipe.title}">
       <p><strong>Cuisine:</strong> ${recipe.cuisines?.join(", ") || "N/A"}</p>
@@ -172,9 +194,27 @@ async function showRecipeDetails(recipeId) {
 
 function closeDetails() {
   detailsEl.style.display = "none";
+  detailsEl.setAttribute("aria-hidden", "true");
 }
 
-// Optional: Enter key to search
-inputEl?.addEventListener("keyup", (e) => {
-  if (e.key === "Enter") searchRecipes();
+// Close modal when clicking outside content (mobile-friendly)
+detailsEl.addEventListener("click", (e) => {
+  if (e.target === detailsEl) closeDetails();
 });
+
+// Close with Escape key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeDetails();
+});
+
+/* --- Event bindings --- */
+
+// Submit form triggers search (so Enter works)
+formEl.addEventListener("submit", (e) => {
+  e.preventDefault();
+  searchRecipes();
+});
+
+// Buttons
+searchBtn.addEventListener("click", searchRecipes);
+randomBtn.addEventListener("click", randomRecipe);
