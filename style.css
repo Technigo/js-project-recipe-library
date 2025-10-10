@@ -1,0 +1,203 @@
+body {
+  font-family: "futura";
+  background-color: #FAFBFF;
+  margin: 16px 8px;
+}
+
+h1 {
+  color: #0018A4;
+  font-size: 64px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: black;
+}
+
+
+.filter-row {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.meal-buttons-container,
+.time-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+button {
+  font-family: "futura";
+  font-size: 18px;
+  font-weight: 500;
+  border: 2px solid transparent;
+  transition: border 0.3s ease;
+}
+
+.meal-btn {
+  background: #CCFFE2;
+  border-radius: 50px;
+  padding: 8px 16px;
+}
+
+.time-btn {
+  background: #FFECEA;
+  border-radius: 50px;
+  padding: 8px 16px;
+}
+
+
+.time-btn:hover {
+  background: #FF6589;
+  color: white;
+  border: 2px solid #0018A4;
+}
+
+.meal-btn:hover {
+  border: 2px solid #0018A4;
+}
+
+.random-btn:hover {
+  border: 2px solid #0018A4;
+}
+
+.meal-btn.active {
+  background: #0018A4;
+  color: white;
+}
+
+.time-btn.active {
+  background: #FF6589;
+  color: white;
+  border: 2px solid transparent;
+}
+
+.random-btn {
+  background: #ffe065;
+  border-radius: 50px;
+  padding: 8px 16px;
+}
+
+.random-btn.active {
+  background: #b2ff65;
+}
+
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #0018A4;
+  border-radius: 6px;
+  margin-left: 5px;
+}
+
+.search-bar {
+  width: 200px;
+  height: 38px;
+  border-radius: 6px 0 0 6px;
+  padding: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  border: none;
+}
+
+.search-button {
+  height: 38px;
+  box-sizing: border-box;
+  background: #ccd3fa;
+  border-radius: 0 6px 6px 0;
+  width: 45px;
+  transition: .3s ease;
+}
+
+.search-button:hover {
+  background: #8594f4;
+}
+
+.loading p {
+  font-size: 20px;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.recipe-card-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  width: 300px;
+  height: fit-content;
+  background: white;
+  border: 1px solid #E9E9E9;
+  margin-top: 30px;
+  padding: 16px 16px 24px 16px;
+  gap: 16px;
+  box-sizing: border-box;
+  box-shadow: 0 0 5px 5px #0019a405;
+}
+
+.recipe-card:hover {
+  border: 2px solid #0018A4;
+}
+
+img {
+  border-radius: 12px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.recipe-card h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+
+hr {
+  border: 1px solid #E9E9E9;
+  height: 0;
+  width: 268px;
+  margin: 0;
+}
+
+.MealLabel {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.value {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+p {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.no-results-container {
+  font-size: 16px;
+  max-width: 700px;
+  margin: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
