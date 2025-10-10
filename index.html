@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Recipe Library</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  >
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+  >
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+</head>
+
+<body>
+  <header>
+    <h1>Recipe Library</h1>
+
+    <div class="header-actions">
+      <!-- Favorites button -->
+      <div class="favorites">
+        <button
+          id="favBtn"
+          class="btn-favorites"
+        >
+          <svg
+            class="heart-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="red"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
+                 4.42 3 7.5 3c1.74 0 3.41 0.81 
+                 4.5 2.09C13.09 3.81 14.76 3 
+                 16.5 3 19.58 3 22 5.42 
+                 22 8.5c0 3.78-3.4 6.86-8.55 
+                 11.54L12 21.35z" />
+          </svg>
+          <span>Favorites</span>
+        </button>
+      </div>
+      <!-- Search field -->
+      <div class="search-container">
+        <button
+          id="searchBtn"
+          class="btn-search"
+        >
+          <svg
+            class="search-icon"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path d="M15.5 14h-.79l-.28-.27
+          A6.471 6.471 0 0 0 16 9.5
+          6.5 6.5 0 1 0 9.5 16
+          c1.61 0 3.09-.59 4.23-1.57
+          l.27.28v.79l5 4.99L20.49
+          19l-4.99-5zm-6 0C8.01 14 
+          6 11.99 6 9.5S8.01 5 10.5
+          5 15 7.01 15 9.5 12.99 14
+          10.5 14z"></path>
+          </svg>
+        </button>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search recipes..."
+        >
+        <button
+          id="clearSearchBtn"
+          class="btn-clear-search"
+        >✖</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="options-container">
+    <!-- Kitchen filter -->
+    <div class="filters">
+      <h2>Filter on kitchen</h2>
+      <div class="filter-buttons">
+        <button
+          class="btn-filter"
+          data-value="all"
+        >All</button>
+        <button
+          class="btn-filter"
+          data-value="thai"
+        >Thai</button>
+        <button
+          class="btn-filter"
+          data-value="mexican"
+        >Mexican</button>
+        <button
+          class="btn-filter"
+          data-value="mediterranean"
+        >Mediterranean</button>
+        <button
+          class="btn-filter"
+          data-value="indian"
+        >Indian</button>
+      </div>
+    </div>
+
+    <!-- Sort filter -->
+    <div class="sorting">
+      <h2>Sort on time</h2>
+      <div class="sorting-buttons">
+        <button
+          class="btn-sort"
+          data-value="ascending"
+        >🚀 Shortest first</button>
+        <button
+          class="btn-sort"
+          data-value="descending"
+        >⏳ Longest first</button>
+      </div>
+    </div>
+
+    <!-- Surprise me button -->
+    <div class="surprise">
+      <h2>Need inspiration?</h2>
+      <div class="random-buttons">
+        <button
+          class="btn-random"
+          id="randomBtn"
+        > Surprise me!
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Recipe cards -->
+  <main>
+    <div
+      id="loading"
+      class="loading"
+    >
+      <div class="spinner"></div>
+      <p>Loading...</p>
+    </div>
+
+    <div id="recipeContainer">
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
