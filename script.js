@@ -9,9 +9,9 @@ const randomBtn = document.getElementById("random-btn"); // button for random re
 const API_KEY = "2065aff4499d4fe29bdfbad342732432"
 const BASE_URL = "https://api.spoonacular.com/recipes/complexSearch"; // the main address for the API where tofetch recipes from.
 
-// Setting up stprage and filter 
-let DATA = []; //an empty array where stores the recipes data when fetched.
-let state = {
+// Setting up storage and filter 
+let recipes = []; //an empty array where stores the recipes data when fetched.
+let filters = {
   kitchen: "all",
   diet: "all",
   time: "all",
@@ -31,8 +31,8 @@ const fetchData = () => {
     apiKey: API_KEY, //required to use API 
   });
 
-  if (state.kitchen !== "all") params.append("cuisine", state.kitchen);
-  if (state.diet !== "all") params.append("diet", state.diet);
+  if (filters.kitchen !== "all") params.append("cuisine", filters.kitchen);
+  if (filters.diet !== "all") params.append("diet", filters.diet);
 
   const url = `${BASE_URL}?${params.toString()}`;
 
@@ -62,7 +62,7 @@ const fetchData = () => {
         return;
       }
 
-      DATA = data.results.map(recipe => ({  //this is the array of recipes Spoonacular gives.  
+      recipes = data.results.map(recipe => ({  //this is the array of recipes Spoonacular gives.  
         title: recipe.title,                // map function to transform to a simpler format so it fits the app.
         image: recipe.image,
         kitchen: recipe.cuisines[0] || "Unknown",
@@ -74,8 +74,8 @@ const fetchData = () => {
         popularity: recipe.aggregateLikes || 0
       }));
 
-      showRecipes(DATA);
-      msgEl.textContent = `Fetched ${DATA.length} recipes (${state.kitchen}, ${state.diet})`;
+      showRecipes(recipes);
+      msgEl.textContent = `Fetched ${recipes.length} recipes (${filters.kitchen}, ${filters.diet})`;
     })
     
     //Catches problems (like no internet, bad key, or quota) and shows a friendly error.
@@ -91,26 +91,26 @@ const fetchData = () => {
     const filterRecipes = list =>  // Function 2
     list.filter(r => {
     // Cooking time
-      if (state.time === "under15" && !(r.time < 15)) return false;
-      if (state.time === "15to30" && !(r.time >= 15 && r.time <= 30)) return false;
-      if (state.time === "30to60" && !(r.time >= 30 && r.time <= 60)) return false;
-      if (state.time === "over60" && !(r.time > 60)) return false;
+      if (filters.time === "under15" && !(r.time < 15)) return false;
+      if (filters.time === "15to30" && !(r.time >= 15 && r.time <= 30)) return false;
+      if (filters.time === "30to60" && !(r.time >= 30 && r.time <= 60)) return false;
+      if (filters.time === "over60" && !(r.time > 60)) return false;
 
     // Ingredient amount
-      if (state.ingredients === "under5" && !(r.ingredients < 5)) return false;
-      if (state.ingredients === "6to10" && !(r.ingredients >= 6 && r.ingredients <= 10)) return false;
-      if (state.ingredients === "11to15" && !(r.ingredients >= 11 && r.ingredients <= 15)) return false;
-      if (state.ingredients === "over16" && !(r.ingredients > 16)) return false;
+      if (filters.ingredients === "under5" && !(r.ingredients < 5)) return false;
+      if (filters.ingredients === "6to10" && !(r.ingredients >= 6 && r.ingredients <= 10)) return false;
+      if (filters.ingredients === "11to15" && !(r.ingredients >= 11 && r.ingredients <= 15)) return false;
+      if (filters.ingredients === "over16" && !(r.ingredients > 16)) return false;
 
     return true;
   });
 
 //Sort recispes
 const sortRecipes = list => {  // Function 3 Sort recipes (by time, ingredients, or popularity)
-  const key = state.sort;
+  const key = filters.sort;
   const sorted = [...list];
   sorted.sort((a, b) =>
-    state.order === "asc" ? a[key] - b[key] : b[key] - a[key] // sorting logic based on selected key and order
+    filters.order === "asc" ? a[key] - b[key] : b[key] - a[key] // sorting logic based on selected key and order
   );
   return sorted;
 };
@@ -141,7 +141,7 @@ const showRecipes = list => { // Function 4
         .join("")
     : `<p>No recipes match your filters.</p>`;
 
-  msgEl.textContent = `Results: ${sorted.length} | Kitchen: ${state.kitchen} | Diet: ${state.diet} | Sort: ${state.sort} (${state.order})`;
+  msgEl.textContent = `Results: ${sorted.length} | Kitchen: ${filters.kitchen} | Diet: ${filters.diet} | Sort: ${filters.sort} (${filters.order})`;
 };
 
 // The event listeners for the filter and sort buttons (pills).
@@ -153,24 +153,24 @@ pills.forEach(btn => {
     group.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 
-    if (btn.dataset.kitchen) state.kitchen = btn.dataset.kitchen;
-    if (btn.dataset.diet) state.diet = btn.dataset.diet;
-    if (btn.dataset.time) state.time = btn.dataset.time;
-    if (btn.dataset.ingredients) state.ingredients = btn.dataset.ingredients;
-    if (btn.dataset.sort) state.sort = btn.dataset.sort;
-    if (btn.dataset.order) state.order = btn.dataset.order;
+    if (btn.dataset.kitchen) filters.kitchen = btn.dataset.kitchen;
+    if (btn.dataset.diet) filters.diet = btn.dataset.diet;
+    if (btn.dataset.time) filters.time = btn.dataset.time;
+    if (btn.dataset.ingredients) filters.ingredients = btn.dataset.ingredients;
+    if (btn.dataset.sort) filters.sort = btn.dataset.sort;
+    if (btn.dataset.order) filters.order = btn.dataset.order;
 
     // If user changes kitchen or diet → refetch from API
     if (btn.dataset.kitchen || btn.dataset.diet) {
       fetchData();
     } else {
       // Other filters (time, ingredients, sorting) work locally
-      showRecipes(DATA);
+      showRecipes(recipes);
     }
   });
 });
-randomBtn.addEventListener("click", () => { // 👈 added here
-  const random = DATA[Math.floor(Math.random() * DATA.length)];
+randomBtn.addEventListener("click", () => {
+  const random = recipes[Math.floor(Math.random() * recipes.length)];
   showRecipes([random]);
 });
 
