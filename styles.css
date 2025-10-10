@@ -61,6 +61,8 @@ h1, h2, h3, h4, h5, h6, p, ul, li {
   font-size: 19px;
   font-weight: 700;
   color: var(--gray-dark);
+
+  
 }
 
 .pill-group {           /* container for pillsm wrapps around several .pill (buttons) */
