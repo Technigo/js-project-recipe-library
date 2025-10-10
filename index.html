@@ -13,7 +13,7 @@
   <div id="search-form">
     <input type="text" id="ingredient-input" placeholder="Enter an ingredient" />
 
-    <!-- Meal Type Dropdown -->
+    <!-- Meal Type -->
     <select id="meal-type">
       <option value="">Any meal type</option>
       <option value="breakfast">Breakfast</option>
@@ -25,7 +25,7 @@
       <option value="beverage">Beverage</option>
     </select>
 
-    <!-- Country / Cuisine Dropdown -->
+    <!-- Country / Cuisine -->
     <select id="country-select">
       <option value="">Any cuisine</option>
       <option value="african">African</option>
@@ -44,12 +44,27 @@
       <option value="thai">Thai</option>
     </select>
 
+    <!-- Diet -->
+    <select id="diet-select" title="Diet filter">
+      <option value="">Any diet</option>
+      <option value="vegetarian">Vegetarian</option>
+      <option value="vegan">Vegan</option>
+      <option value="gluten free">Gluten Free</option>
+      <option value="dairy free">Dairy Free</option>
+    </select>
+
+    <!-- Sort -->
+    <select id="sort-select" title="Sort results">
+      <option value="">Default sort</option>
+      <option value="popularity">Popularity</option>
+    </select>
+
     <button id="search-button" onclick="searchRecipes()">Search</button>
+    <button id="random-button" onclick="randomRecipe()">Random</button>
   </div>
 
   <div id="results"></div>
 
-  <!-- Modal for recipe details -->
   <div id="recipe-details" style="display:none">
     <div id="recipe-content"></div>
   </div>

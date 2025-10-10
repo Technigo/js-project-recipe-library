@@ -1,18 +1,60 @@
-const apiKey = "a229b49155dd40a782013d0a5e906f70";
+const apiKey = "9aa66e4ff117445592b772f3a4b89e80";
 
-// Cached DOM references
+// DOM refs
 const inputEl = document.getElementById("ingredient-input");
 const mealTypeEl = document.getElementById("meal-type");
 const countryEl = document.getElementById("country-select");
+const dietEl = document.getElementById("diet-select");
+const sortEl = document.getElementById("sort-select");
 const resultsEl = document.getElementById("results");
 const detailsEl = document.getElementById("recipe-details");
 const detailsContentEl = document.getElementById("recipe-content");
 
-// Search function with filters
+// Map diet selection to Spoonacular params
+function buildDietParams(selected) {
+  // vegetarian, vegan, gluten free → diet=
+  // dairy free → intolerances=dairy
+  const params = new URLSearchParams();
+  if (!selected) return params;
+
+  if (selected === "dairy free") {
+    params.set("intolerances", "dairy");
+  } else {
+    // Spoonacular accepts "gluten free" as a diet too
+    params.set("diet", selected);
+  }
+  return params;
+}
+
+function card(recipe) {
+  const div = document.createElement("div");
+  div.className = "recipe-item";
+
+  const img = document.createElement("img");
+  img.src = recipe.image;
+  img.alt = recipe.title;
+
+  const title = document.createElement("h3");
+  title.textContent = recipe.title;
+
+  const link = document.createElement("a");
+  link.href = "#";
+  link.textContent = "View Recipe";
+  link.addEventListener("click", async (e) => {
+    e.preventDefault();
+    await showRecipeDetails(recipe.id);
+  });
+
+  div.append(img, title, link);
+  return div;
+}
+
 async function searchRecipes() {
   const ingredient = (inputEl?.value || "").trim();
-  const mealType = mealTypeEl.value;
+  const type = mealTypeEl.value;
   const cuisine = countryEl.value;
+  const diet = dietEl.value;
+  const sort = sortEl.value; // "popularity" or ""
 
   if (!ingredient) {
     resultsEl.innerHTML = "<p>Please enter an ingredient.</p>";
@@ -22,54 +64,81 @@ async function searchRecipes() {
   try {
     resultsEl.innerHTML = "<p>Searching…</p>";
 
-    // Use complexSearch for cuisine & type filters
-    const url = `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(
-      ingredient
-    )}&type=${encodeURIComponent(mealType)}&cuisine=${encodeURIComponent(
-      cuisine
-    )}&number=6&addRecipeInformation=true&apiKey=${apiKey}`;
+    const qs = new URLSearchParams({
+      query: ingredient,
+      number: "9",
+      addRecipeInformation: "true",
+      apiKey
+    });
 
+    if (type) qs.set("type", type);
+    if (cuisine) qs.set("cuisine", cuisine);
+    if (sort) qs.set("sort", sort);
+
+    // diet / intolerances
+    const dietParams = buildDietParams(diet);
+    dietParams.forEach((v, k) => qs.set(k, v));
+
+    const url = `https://api.spoonacular.com/recipes/complexSearch?${qs.toString()}`;
     const response = await fetch(url);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const data = await response.json();
+    const items = data.results || [];
 
-    if (!data.results || data.results.length === 0) {
+    if (items.length === 0) {
       resultsEl.innerHTML = "<p>No recipes found.</p>";
       return;
     }
 
-    // Render recipe cards
     resultsEl.innerHTML = "";
-    data.results.forEach((recipe) => {
-      const card = document.createElement("div");
-      card.className = "recipe-item";
-
-      const img = document.createElement("img");
-      img.src = recipe.image;
-      img.alt = recipe.title;
-
-      const title = document.createElement("h3");
-      title.textContent = recipe.title;
-
-      const link = document.createElement("a");
-      link.href = "#";
-      link.textContent = "View Recipe";
-      link.addEventListener("click", async (e) => {
-        e.preventDefault();
-        await showRecipeDetails(recipe.id);
-      });
-
-      card.append(img, title, link);
-      resultsEl.appendChild(card);
-    });
+    items.forEach((r) => resultsEl.appendChild(card(r)));
   } catch (err) {
     console.error(err);
     resultsEl.innerHTML = "<p>Something went wrong. Please try again.</p>";
   }
 }
 
-// Fetch and display detailed recipe info
+async function randomRecipe() {
+  const type = mealTypeEl.value;
+  const cuisine = countryEl.value;
+  const diet = dietEl.value;
+
+  try {
+    resultsEl.innerHTML = "<p>Picking a random recipe…</p>";
+
+    // Build tags for /random
+    const tags = [];
+    if (type) tags.push(type);
+    if (cuisine) tags.push(cuisine);
+    if (diet) tags.push(diet); // Spoonacular accepts "dairy free" as a tag too
+
+    const qs = new URLSearchParams({
+      number: "1",
+      apiKey
+    });
+    if (tags.length) qs.set("tags", tags.join(","));
+
+    const url = `https://api.spoonacular.com/recipes/random?${qs.toString()}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const data = await response.json();
+    const recipes = data.recipes || [];
+    if (recipes.length === 0) {
+      resultsEl.innerHTML = "<p>No random recipe found. Try different filters.</p>";
+      return;
+    }
+
+    // Render single card
+    resultsEl.innerHTML = "";
+    resultsEl.appendChild(card(recipes[0]));
+  } catch (err) {
+    console.error(err);
+    resultsEl.innerHTML = "<p>Couldn’t fetch a random recipe.</p>";
+  }
+}
+
 async function showRecipeDetails(recipeId) {
   try {
     detailsContentEl.innerHTML = "<p>Loading…</p>";
@@ -86,17 +155,14 @@ async function showRecipeDetails(recipeId) {
       ? recipe.extendedIngredients.map((i) => i.original).join(", ")
       : "Not available";
 
-    // Add Close button directly in the card
     detailsContentEl.innerHTML = `
       <button id="close-card-btn" onclick="closeDetails()">✖ Close</button>
       <h2>${recipe.title}</h2>
       <img src="${recipe.image}" alt="${recipe.title}">
-      <p><strong>Cuisine:</strong> ${recipe.cuisines.join(", ") || "N/A"}</p>
-      <p><strong>Meal Type:</strong> ${recipe.dishTypes.join(", ") || "N/A"}</p>
+      <p><strong>Cuisine:</strong> ${recipe.cuisines?.join(", ") || "N/A"}</p>
+      <p><strong>Meal Type:</strong> ${recipe.dishTypes?.join(", ") || "N/A"}</p>
       <p><strong>Ingredients:</strong> ${ingredients}</p>
-      <p><strong>Instructions:</strong> ${
-        recipe.instructions || "No instructions provided."
-      }</p>
+      <p><strong>Instructions:</strong> ${recipe.instructions || "No instructions provided."}</p>
     `;
   } catch (err) {
     console.error(err);
@@ -107,3 +173,8 @@ async function showRecipeDetails(recipeId) {
 function closeDetails() {
   detailsEl.style.display = "none";
 }
+
+// Optional: Enter key to search
+inputEl?.addEventListener("keyup", (e) => {
+  if (e.key === "Enter") searchRecipes();
+});
