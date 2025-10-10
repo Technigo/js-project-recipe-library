@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Recipe library</title>
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+</head>
+
+<body>
+  <h1 class="mainHeading">Recipe Library</h1>
+
+  <section class="filters-sorting">
+
+    <section
+      id="filterSection"
+      class="filter-section"
+    >
+      <label>
+        <h2>Diet</h2>
+        <select
+          name="diet-filter"
+          id="dietFilterDropdown"
+        >
+          <option value="all">All</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="vegan">Vegan</option>
+          <option value="gluten free">Gluten free</option>
+          <option value="dairy free">Dairy free</option>
+        </select>
+      </label>
+
+      <label>
+        <h2>Dish</h2>
+        <select
+          name="dish-filter"
+          id="dishFilterDropdown"
+        >
+          <option value="all">All</option>
+          <option value="starter">Starter</option>
+          <option value="side dish">Side dish</option>
+          <option value="main course">Main course</option>
+          <option value="dessert">Dessert</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="sorting-section">
+      <label>
+        <h2>Cooking time</h2>
+        <select
+          name="cooking-time"
+          id="cookingTimeDropdown"
+          class="sorting-options"
+        >
+          <option
+            selected
+            value=""
+          >---</option>
+          <option value="fastMeals">Ascending</option>
+          <option value="slowMeals">Descending</option>
+        </select>
+      </label>
+
+      <label>
+        <h2>Health score</h2>
+        <select
+          name="health-score"
+          id="healthScoreDropdown"
+          class="sorting-options"
+        >
+          <option
+            selected
+            value=""
+          >---</option>
+          <option value="healthyMeals">Ascending</option>
+          <option value="unHealthyMeals">Descending</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="random-section">
+      <label>
+        <h2>Struggling to decide?</h2>
+        <input
+          type="button"
+          value="Random recipe"
+          id="randomButton"
+          class="random-button"
+        >
+      </label>
+    </section>
+  </section>
+
+  <section class="search-section">
+    <input
+      type="search"
+      id="search"
+      class="search-bar"
+      placeholder="Quick search..."
+      data-search
+    />
+  </section>
+
+  <main class="recipeSection">
+  </main>
+
+  <script
+    type="module"
+    src="script.js"
+  ></script>
+</body>
+
+</html>
