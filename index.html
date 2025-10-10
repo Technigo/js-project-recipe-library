@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+   <!-- <div id="loader">🍽️ Loading Recipe Library...</div> -->
   <main class="recipe-library">
     <h1 class="recipe-header">
      Recipe Library
@@ -16,17 +17,20 @@
     <section class="buttonarea">
       <div class="filter" aria-label="Filter & Sort">
         <div class="group">
-          <h2>Filter on kitchen</h2>
-          <h2>Sort on time</h2>
+          
+          
           <div class="btn-row">
-            <button class="btn" data-filter="all">All</button>
-            <button class="btn" data-filter="italian">Italian</button>
-            <button class="btn" data-filter="american">American</button>
-            <button class="btn" data-filter="asia">Asian</button>
-            <button class="btn" data-filter="belgia">Belgian</button>
+            <h2>Filter on kitchen</h2>
+            <button class="btn" data-cuisine="all">All</button>
+            <button class="btn" data-cuisine="italian">Italian</button>
+            <button class="btn" data-cuisine="american">American</button>
+            <button class="btn" data-cuisine="asia">Asian</button>
+            <button class="btn" data-cuisine="belgia">Belgian</button>
           </div>
             <!-- Sort time / random recipebuttons -->
+            
           <div class="btn-row">
+            <h2>Sort on time</h2>
             <button class="btn-time" data-sort="desc">Descending</button>
             <button class="btn-time" data-sort="asc">Ascending</button>
             <button class="btn-random">Not sure?</button>
@@ -36,162 +40,10 @@
     </section>
 
 
-   <!--Recipe Cards--> 
+   <!-- Recipe Cards --> 
    <section class="recipe-cards" id="recipe-cards">
-      <div class="recipe-grid">
-       <!--    Här är korten med recept
-        <article class="recipe-card" data-cuisine="italian" data-time="25">
-          <img src="assets/img/Burrataboard-med-persika-och-mynta-768x1024.jpg" alt="Burrata">
-          <div class="recipe-card-inventory">
-            <h3 class="recipe-card-title">Burrata Board</h3>
-              <p class="recipe-card-cuisine">Italian</p>
-              <p class="recipe-card-time">25 | mins</p>
-              <h3 class="recipe-card-ingridients">
-              <h4 class="recipe-card-ingredients-list"></h4>
-                <ul class="items">
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                </ul>
-          </div>
-        </article>
-
-       <article class="recipe-card" data-cuisine="italian" data-time="30">
-          <img src="assets/img/Margharita-740429.jpg" alt="Margherita">
-          <div class="recipe-card-inventory">
-            <h3 class="recipe-card-title">Margherita</h3>
-              <p class="recipe-card-cuisine">Italian</p>
-              <p class="recipe-card-time">30 | mins</p>
-              <h3 class="recipe-card-ingridients">
-              <h4 class="recipe-card-ingredients-list"></h4>
-                <ul>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                </ul>
-          </div>
-        </article>
-
-        <article class="recipe-card" data-cuisine="american" data-time="30">
-          <img src="assets/img/cheeseburgers.jpg" alt="Cheeseburger">
-          <div class="recipe-card-inventory">
-            <h3 class="recipe-card-title">Cheeseburger</h3>
-              <p class="recipe-card-cuisine">American</p>
-              <p class="recipe-card-time">25 | mins</p>
-              <h3 class="recipe-card-ingridients">
-              <h4 class="recipe-card-ingredients-list"></h4>
-                <ul>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                </ul>
-          </div>
-        </article>
-
-        <article class="recipe-card" data-cuisine="american" data-time="25">
-          <img src="assets/img/mac_and_cheese_med_panko.jpg" alt="Mac and cheese">
-          <div class="recipe-card-inventory">
-            <h3 class="recipe-card-title">Mac and Cheese</h3>
-              <p class="recipe-card-cuisine">American</p>
-              <p class="recipe-card-time">25 | mins</p>
-              <h3 class="recipe-card-ingridients">
-              <h4 class="recipe-card-ingredients-list"></h4>
-                <ul>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                </ul>
-          </div>
-        </article>
-
-        <article class="recipe-card" data-cuisine="asia" data-time="30">
-          <img src="assets/img/pad_thai_.jpg" alt="">
-          <div class="recipe-card-inventory">
-            <h3 class="recipe-card-title">Pad Thai</h3>
-              <p class="recipe-card-cuisine">Asia</p>
-              <p class="recipe-card-time">30 | mins</p>
-              <h3 class="recipe-card-ingridients">
-              <h4 class="recipe-card-ingredients-list"></h4>
-                <ul>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                </ul>
-          </div>
-        </article>
-
-        <article class="recipe-card" data-cuisine="asia" data-time="40">
-          <img src="assets/img/sushi-california-rolls.jpg.webp" alt="">
-          <div class="recipe-card-inventory">
-            <h3 class="recipe-card-title">California Rolls</h3>
-              <p class="recipe-card-cuisine">Asia</p>
-              <p class="recipe-card-time">40 | mins</p>
-              <h3 class="recipe-card-ingridients">
-              <h4 class="recipe-card-ingredients-list"></h4>
-                <ul>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                </ul>
-          </div>
-        </article>
-
-        <article class="recipe-card" data-cuisine="belgia" data-time="45">
-          <img src="assets/img/moules_frites.jpg" alt="">
-          <div class="recipe-card-inventory">
-            <h3 class="recipe-card-title">Moules Frites</h3>
-              <p class="recipe-card-cuisine">Belgian</p>
-              <p class="recipe-card-time">45 | mins</p>
-              <h3 class="recipe-card-ingridients">
-              <h4 class="recipe-card-ingredients-list"></h4>
-                <ul>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                </ul>
-          </div>
-        </article>
-
-        <article class="recipe-card" data-cuisine="belgia" data-time="20">
-          <img src="assets/img/belgiska_vafflor.jpg" alt="belgian waffles">
-          <div class="recipe-card-inventory">
-            <h3 class="recipe-card-title">Belgian waffles</h3>
-              <p class="recipe-card-cuisine">Belgian</p>
-              <p class="recipe-card-time">20 | mins</p>
-              <h3 class="recipe-card-ingridients">
-              <h4 class="recipe-card-ingredients-list"></h4>
-                <ul>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                  <li>Ingredients</li>
-                </ul>
-          </div>
-        </article>
-      </div> -->
+      <div 
+        class="recipe-grid">
       </div> 
     </section>  
     <script src="index.js"></script>

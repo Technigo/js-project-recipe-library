@@ -1,241 +1,183 @@
-// MINA ARRAYS / CARDS
-const recipes = [
-  {
-    title: "Burrata Board",
-    cuisine: "Italian",
-    time: 25,
-    image: "assets/img/Burrataboard-med-persika-och-mynta-768x1024.jpg",
-    alt: "Burrata with peach and mint",
-    ingredients: [
-      "Burrata", 
-      "Persika", 
-      "Färsk mynta", 
-      "Olivolja", 
-      "Flingsalt", 
-      "Svartpeppar", 
-      "Rostad baguette"
-    ]
-  },
-  {
-    title: "Margherita",
-    cuisine: "Italian",
-    time: 30,
-    image: "assets/img/Margharita-740429.jpg",
-    alt: "Pizza Margherita",
-    ingredients: [
-      "Pizzadeg", 
-      "Krossade tomater", 
-      "Mozzarella", 
-      "Färsk basilika", 
-      "Olivolja", 
-      "Salt"
-    ]
-  },
-  {
-    title: "Cheeseburger",
-    cuisine: "American",
-    time: 25,
-    image: "assets/img/cheeseburgers.jpg",
-    alt: "Cheeseburger",
-    ingredients: [
-      "Nötfärs", 
-      "Hamburgerbröd", 
-      "Cheddar", "Salt & peppar", 
-      "Lök", "Tomat", "Sallad", 
-      "Pickles", 
-      "Ketchup & senap"
-    ]
-  },
-  {
-    title: "Mac and Cheese",
-    cuisine: "American",
-    time: 25,
-    image: "assets/img/mac_and_cheese_med_panko.jpg",
-    alt: "Mac and cheese",
-    ingredients: [
-      "Makaroner", 
-      "Smör", 
-      "Mjöl", 
-      "Mjölk", 
-      "Cheddar", 
-      "Panko", 
-      "Salt", 
-      "Peppar"
-    ]
-  },
-  {
-    title: "Pad Thai",
-    cuisine: "Asian",
-    time: 30,
-    image: "assets/img/pad_thai_.jpg",
-    alt: "Pad Thai",
-    ingredients: [
-      "Rispasta", 
-      "Ägg", 
-      "Tofu/kyckling", 
-      "Böngroddar", 
-      "Jordnötter", 
-      "Lime",
-      "Tamarind",
-      "Fisk-/sojasås", 
-      "Socker"
-    ]
-  },
-  {
-    title: "California Rolls",
-    cuisine: "Asian",
-    time: 40,
-    image: "assets/img/sushi-california-rolls.jpg.webp",
-    alt: "California rolls",
-    ingredients: [
-      "Sushiris", 
-      "Nori", 
-      "Krabbsticks", 
-      "Avokado", 
-      "Gurka", 
-      "Majonnäs", 
-      "Sesamfrön", 
-      "Risvinäger"
-    ]
-  },
-  {
-    title: "Moules Frites",
-    cuisine: "Belgian",
-    time: 45,
-    image: "assets/img/moules_frites.jpg",
-    alt: "Mussels with fries",
-    ingredients: [
-      "Musslor", 
-      "Schalottenlök", 
-      "Vitlök", 
-      "Vitt vin", 
-      "Grädde", 
-      "Persilja", 
-      "Pommes frites"
-    ]
-  },
-  {
-    title: "Belgian Waffles",
-    cuisine: "Belgian",
-    time: 20,
-    image: "assets/img/belgiska_vafflor.jpg",
-    alt: "Belgian waffles",
-    ingredients: [
-      "Vetemjöl", 
-      "Ägg", 
-      "Mjölk", 
-      "Smör", 
-      "Socker", 
-      "Bakpulver", 
-      "Vanilj", 
-      "Nypa salt"
-    ]
+ /*Global variables
+  URLEN 
+*/
+const API_KEY = "f07978112d8d44b597e5e071796142fb";
+const BASE = "https://api.spoonacular.com/recipes/complexSearch";
+
+/* Mappning av egna knappvärden -> Spoonacular */
+function mapCuisine(value){
+  const v = String(value).toLowerCase().trim();
+  const map = {
+    all: 'all',
+    italian: 'italian',
+    american: 'american',
+    asia: 'asian',
+    belgia: 'belgian'
+  };
+  return map[v] ?? 'all';
+}
+
+/* Bygg URL enligt state */
+function buildUrl({ cuisine = 'all', sortDir = 'asc', number = 14 } = {}) {
+  const params = new URLSearchParams({
+  apiKey: API_KEY,
+  number: String(number),
+  addRecipeInformation: "true",
+  instructionsRequired: "true",
+  sort: "readyInMinutes",
+  sortDirection: sortDir, 
+  });
+  const c = mapCuisine(cuisine);
+  if (c !== 'all') params.set('cuisine', c);
+  return `${BASE}?${params.toString()}`;
+}
+
+/* 
+  STATE 
+  Variabler som berättar vad användaren har valt (kök och sortering) och vilka recept som senast hämtats.
+  När du klickar på knapparna uppdateras dessa värden – och vi hämtar nya recept.
+*/
+let currentCuisine = 'all';
+let currentSortDir = 'asc';
+let currentRecipes = [];
+
+/* 
+  DOM 
+  grid: containern där korten ska skrivas ut
+  filterBtns: alla knappar som filtrerar på kök
+  sortBtns: knappar som sätter upp/ner på tid
+  randomBtn: knappen som visar ett slumpat recept
+*/
+const grid = document.querySelector('.recipe-grid');
+const filterBtns = document.querySelectorAll('.btn[data-cuisine]');
+const sortBtns   = document.querySelectorAll('.btn-time[data-sort]');
+const randomBtn  = document.querySelector('.btn-random');
+
+/* 
+  HÄMTA & RENDERA 
+    Bygger en URL baserat på nuvarande state (kök + sortering).
+    fetch(url) anropar API:et och väntar på ett svar.
+    Om det går bra: data.results läggs i currentRecipes och skickas till renderRecipes.
+    Om det går dåligt: vi visar ett enkelt felmeddelande i grid.
+*/
+async function fetchRecipes() {
+  try {
+    const url = buildUrl({ cuisine: currentCuisine, sortDir: currentSortDir, number: 14 });
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    currentRecipes = data.results || [];
+    renderRecipes(currentRecipes);
+  } catch (e) {
+    console.error(e);
+    grid.innerHTML = `
+      <article class="recipe-card" style="grid-column:1/-1">
+        <h3>Oh, something went wrong.</h3>
+        <p>Kunde inte hämta recept just nu.</p>
+      </article>`;
   }
-]
-
-// ===== 2) Hitta container att rita i =====
-const container =
-  document.querySelector('.recipe-grid') ||
-  document.getElementById('recipe-cards');
-
-// ===== 3) Små hjälpfunktioner =====
-function normCuisine(s) {
-  // Normalisera till gemener, ta bort mellanslag och mappa varianter
-  const k = String(s).toLowerCase().replace(/\s+/g,'');
-  if (k === 'asia') return 'asian';
-  if (k === 'belgia') return 'belgian';
-  return k; // italian, american, asian, belgian
-}
-function displayCuisine(s) {
-  // Visa snyggt (för text i kortet)
-  const k = normCuisine(s);
-  return k.charAt(0).toUpperCase() + k.slice(1);
 }
 
-// ===== 4) Rendera kort =====
-function render(list) {
-  if (!container) return;
-  container.innerHTML = (list || []).map(recipe => {
-    const cuisineKey = normCuisine(recipe.cuisine);
-    return `
-      <article class="recipe-card" data-cuisine="${cuisineKey}" data-time="${recipe.time}">
-        <img src="${recipe.image}" alt="${recipe.alt}">
-        <div class="recipe-card-inventory">
-          <h3 class="recipe-card-title">${recipe.title}</h3>
-          <p class="recipe-card-cuisine">${displayCuisine(recipe.cuisine)}</p>
-          <p class="recipe-card-time">${recipe.time} | mins</p>
-          <h3 class="recipe-card-ingredients">Ingredients</h3>
-          <h4 class="recipe-card-ingredients-list"></h4>
-          <ul class="items">
-            ${recipe.ingredients.map(item => `<li>${item}</li>`).join('')}
-          </ul>
-        </div>
-      </article>
-    `;
-  }).join('');
-
-  // Tom-state om inget hittades
+/* 
+  Rendera listan
+    Om listan är tom -> visa “Inga recept hittades”.
+    Annars: skapa HTML för varje recept med recipeCardHTML() och stoppa in i grid.
+*/
+function renderRecipes(list) {
+  if (!grid) return;
   if (!list || list.length === 0) {
-    container.innerHTML = `<p class="empty">Inga recept hittades.</p>`;
+    grid.innerHTML = `<p class="empty" style="grid-column:1/-1">Inga recept hittades.</p>`;
+    return;
   }
+  grid.innerHTML = list.map(r => recipeCardHTML(r)).join('');
 }
 
-// ===== 5) Filtrering + sortering =====
-let currentFilter = 'all';   // 'all' eller en cuisine
-let currentSort   = null;    // null | 'asc' | 'desc'
+/* 
+  SKAPAR ETT RECEPTKORT
+    Väljer “säkra” fallback-värden om något saknas (t.ex. titel/bild/tid).
+    summary rensas från HTML och kortas till 160 tecken.
+    Bilden har onerror="this.style.display='none'" → om bilden är trasig försvinner <img> så layouten ser bra ut.
+    Länk till receptets sida på Spoonacular byggs via titel-slug + id
+*/
+function recipeCardHTML(r) {
+  const title = r.title ?? 'Untitled';
+  const img = r.image ?? '';
+  const time = r.time
+  const minutes = Number.isFinite(r.readyInMinutes) ? r.readyInMinutes : null;
+  const cuisines = (Array.isArray(r.cuisines) && r.cuisines.length) ? r.cuisines.join(', ') :
+                   (currentCuisine === 'all' ? '—' : cap(mapCuisine(currentCuisine)));
+  // const ingredients = 
+  const summary = stripHtml(r.summary || '').slice(0, 160) + (r.summary && r.summary.length > 160 ? '…' : ''); 
 
-function getFilteredSorted() {
-  const key = normCuisine(currentFilter);
-  let list = (key === 'all')
-    ? recipes
-    : recipes.filter(r => normCuisine(r.cuisine) === key);
-
-  if (currentSort === 'asc')  list = [...list].sort((a,b) => a.time - b.time);
-  if (currentSort === 'desc') list = [...list].sort((a,b) => b.time - a.time);
-
-  return list;
+  return `
+    <article class="recipe-card" tabindex="0">
+      <img src="${img}" alt="${esc(title)}" loading="lazy" onerror="this.style.display='none'">
+      <h3 class="recipe-card-title">${esc(title)}</h3>
+      <p class="recipe-card-cuisine">${esc(cuisines)}</p>
+      <p class="recipe-card-time">${minutes ? `Time | ${minutes} mins` : 'Time | —'}</p>
+      ${summary ? `<p class="recipe-card-desc">${esc(summary)}</p>` : ''}
+      <a class="btn-more" href="https://spoonacular.com/recipes/${slug(title)}-${r.id}" target="_blank" rel="noopener">Open recipe</a>
+    </article>
+  `;
 }
 
-function updateView() {
-  render(getFilteredSorted());
+/* 
+  HJÄLPARE 
+    stripHtml: tar bort HTML-taggar från en text (för att undvika konstigt innehåll i summary).
+    esc: “escapar” text så att specialtecken inte bryter HTML.
+    slug: gör “fina” URL-vänliga strängar (för länken).
+    cap: stor bokstav i början (för att visa “Asian” i stället för “asian”).
+*/
+function stripHtml(html){
+  const el = document.createElement('div');
+  el.innerHTML = html || '';
+  return el.textContent || el.innerText || '';
 }
+function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])); }
+function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+function cap(s){ return String(s).charAt(0).toUpperCase() + String(s).slice(1); }
 
-// ===== 6) Knappar: filter, sort, random =====
-const filterBtns = document.querySelectorAll('.btn[data-filter]');
+/* 
+  INTERAKTION 
+    Filterknappar: uppdaterar currentCuisine och hämtar nya recept utifrån det valet.
+    Sortknappar: ändrar currentSortDir (asc/desc) och hämtar igen.
+    Random: tar ett slumpat recept från senaste hämtningen och renderar bara det kortet.
+*/
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
-    currentFilter = btn.dataset.filter; // tex 'all', 'italian', 'american', 'asia', 'belgia'
-    // Markera aktiv knapp (valfritt, kräver CSS .active)
-    filterBtns.forEach(b => b.classList.toggle('active', b === btn));
-    updateView();
+    currentCuisine = btn.dataset.cuisine || 'all';
+    setActive(filterBtns, btn);
+    fetchRecipes();
   });
 });
 
-//Här har vi sorteringsknapparna ascending / descending.
-const sortBtns = document.querySelectorAll('.btn-time[data-sort]');
 sortBtns.forEach(btn => {
   btn.addEventListener('click', () => {
-    currentSort = btn.dataset.sort; // 'asc' eller 'desc'
-    sortBtns.forEach(b => b.classList.toggle('active', b === btn));
-    updateView();
+    currentSortDir = (btn.dataset.sort === 'desc') ? 'desc' : 'asc';
+    setActive(sortBtns, btn);
+    fetchRecipes();
   });
 });
 
-// random button
-const randomBtn = document.querySelector('.btn-random');
-if (randomBtn) {
-  randomBtn.addEventListener('click', () => {
-    const list = getFilteredSorted();
-    if (!list.length) return;
-    const pick = list[Math.floor(Math.random() * list.length)];
-    render([pick]);
-  });
+randomBtn?.addEventListener('click', () => {
+  if (!currentRecipes.length) return;
+  const rand = currentRecipes[Math.floor(Math.random() * currentRecipes.length)];
+  renderRecipes([rand]);
+});
+
+/* visuellt aktiv */
+function setActive(nodeList, activeEl){
+  nodeList.forEach(b => b.classList.remove('active'));
+  activeEl.classList.add('active');
 }
 
-// ===== 7) Första render =====
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', updateView, { once: true });
-} else {
-  updateView();
-}
-
+/* 
+  INIT 
+    Sätter visuellt “All” + “Ascending” som startval.
+    Kör fetchRecipes() direkt så sidan fylls med recept när den laddas.
+*/
+(function init(){
+  document.querySelector('.btn[data-cuisine="all"]')?.classList.add('active');
+  document.querySelector('.btn-time[data-sort="asc"]')?.classList.add('active');
+  fetchRecipes();
+})();

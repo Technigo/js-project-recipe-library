@@ -1,4 +1,4 @@
-:root {
+ :root {
   --bg: #FAFBFF;
   --h1: #0018A4;
   --h2: black;
@@ -26,11 +26,9 @@
     /* Layout */
   --container-max: 1200px;
   --page-pad: 16px;
-
- 
 }
 
-* {
+ * {
   box-sizing: border-box;
 }
 
@@ -41,38 +39,44 @@ body {
   padding: 0;
 }
 
+
 h1 {
   color: var(--h1);
   font-size: 65px;
   font-weight: bold;
-  margin: 50px 0;
+  /* margin: 50px 0; */
+  margin: 40px 0 24px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
+.recipe-header {
+  display: grid; 
+  place-items: center;
+} 
 
 /*buttonarea och filter 1*/
 .buttonarea, .filter{
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-gap: var(--block-gap);
-width: var(--group-width);
-height: var(--group-height);
-box-sizing: border-box;
-padding-left: max(clamp(12px, 6vw, 20px), env(safe-area-inset-left));
-padding-right: max(clamp(12px, 6vw, 20px), env(safe-area-inset-right));
-/* overflow: hidden; */
+  display: block;                         /* block på mobil */
+  width: 100%;                            /* släpp var(--group-width) */
+  /* height: auto;  <-- implicit */
+  box-sizing: border-box;
+  padding-left: max(clamp(12px, 6vw, 20px), env(safe-area-inset-left));
+  padding-right: max(clamp(12px, 6vw, 20px), env(safe-area-inset-right));
+
 }
 
 .group{ 
- height: 100%;
   display: grid; 
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;             /* 1 kolumn på mobil */
   grid-template-areas:
-    "head-left head-right"
-    "buttons   buttons";
-  column-gap: 24px;
-  row-gap: 24px; 
-  gap: 10px; 
-}
+    "head-left"
+    "head-right"
+    "buttons";
+  gap: 16px;
+  margin: 0 auto;
+  max-width: var(--container-max);  
+} 
 
 .group h2{ 
   margin: 0; 
@@ -80,17 +84,13 @@ padding-right: max(clamp(12px, 6vw, 20px), env(safe-area-inset-right));
 
 .group h2:first-of-type{
   grid-area: head-left;
-  margin: 0;
 }
 .group h2:nth-of-type(2){
-  grid-area: head-right;
-  margin: 0;
-  text-align: left;
+  grid-area: head-right; text-align: left;
 }
 
 .btn, .btn-time, .btn-random{
   font-family: 'sans-serif';
-  background-color: var(--button1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -98,13 +98,14 @@ padding-right: max(clamp(12px, 6vw, 20px), env(safe-area-inset-right));
   height: var(--btn-height);
   font-size: var(--btn-font);
   padding: 0 18px;
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   border: 2px solid transparent;
-  font-weight: 600;
+  font-weight: var(--btn-font-weight);
   white-space: nowrap;
   margin: 0;
   cursor: pointer;
-  font-weight: var(--btn-font-weight);
+  /* gör att de bryter rad snyggt på mobil */
+  flex: 0 1 150px;    
 }
 
 .btn { 
@@ -122,29 +123,26 @@ padding-right: max(clamp(12px, 6vw, 20px), env(safe-area-inset-right));
 .btn:active, .btn-time:active, .btn-random:active{ 
   transform: translateY(1px); 
   border-color: var(--h1);
-}
+} 
 
-.button-row {
+ .button-row {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: center;   /* centrera rader i mobil */
-}
+  justify-content: center;   /*centrera rader i mobil */
+} 
 
-  /* Fyll ut rad på mobil men behåll min-bredd */
+/* Fyll ut rad på mobil men behåll min-bredd */
 .button-row .btn,
 .button-row .btn-time,
 .button-row .btn-random {
   flex: 0 1 150px;          /* väx, krymp, min 140px */
-}
-/*buttonarea och filter 1*/
+} 
 
 /*recipe and cards*/
-
 .recipe-grid, .recipe-card-placeholder{
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-
   gap: 24px;
 }
 
@@ -152,13 +150,12 @@ padding-right: max(clamp(12px, 6vw, 20px), env(safe-area-inset-right));
   display: block;
   border: 2px solid transparent;
   border-radius: var(--recipe-radius);
-  height: var(--recipe-height);
-  max-width: var(--recipe-width);
-  gap: 24px;
   width: 100%;
-  margin-top: 40px;
   padding: 16px 16px 24px 16px;
   overflow: hidden;
+  background: #fff;
+  box-shadow: 0 1px 4px var(--recipe-shadow);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
 }
 
 .recipe-card:hover {
@@ -169,10 +166,11 @@ padding-right: max(clamp(12px, 6vw, 20px), env(safe-area-inset-right));
 
 .recipe-card img{
   width: 100%;
-  height: 200px;
+  aspect-ratio: 16 / 10;                  /* konsekvent bildhöjd */
   object-fit: cover;
   display: block;
   margin: 0;
+  border-radius: calc(var(--recipe-radius) - 2px);
 }
 
 .recipe-card h3{
@@ -186,76 +184,100 @@ padding-right: max(clamp(12px, 6vw, 20px), env(safe-area-inset-right));
 .recipe-card p{
   margin: 0 12px 12px;
   color: #6F6F6F;
-  font-size: var();
-}
+  font-size: 1em;
+  line-height: 1.5;
+} 
 
+/* 1) Allra minsta mobiler (≤ 399px) */
+@media (max-width: 399px) {
+  /* Mindre sidomarginaler */
+  .buttonarea, .filter {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
 
-@media (prefers-reduced-motion: reduce){
-  .recipe-card{ transition: border-color .18s ease; }
-  .recipe-card:hover,
-  .recipe-card:focus-visible{ transform: none; box-shadow: none; }
-}
+  /* Rubrik: mindre & tightare marginaler */
+  h1 {
+    font-size: 34px;            /* var 65px – för stort på 320px-bredd */
+    margin: 24px 0 16px;
+    text-align: center;
+  }
 
-/* ≥480px: allow 1 columns */
-@media (min-width: 350px) {
-  .recipe-grid, .recipe-card-placeholder{
-    grid-template-columns: repeat(1, 1fr);
-    gap: 18px;
+  /* Grid: 1 kolumn, lite mindre gap och full bredd */
+  .recipe-grid,
+  .recipe-card-placeholder{
+    grid-template-columns: 1fr;
+    gap: 16px;
+    width: 100%;
+    margin: 16px auto 24px;
+    padding: 0 12px;            /* trygg inner-padding på mobil */
+  }
+
+  /* Kort: mindre padding, inga hårda höjder (du har redan tagit bort height) */
+  .recipe-card {
+    padding: 12px;
+    box-shadow: 0 1px 4px var(--recipe-shadow);
+  }
+  .recipe-card img{
+    aspect-ratio: 16 / 10;      /* jämn bildhöjd */
+    object-fit: cover;
+  }
+  .recipe-card h3{
+    font-size: 15px;
+    margin: 8px 4px 4px;
+  }
+  .recipe-card p{
+    margin: 0 4px 10px;
+    font-size: 1em;             /* fixar din tidigare var(); */
+    line-height: 1.45;
+  }
+
+  /* Knapprader: en knapp per rad på minsta mobiler */
+  .button-row {
+    gap: 8px;
+    justify-content: stretch;
+  }
+  .button-row .btn,
+  .button-row .btn-time,
+  .button-row .btn-random {
+    flex: 1 1 100%;             /* full bredd radvis */
+    min-height: 44px;
+    font-size: 16px;
   }
 }
 
-/* ≥768px: tablet layout improvements */
-@media (min-width: 768px) {
-  .group{ 
-    grid-template-columns: 2fr 1fr;
-    grid-template-areas:
-      "head-left head-right";
-  }
-
-  .recipe-grid, .recipe-card-placeholder{
-    grid-template-columns: repeat(3, 1fr);
+/* 2) Små/mellanmobiler (400–639px): två knappar i rad, 1 kolumn grid */
+@media (min-width: 400px) and (max-width: 639px) {
+  .recipe-grid,
+  .recipe-card-placeholder{
+    grid-template-columns: 1fr; /* håll 1 kolumn här också */
     gap: 20px;
+    width: 100%;
+    padding: 0 16px;
   }
-
-  h1 { margin: 40px 0; }
-
-  .group {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "head-left head-right"
-      "buttons   buttons";
-    row-gap: 16px;
-  }
-}
-
-/* ≥1024px: desktop */
-@media (min-width: 1024px) {
-  .recipe-grid, .recipe-card-placeholder{
-    grid-template-columns: repeat(5, 1fr);
-    gap: 22px;
-  }
-
-  .buttonarea, .filter{
-    align-items: flex-start;
-  }
-
-  .recipe-card { margin-top: 24px; }
 
   .button-row .btn,
   .button-row .btn-time,
   .button-row .btn-random {
-    flex: 0 0 auto;
+    flex: 1 1 calc(50% - 8px);  /* två knappar per rad */
   }
-  .button-row { gap: 14px; }
 }
 
-
-/* ≥1280px: wide screens (near your original 7 cols) */
-@media (min-width: 1280px) {
-  .recipe-grid, .recipe-card-placeholder{
-    grid-template-columns: repeat(7, 1fr);
-    gap: 24px;
+/* 3 small tablets */
+@media (min-width: 640px){        
+  .group{
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "head-left head-right"
+      "buttons   buttons";
   }
+  .recipe-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
 
-  h1 { margin: 50px 0; }
+@media (min-width: 960px){        /* laptop */
+  .recipe-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+
+@media (min-width: 1280px){       /* desktop */
+  .recipe-grid{ grid-template-columns: repeat(4, minmax(0,1fr)); }
 }
