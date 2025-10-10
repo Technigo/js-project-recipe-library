@@ -4,6 +4,7 @@ const recipesEl = document.getElementById("recipes"); // points to the <main id=
 const msgEl = document.getElementById("msg"); // element used for messages (like “Loading…”
 const pills = document.querySelectorAll(".pill"); // selects all filter and sort buttons with the class pill.
 const randomBtn = document.getElementById("random-btn"); // button for random recipe
+
 // Setting up the API, spoonacular API
 const API_KEY = "2065aff4499d4fe29bdfbad342732432"
 const BASE_URL = "https://api.spoonacular.com/recipes/complexSearch"; // the main address for the API where tofetch recipes from.
@@ -25,7 +26,7 @@ const fetchData = () => {
 
   // Build dynamic query string based on selected filters
   const params = new URLSearchParams({ //this is to help to build the query string (everything after the ? in a URL).
-    number: 12, // number of recipes to fetch
+    number: 10, // number of recipes to fetch
     addRecipeInformation: true, // include detailed recipe details
     apiKey: API_KEY, //required to use API 
   });
