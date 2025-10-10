@@ -1,0 +1,229 @@
+:root {
+  --primary-color: #fafdff;
+  --secondary-color: #d4b126;
+  --header-height: 70px;
+  --search-height: 50px;
+  --border-color: #d0cccc;
+}
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
+  height: 100vh;
+  width: 100vw;
+  font-family: Arial, sans-serif;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* TITLE */
+h1 {
+  margin-top: 20px;
+  color: #333;
+  font-size: 2rem;
+}
+
+/* SEARCH FORM */
+#search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: var(--search-height);
+  margin: 20px 0;
+}
+
+#ingredient-input {
+  padding: 8px 10px;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  outline: none;
+  width: 60%;
+  transition: all 0.3s ease-in-out;
+}
+
+#ingredient-input:focus {
+  border-color: var(--secondary-color);
+  width: 62%;
+}
+
+#search-button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 4px;
+  background-color: var(--secondary-color);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+#search-button:hover {
+  background-color: #b5971f;
+}
+
+/* RESULTS AREA */
+#results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+/* INDIVIDUAL RECIPE CARD */
+.recipe-item {
+  width: 280px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: #fff;
+  transition: all 0.2s ease-in-out;
+}
+
+.recipe-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.recipe-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.recipe-item h3 {
+  font-size: 1.1rem;
+  padding: 10px;
+  text-align: center;
+  color: #333;
+}
+
+.recipe-item a {
+  display: block;
+  text-align: center;
+  padding: 8px;
+  background-color: var(--secondary-color);
+  color: white;
+  text-decoration: none;
+  border-top: 1px solid var(--border-color);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.recipe-item a:hover {
+  background-color: #b5971f;
+}
+
+/* RECIPE DETAILS MODAL */
+#recipe-details {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#recipe-content {
+  background: #fff;
+  padding: 20px;
+  width: 90%;
+  max-width: 700px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+#recipe-content img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+#statusbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+#close-button {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+#close-button:hover {
+  color: #b5971f;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  #ingredient-input {
+    width: 70%;
+  }
+
+  .recipe-item {
+    width: 90%;
+  }
+
+  #recipe-content {
+    width: 95%;
+  }
+}
+
+
+/* Close button inside recipe card */
+#close-card-btn {
+  display: inline-block;
+  background-color: var(--secondary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+#close-card-btn:hover {
+  background-color: #b5971f;
+}
+
+
+/* Dropdown styling */
+#meal-type,
+#country-select {
+  padding: 8px 10px;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  background-color: #fff;
+  transition: border-color 0.3s ease-in-out;
+}
+
+#meal-type:hover,
+#country-select:hover {
+  border-color: var(--secondary-color);
+}

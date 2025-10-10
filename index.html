@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+  <title>Recipe Finder</title>
+</head>
+<body>
+  <h1>Recipe Finder</h1>
+
+  <div id="search-form">
+    <input type="text" id="ingredient-input" placeholder="Enter an ingredient" />
+
+    <!-- Meal Type Dropdown -->
+    <select id="meal-type">
+      <option value="">Any meal type</option>
+      <option value="breakfast">Breakfast</option>
+      <option value="main course">Main Course</option>
+      <option value="dessert">Dessert</option>
+      <option value="salad">Salad</option>
+      <option value="snack">Snack</option>
+      <option value="soup">Soup</option>
+      <option value="beverage">Beverage</option>
+    </select>
+
+    <!-- Country / Cuisine Dropdown -->
+    <select id="country-select">
+      <option value="">Any cuisine</option>
+      <option value="african">African</option>
+      <option value="american">American</option>
+      <option value="british">British</option>
+      <option value="chinese">Chinese</option>
+      <option value="french">French</option>
+      <option value="greek">Greek</option>
+      <option value="indian">Indian</option>
+      <option value="italian">Italian</option>
+      <option value="japanese">Japanese</option>
+      <option value="mexican">Mexican</option>
+      <option value="middle eastern">Middle Eastern</option>
+      <option value="spanish">Spanish</option>
+      <option value="swedish">Swedish</option>
+      <option value="thai">Thai</option>
+    </select>
+
+    <button id="search-button" onclick="searchRecipes()">Search</button>
+  </div>
+
+  <div id="results"></div>
+
+  <!-- Modal for recipe details -->
+  <div id="recipe-details" style="display:none">
+    <div id="recipe-content"></div>
+  </div>
+</body>
+</html>
