@@ -1,0 +1,280 @@
+:root {
+  --primary-color: #fafdff;
+  --secondary-color: #d4b126;
+  --header-height: 70px;
+  --search-height: 50px;
+  --border-color: #d0cccc;
+}
+
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* Utility: visually hidden but screen-reader readable */
+.sr-only {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap; border: 0; padding: 0; margin: -1px;
+}
+
+/* BODY */
+body {
+  min-height: 100vh;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* TITLE */
+h1 {
+  margin-top: 20px;
+  color: #333;
+  font-size: 2rem;
+  text-align: center;
+}
+
+/* SEARCH FORM (desktop/tablet defaults) */
+#search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  /* Let it grow so dropdowns can open and layout can adapt */
+  height: auto;                     /* was fixed before */
+  min-height: var(--search-height); /* preserves desktop feel */
+  margin: 20px 0;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 5;                       /* keep dropdowns above results */
+  padding: 0 10px;
+}
+
+#ingredient-input,
+#meal-type,
+#country-select,
+#diet-select,
+#sort-select {
+  padding: 8px 10px;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  outline: none;
+  background-color: #fff;
+  transition: border-color 0.3s ease-in-out;
+}
+
+#ingredient-input {
+  width: 60%;
+  transition: border-color 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+#ingredient-input:focus,
+#meal-type:focus,
+#country-select:focus,
+#diet-select:focus,
+#sort-select:focus {
+  border-color: var(--secondary-color);
+}
+
+/* BUTTONS (original palette) */
+#search-button,
+#random-button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out, opacity 0.15s ease-in-out;
+}
+
+#search-button {
+  background-color: var(--secondary-color);
+  color: #fafdff;
+  border: none;
+}
+
+#search-button:hover { background-color: #b5971f; }
+
+#random-button {
+  background-color: transparent;
+  border: 1px solid var(--secondary-color);
+  color: #333;
+}
+
+#random-button:hover { background-color: var(--secondary-color); color: #fff; }
+
+/* RESULTS AREA */
+#results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  position: relative; /* stays below the form */
+  z-index: 1;
+}
+
+/* RECIPE CARD */
+.recipe-item {
+  width: 280px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: #fff;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.recipe-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.recipe-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.recipe-item h3 {
+  font-size: 1.1rem;
+  padding: 10px;
+  text-align: center;
+  color: #333;
+}
+
+.recipe-item a {
+  display: block;
+  text-align: center;
+  padding: 8px;
+  background-color: var(--secondary-color);
+  color: white;
+  text-decoration: none;
+  border-top: 1px solid var(--border-color);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.recipe-item a:hover { background-color: #b5971f; }
+
+/* RECIPE DETAILS MODAL */
+#recipe-details {
+  position: fixed;
+  inset: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none; /* toggled to flex in JS */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 10px;
+}
+
+#recipe-content {
+  background: #fff;
+  padding: 20px;
+  width: 90%;
+  max-width: 700px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+#recipe-content img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Close button inside details */
+#close-card-btn {
+  display: inline-block;
+  background-color: var(--secondary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+#close-card-btn:hover { background-color: #b5971f; }
+
+/* -------------------------
+   RESPONSIVE BREAKPOINTS
+   ------------------------- */
+
+/* Tablets / medium screens */
+@media (max-width: 900px) {
+  #ingredient-input { width: 70%; }
+  .recipe-item { width: 45%; }
+  #recipe-content { width: 95%; }
+}
+
+/* Phones — unified two-row block for input + dropdowns; buttons below */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+  }
+
+  /* Unified grid block: input (full), two rows of dropdowns, then buttons */
+  #search-form {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 8px;
+    width: 95%;
+    max-width: 600px;
+    padding: 10px;
+
+    background: var(--primary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+
+    height: auto !important; /* crucial so dropdown lists can open */
+  }
+
+  #ingredient-input,
+  #meal-type,
+  #country-select,
+  #diet-select,
+  #sort-select {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: #fff;
+  }
+
+  /* Layout rows */
+  #ingredient-input { grid-column: 1 / 3; } /* full width row 1 */
+  #meal-type       { grid-column: 1; }      /* row 2 left  */
+  #country-select  { grid-column: 2; }      /* row 2 right */
+  #diet-select     { grid-column: 1; }      /* row 3 left  */
+  #sort-select     { grid-column: 2; }      /* row 3 right */
+
+  /* Buttons in their own rows (clear & thumb-friendly) */
+  #search-button,
+  #random-button {
+    grid-column: 1 / 3;
+    font-size: 0.95rem;
+    padding: 10px;
+    height: 42px;
+    border-radius: 6px;
+  }
+
+  #results { padding: 10px; }
+  .recipe-item { width: 100%; }
+  #recipe-content { width: 100%; max-height: 85vh; }
+}
