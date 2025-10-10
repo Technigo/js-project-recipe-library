@@ -20,3 +20,6 @@ Week 3
  Display dynamic recipe cards based on the API data
  Adapt filtering & sorting to match the API response format
  Show a useful message to the user in case the daily quota has been reached
+
+ The goal was to practice working with arrays, objects, and functions in JavaScript and to fetch and display real data from an external API
+ Styled by using CSS variables for what I call Technigo colors (blue, pink, and aqua) to make it look as much as the Figma demo. 
