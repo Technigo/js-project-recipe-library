@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Library</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <div class="top-container">
+    <input 
+    class="search-button" 
+    id="search-button" 
+    type="search" 
+    placeholder="🔍 Search...">
+    <button 
+    class="favorite-button btn" 
+    id="favorite-button">
+      My favorite recipes 
+      <i 
+      class="fas fa-heart"
+      id="favorite-button-heart">
+      </i>
+    </button>
+  </div>
+  <h1 class="title">Recipe Library</h1>
+  <div class="controls-container">
+    <div class="filter-container">
+        <h2>Filter on kitchen</h2>
+        <div class="filter-buttons-container">
+          <button 
+          class="btn active" 
+          id="filter-all-button">
+            All
+          </button>
+          <button class="btn">African</button>
+          <button class="btn">American</button>
+          <button class="btn">Asian</button>
+          <button class="btn">Italian</button>
+          <button class="btn">Mediterranean</button>
+          <button class="btn">Mexican</button>
+          <button class="btn">Indian</button>
+        </div>
+    </div>
+    <div class="sort-random-container">
+      <div class="sort-container">
+        <h2>Sort on cooking time</h2>
+        <div class="sort-buttons-container">
+          <button class="btn">Descending</button>
+          <button class="btn">Ascending</button>
+        </div>
+      </div>
+      <div class="random-container">
+        <h2>Can't decide?</h2>
+        <div class="random-button-container">
+          <button 
+          class="btn" 
+          id="random-button">
+            Get me a random recipe!
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div 
+  class="modal-overlay hidden" 
+  id="modal-overlay">
+    <img 
+    class="cross-icon" 
+    id="cross-icon" 
+    src="./cross-white.svg" 
+    alt="cross icon">
+    <div 
+    class="modal" 
+    id="modal-popup">
+        <div 
+        class="modal-content" 
+        id="modal-content">
+        </div>
+    </div>
+  </div>
+  <div 
+  class="card-container" 
+  id="card-container">
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>

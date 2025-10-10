@@ -1,0 +1,339 @@
+body {
+  box-sizing: border-box;
+  font-family: "Futura", sans-serif;
+  margin: 15px 30px 70px;
+  background-color: #FAFBFF;
+}
+
+.hidden {
+  display: none !important;
+  /* marking it important to make classList toggle in JS to work */
+}
+
+.top-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.favorite-button {
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
+.search-button {
+  padding: 8px 16px;
+  border: none;
+  border-bottom: 1px solid rgb(171, 171, 171);
+}
+
+.favorite-button .fas.fa-heart {
+  color: #FF6589;
+}
+
+.favorite-button.active {
+  background-color: #0018A4;
+  color: white;
+}
+
+.title {
+  color: #0018A4;
+  font-weight: 700;
+  font-style: bold;
+  font-size: 64px;
+  margin-bottom: 52px 0;
+}
+
+.controls-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 62px;
+}
+
+.sort-random-container {
+  display: flex;
+  gap: 46px;
+}
+
+.filter-container {
+  margin-bottom: 24px;
+}
+
+.filter-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.btn {
+  border-radius: 50px;
+  padding: 8px 16px;
+  border: none;
+}
+
+.filter-container .btn {
+  background-color: #CCFFE2;
+  color: #0018A4;
+}
+
+.sort-container .btn {
+  background-color: #FFECEA;
+  color: #0018A4;
+}
+
+.random-container .btn {
+  background: linear-gradient(90deg,rgba(204, 255, 226, 1) 0%, rgba(255, 236, 234, 1) 80%);
+  color: #0018A4;
+}
+
+.btn:hover {
+  outline: 2px solid #0018A4;
+}
+
+.filter-container .active,
+.card-button:hover {
+  background-color: #0018A4;
+  color: white;
+}
+
+.random-container .active {
+  background: #0018A4;
+  color: white;
+}
+
+.sort-container .active {
+  background-color: #FF6589;
+  color: white;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  grid-gap: 16px;
+}
+
+.card {
+ background-color: white;
+ border: 1px solid #E9E9E9;
+ border-radius: 16px;
+ padding: 12px;
+ font-weight: 500;
+ font-style: medium;
+ font-size: 15px;
+ overflow: hidden;
+ display: flex;
+ flex-direction: column;
+}
+
+.heart-icon-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.far.fa-heart {
+  color: grey;
+}
+
+.fas.fa-heart {
+  color: #FF6589;
+}
+
+.card-container .far.fa-heart:hover {
+  color: #FF6589;;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.recipe-content {
+  flex: 1;
+}
+
+.recipe-information {
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.ingredients ul {
+  list-style: disc inside;
+  padding: 0;
+  column-count: 2;
+  column-gap: 1rem;
+}
+
+.card-button {
+  max-width: 200px;
+  margin: 20px;
+  align-self: center;
+  outline: 2px solid #0018A4;
+  background-color: transparent;
+  color:  #0018A4;
+}
+
+.card:hover {
+  border: 2px solid #0018A4;
+  box-shadow: 0px 0px 30px 0px rgba(0, 24, 164, 0.2);
+}
+
+.modal-overlay {
+  display: flex;
+  flex-direction: column;
+  position: fixed; /* stay in place */
+  z-index: 1; /* sit on top */
+  left: 0;
+  top: 0;
+  width: 100vw; /* full width */
+  height: 100vh; /* full height */
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-overlay .cross-icon {
+  width: 60px;
+  align-self: end;
+  margin-right: 24px;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed; /* stay in place */
+  z-index: 1; /* sit on top */
+  left: 10%;
+  right: 10%;
+  height: 80vh;
+  top: 0;
+  margin: 70px auto;
+  overflow: auto; /* enable scroll if needed */
+  border-radius: 5px;
+  background-color: white;
+  padding: 20px;
+  max-width: 700px;
+  border-radius: 16px;
+}
+
+.modal img {
+  width: 80%;
+  border-radius: 12px;
+  box-shadow: 0 0 2px grey;
+  align-self: center;
+  margin-bottom: 20px;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 20px 20px 20px;
+}
+
+.modal .recipe-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal .recipe-instruction{
+  margin-bottom: 20px;
+}
+
+.modal .recipe-information{
+  margin-bottom: 0px;
+}
+
+.modal ol li {
+  margin-bottom: 10px;;
+}
+
+.modal hr.solid {
+  width: 100%;
+  border-top: 1px solid #888;
+}
+
+.filter-error-message {
+  background-color: #ffffff;
+  box-shadow: 0 0 5px rgb(193, 193, 193);
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/* for small screens */
+@media only screen and (max-width: 650px) {
+
+.title {
+  text-align: center;
+  font-size: 52px;
+}
+
+.top-container{
+  flex-direction: column; 
+  justify-content: center;
+  max-width: 250px;
+  margin: 0 auto;
+
+}
+
+.controls-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.sort-random-container {
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.filter-container,
+.sort-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+
+.controls-container .btn {
+  margin-bottom: 0;
+}
+
+.filter-buttons-container {
+  justify-content: center;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 420px));
+  grid-gap: 16px;
+  justify-content: space-evenly;
+}
+
+.modal .ingredients ul {
+  column-count: 1;
+}
+
+.modal .ingredients ul li {
+  margin-bottom: 10px;
+}
+
+}
+
+/* for wide screens */
+ @media only screen and (min-width: 1350px) {
+  
+  .controls-container{
+    flex-direction: row;
+    gap: 82px;
+  }
+}
