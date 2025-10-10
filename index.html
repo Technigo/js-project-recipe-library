@@ -63,22 +63,23 @@
         </div>
       </div>
 
-      <!-- Sorting options -->
-      <div class="control-group">
+      <!-- Sorting options + Random button -->
+      <div class="control-group sorting-row">
         <h2 class="control-title">Sorting options</h2>
-        <div class="pill-group">
+
+      <div class="pill-group sort-row">
           <button class="pill active" data-sort="time">By cooking time</button>
           <button class="pill" data-sort="popularity">By popularity</button>
           <button class="pill" data-sort="ingredients">By ingredients</button>
-        </div>
-        <div class="pill-group">
           <button class="pill active" data-order="asc">Ascending</button>
           <button class="pill" data-order="desc">Descending</button>
-        </div>
-      </div>
+
+ 
+          <button id="random-btn" class="pill pink-btn">Random Recipe</button>
+  </div>
+</div>
 
 
-    </section>
 
     <!-- Message output -->
     <p id="msg" class="note"></p>

@@ -3,7 +3,7 @@
 const recipesEl = document.getElementById("recipes"); // points to the <main id="recipes"> element where recipe cards will be shown.
 const msgEl = document.getElementById("msg"); // element used for messages (like “Loading…”
 const pills = document.querySelectorAll(".pill"); // selects all filter and sort buttons with the class pill.
-
+const randomBtn = document.getElementById("random-btn"); // button for random recipe
 // Setting up the API, spoonacular API
 const API_KEY = "2065aff4499d4fe29bdfbad342732432"
 const BASE_URL = "https://api.spoonacular.com/recipes/complexSearch"; // the main address for the API where tofetch recipes from.
@@ -19,9 +19,9 @@ let state = {
   order: "asc"
 };
 
-// Fetching data from the API, Spoonacular
+// Fetching data from the API, Spoonacular //Function 1
 const fetchData = () => {
-  recipesEl.innerHTML = `<p>Loading recipes...</p>`; // shows a loading message while fetching data. 
+  recipesEl.innerHTML = `<p>Loading recipes...</p>`; // shows a loading message while fetching data/streching the goal.
 
   // Build dynamic query string based on selected filters
   const params = new URLSearchParams({ //this is to help to build the query string (everything after the ? in a URL).
@@ -77,17 +77,17 @@ const fetchData = () => {
       msgEl.textContent = `Fetched ${DATA.length} recipes (${state.kitchen}, ${state.diet})`;
     })
     
-    //Catches any problem (like no internet, bad key, or quota) and shows a friendly error.
+    //Catches problems (like no internet, bad key, or quota) and shows a friendly error.
     .catch(err => {
       console.error("Fetch error:", err);
       recipesEl.innerHTML = `<p>Something went wrong. Please try again later.</p>`;
-      msgEl.textContent = "❌ Failed to load recipes.";
+      msgEl.textContent = "Failed to load recipes.";
     });
 };
 
     // Filter function  (time + ingredients) (locally), Filters the list by the user’s selected time and ingredient count.
     // Returns only recipes that match.
-    const filterRecipes = list =>
+    const filterRecipes = list =>  // Function 2
     list.filter(r => {
     // Cooking time
       if (state.time === "under15" && !(r.time < 15)) return false;
@@ -105,7 +105,7 @@ const fetchData = () => {
   });
 
 //Sort recispes
-const sortRecipes = list => {
+const sortRecipes = list => {  // Function 3 Sort recipes (by time, ingredients, or popularity)
   const key = state.sort;
   const sorted = [...list];
   sorted.sort((a, b) =>
@@ -115,10 +115,10 @@ const sortRecipes = list => {
 };
 
 // Show recipes in the HTML
-// irst filters and sorts the recipe list. then builds HTML <div> cards for each recipe.
+// First filters and sorts the recipe list. then builds HTML <div> cards for each recipe.
 // Displays them inside <main id="recipes"> and updates the message line at the top with  current filters.
-const showRecipes = list => {
-  const filtered = filterRecipes(list);
+const showRecipes = list => { // Function 4 
+  const filtered = filterRecipes(list); //streching the goal, combine filter and sorting 
   const sorted = sortRecipes(filtered);
 
   recipesEl.innerHTML = sorted.length
@@ -167,6 +167,10 @@ pills.forEach(btn => {
       showRecipes(DATA);
     }
   });
+});
+randomBtn.addEventListener("click", () => { // 👈 added here
+  const random = DATA[Math.floor(Math.random() * DATA.length)];
+  showRecipes([random]);
 });
 
 // Runs automatically once when the page loads — it fetches the first batch of recipe
