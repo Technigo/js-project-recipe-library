@@ -1,5 +1,5 @@
 // Replace this with your valid Spoonacular API key
-const apiKey = "edf4c3d520ec43ff9f8def394e4820e9";
+const apiKey = "cfc30adf3b0e422b9a0d562cf3181fa1";
 
 // DOM refs
 const formEl = document.getElementById("search-form");
