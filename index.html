@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="src/style.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+
+<body>
+  <main class="recipe-library">
+    <h1 class="recipe-library__title">Recipe Library</h1>
+
+    <!-- Filters Section: Contains search box and filter buttons -->
+    <section class="recipe-library__filters">
+      <!-- Search Input -->
+      <div id="search" class="search-container">
+        <i data-lucide="search" class="search-icon"></i>
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="Search recipes..."
+          name="search"
+          class="search-input"
+        >
+        <!-- Cuisine Filter Toggle Button: Opens sidebar with all filters -->
+        <button id="btn-filter-toggle" class="filter-button filter-button--secondary">
+          <i data-lucide="sliders-horizontal"></i>
+        </button>  
+      </div>
+
+      <!-- Favorites Button -->
+      <button id="btn-favorites" class="filter-button filter-button--secondary">
+        <i data-lucide="heart"></i>
+      </button>
+      
+      <!-- Quick Cuisine Filters: Shows 4-5 most common cuisines -->
+      <div class="filter-group" id="filter-cuisine"></div>
+      
+      <!-- Other Filter Groups -->
+      <div class="filter-group" id="filter-popularity"></div>
+      <div class="filter-group" id="filter-sort"></div>
+      
+      <!-- Action Buttons -->
+      <button id="btn-random" class="filter-button filter-button--secondary">
+        <i data-lucide="dice-5"></i>
+      </button>
+    </section>
+    
+    <!-- Sidebar Overlay: Dark background that closes sidebar when clicked -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+    
+    <!-- Filter Sidebar: Slides in from left with all filter options -->
+    <aside id="filter-sidebar" class="filter-sidebar">
+      <div class="filter-sidebar__header">
+        <h2 class="filter-sidebar__title">All Filters</h2>
+        <button id="btn-close-sidebar" class="filter-sidebar__close">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="filter-sidebar__content" id="sidebar-filters"></div>
+    </aside>
+    <!-- Recipes Section: Shows loader initially, then replaced with recipe cards -->
+    <section id="recipes" class="recipe-library__items">
+      <div class="loader-container">
+        <div class="loader"></div>
+        <p class="loader-text">Loading delicious recipes...</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="src/script.js"></script>
+</body>
+
+</html>
