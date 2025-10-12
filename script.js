@@ -19,25 +19,23 @@ let filters = {
   
 };
 
-// Fetching data from the API, Spoonacular //Function 1 / Built in tool remove later?
-const fetchData = () => {
+// Fetching data from the API, Spoonacular //Function 1 /
   recipesEl.innerHTML = `<p>Loading recipes...</p>`; // shows a loading message while fetching data/streching the goal.
 
   // Build dynamic query string based on selected filters
-  const params = new URLSearchParams({ //this is to help to build the query string (everything after the ? in a URL).
-    number: 10, // number of recipes to fetch
-    addRecipeInformation: true, // include detailed recipe details
-    apiKey: API_KEY, //required to use API 
-  });
+  let url = `${BASE_URL}?number=10&addRecipeInformation=true&apiKey=${API_KEY}`;
 
-  if (filters.kitchen !== "all") params.append("cuisine", filters.kitchen);
-  if (filters.diet !== "all") params.append("diet", filters.diet);
+  if (filters.kitchen !== "all") {
+    url += `&cuisine=${filters.kitchen}`;
+  }
 
-  const url = `${BASE_URL}?${params.toString()}`;
+  if (filters.diet !== "all") {
+    url += `&diet=${filters.diet}`;
+  }
 
   // Here I am using the fetch function to make a request to the API endpoint.
-  // This is where calls the API and waits for a response.If the status is 402, 
-  // Spoonacular is showing that the daily quota is all used.
+  // This is where calls the API and waits for a response. If the status is 402, spoonacular is 
+  // showing that the daily quota is all used.
   // Otherwise, it converts the response to JSON so you can use the data.
    fetch(url)
     .then(res => {
@@ -83,7 +81,6 @@ const fetchData = () => {
       recipesEl.innerHTML = `<p>Something went wrong. Please try again later.</p>`;
       msgEl.textContent = "Failed to load recipes.";
     });
-};
 
     // Filter function  (time + ingredients) (locally), Filters the list by the user’s selected time and ingredient count.
     // Returns only recipes that match.
@@ -105,7 +102,7 @@ const fetchData = () => {
   });
 
 //Sort recispes
-const sortRecipes = list => {  // Function 3 Sort recipes (by time, ingredients, or popularity)
+const sortRecipes = list => {  // Function 3, sort recipes (by ingredients or popularity)
   const key = filters.sort;
   const sorted = [...list];
   sorted.sort((a, b) => a[key] - b[key]);
@@ -116,7 +113,7 @@ const sortRecipes = list => {  // Function 3 Sort recipes (by time, ingredients,
 // First filters and sorts the recipe list. then builds HTML <div> cards for each recipe.
 // Displays them inside <main id="recipes"> and updates the message line at the top with  current filters.
 const showRecipes = list => { // Function 4 
-  const filtered = filterRecipes(list); //streching the goal, combine filter and sorting 
+  const filtered = filterRecipes(list); //to streching the goal, combine filter and sorting 
   const sorted = sortRecipes(filtered);
 
   recipesEl.innerHTML = sorted.length
