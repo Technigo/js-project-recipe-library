@@ -1,6 +1,6 @@
-import { backupData } from "./backupdata.js";
+/* import { backupData } from "./backupdata.js";
 
-console.log("backup data loaded:", backupData);
+console.log("backup data loaded:", backupData); */
 
 //Main DOM
 const btnAll = document.getElementById("btnAll");
@@ -23,9 +23,10 @@ let activeTime = null;
 let activeSort = null;
 let showingFavourites = false;
 
+
 //API
-const API_KEY = "e0b47753fa494923995b12db50a75eef";
-const API_URL = `https://api.spoonacular.com/recipes/random?number=15&apiKey=${API_KEY}`;
+const API_KEY = "cb59bb05e6354de1a9c198d95460d7d9";
+const API_URL = `https://api.spoonacular.com/recipes/random?number=10&apiKey=${API_KEY}&addRecipeInformation=true&addRecipeInstructions=true`;
 
 //Cache functions
 function saveCache(data) {
@@ -38,7 +39,7 @@ function getCache() {
   const time = localStorage.getItem("cacheTime");
   if (!cached || !time) return null;
   const SIX_HOURS = 6 * 60 * 60 * 1000;
-  if (Date.now() - time > SIX_HOURS) return null;
+  if (Date.now() - Number(time) > SIX_HOURS) return null;
   return JSON.parse(cached);
 }
 
@@ -50,6 +51,7 @@ function displayRecipes(recipesToShow) {
     cardsContainer.innerHTML = `
       <div class="card" style="text-align:center; padding:2rem;">
         <h2>No recipes found</h2>
+        <img src="./Assets/404error.jpg" alt="No recipes found" class="empty-state-img" />
         <p>Try another filter, or go back to all recipes.</p>
       </div>`;
     return;
@@ -107,7 +109,7 @@ function applyFiltersAndSorting() {
   // Cuisine multi-filter
   if (activeCuisines.length > 0) {
     filtered = filtered.filter(r =>
-      r.cuisines?.some(c => activeCuisines.includes(c))
+      Array.isArray(r.cuisines) && r.cuisines.some(c => activeCuisines.includes(c))
     );
   }
 
@@ -198,7 +200,7 @@ function toggleFavourite(id) {
   else applyFiltersAndSorting();
 }
 
-// UI events (Cuisine filters, Time filters, Sorting, Add Favs)
+/* // UI events (Cuisine filters, Time filters, Sorting, Add Favs)
 function attachUiEvents() {
   const cuisineButtons = [btnAll, btnAsian, btnFrench, btnMexican, btnItalian];
 
@@ -288,7 +290,106 @@ function attachUiEvents() {
       applyFiltersAndSorting();
     }
   });
+} */
+
+  function initCuisineFilters() {
+  const cuisineButtons = [btnAll, btnAsian, btnFrench, btnMexican, btnItalian];
+
+  cuisineButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const clickedCuisine = btn.textContent.trim();
+
+      if (clickedCuisine === "All") {
+        activeCuisines = [];
+        cuisineButtons.forEach(b => b.classList.remove("active"));
+        btnAll.classList.add("active");
+      } else {
+        btnAll.classList.remove("active");
+
+        if (activeCuisines.includes(clickedCuisine)) {
+          activeCuisines = activeCuisines.filter(c => c !== clickedCuisine);
+          btn.classList.remove("active");
+        } else {
+          activeCuisines.push(clickedCuisine);
+          btn.classList.add("active");
+        }
+
+        if (activeCuisines.length === 0) btnAll.classList.add("active");
+      }
+
+      applyFiltersAndSorting();
+    });
+  });
 }
+
+function initTimeFilters() {
+  timeBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const text = btn.textContent;
+      let newTime = null;
+
+      if (text.includes("30")) newTime = "30";
+      else if (text.includes("45")) newTime = "45";
+      else if (text.includes("1,5")) newTime = "90";
+      else if (text.includes("3")) newTime = "180";
+
+      if (activeTime === newTime) {
+        activeTime = null;
+        timeBtns.forEach(b => b.classList.remove("active"));
+      } else {
+        activeTime = newTime;
+        timeBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      }
+
+      applyFiltersAndSorting();
+    });
+  });
+}
+
+function initSortingButtons() {
+  sortShortest.addEventListener("click", () => {
+    activeSort = activeSort === "asc" ? null : "asc";
+    sortShortest.classList.toggle("active", activeSort === "asc");
+    sortLongest.classList.remove("active");
+    applyFiltersAndSorting();
+  });
+
+  sortLongest.addEventListener("click", () => {
+    activeSort = activeSort === "desc" ? null : "desc";
+    sortLongest.classList.toggle("active", activeSort === "desc");
+    sortShortest.classList.remove("active");
+    applyFiltersAndSorting();
+  });
+}
+
+function initRandomButton() {
+  btnRandom.addEventListener("click", getRandomRecipe);
+}
+
+function initFavouritesButton() {
+  const originalFavText = btnFavourites.innerHTML;
+
+  btnFavourites.addEventListener("click", e => {
+    e.preventDefault();
+    showingFavourites = !showingFavourites;
+    btnFavourites.innerHTML = showingFavourites
+      ? "Back to All Recipes"
+      : originalFavText;
+
+    if (showingFavourites) displayRecipes(favourites);
+    else applyFiltersAndSorting();
+  });
+}
+
+function attachUiEvents() {
+  initCuisineFilters();
+  initTimeFilters();
+  initSortingButtons();
+  initRandomButton();
+  initFavouritesButton();
+}
+
 
 // Initial load
 function init() {
