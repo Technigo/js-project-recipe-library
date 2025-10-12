@@ -290,7 +290,6 @@
     position: fixed;
     inset: 0;
     display: none;
-    /* togglas via .is-open */
     align-items: center;
     justify-content: center;
     background: var(--overlay);
