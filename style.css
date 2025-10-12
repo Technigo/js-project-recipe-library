@@ -80,6 +80,17 @@ button::selection {
   border: none;
 }
 
+.random-box button {
+  background-color: #FFECEA;
+  color: #0018A4;
+}
+
+.random-box button.active {
+  background-color: #FF6589;
+  color: #fff;
+  border: none;
+}
+
 a{
   text-decoration-line: none;
   color: inherit;
@@ -121,8 +132,7 @@ hr {
 .ingredients-list {
 display: flex;
 flex-direction: column;
-flex-wrap: wrap;
-  
+flex-wrap: wrap; 
 }
 
 img {

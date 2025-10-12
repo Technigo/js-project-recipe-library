@@ -14,49 +14,69 @@
 
   <div class="filter-menu">
     <div class="filters">
-    <div class="filter-box">
-      <h2>Filter on dish</h2>
+      <div class="filter-box">
+        <h2>Filter on dish</h2>
 
-      <div class="filter-buttons filter-dish" id="filterDishType">
-        <button>All</button>
-        <button>Main Course</button>
-        <button>Side Dish</button>
-        <button>Something</button>
-      </div>
+        <div class="filter-buttons filter-dish" id="filterDishType">
+          <button class="active">All</button>
+          <button>Starter</button>
+          <button>Main Course</button>
+          <button>Dessert</button>
+          <button>Side Dish</button>
+          <button>Lunch</button>
+          <button>Dinner</button>
+        </div>
       
-    </div>
+      </div>
     
-    <div class="filter-box">
-      <h2>Filter on kitchen</h2>
+      <div class="filter-box">
+        <h2>Filter on kitchen</h2>
 
-      <div class="filter-buttons filter-cuisine" id="filterCuisine">
-        <button>All</button>
-        <button>Italian</button>
-        <button>Mexican</button>
-        <button>Asian</button>
-      </div>
+        <div class="filter-buttons filter-cuisine" id="filterCuisine">
+          <button class="active">All</button>
+          <button>African</button>
+          <button>Asian</button>
+          <button>American</button>
+          <button>Cajun</button>
+          <button>European</button>
+          <button>Latin American</button>
+          <button>Middle Eastern</button>
+        </div>
 
-    </div>
+        <div class="filter-box">
+          <h2>Gluten free?</h2>
 
-    <div class="filter-box">
-      <h2>Gluten free?</h2>
-
-      <div class="filter-buttons filter-gluten-free">
-        <button id="glutenFreeButton">No</button>
-      </div>
+          <div class="filter-buttons filter-gluten-free">
+            <button id="glutenFreeButton">No</button>
+          </div>
       
-    </div>
-    </div>
-
-    <div class="sort-box">
-      <h2>Sort on time</h2>
-
-      <div class="sort-button" id="sortRecipe">
-        <button>Descending ⬇️</button>
-        <button>Ascending ⬆️</button>
+        </div>
       </div>
-    </div>
+   </div>
+  
 
+    <div>
+
+      <div class="sort-box">
+        <h2>Sort on time</h2>
+
+        <div class="sort-button" id="sortRecipe">
+         <button>Fastest recipes first</button>
+          <button>Slowest recipes first</button>
+        </div>
+
+      </div>
+
+      <div class="random-box">
+        <h2>Can't decide?</h2>
+
+        <div class="random-button">
+          <button id="randomRecipe">Random recipe</button>
+        </div>
+      
+      </div>
+
+    </div>
   </div>
 
   <section class="card-grid" id="card">
