@@ -20,7 +20,7 @@ function updateSortSelectedClass() {
 
 const API_CONFIG = {
     BASE_URL: 'https://api.spoonacular.com',
-    ///API_KEY: '5607f37e52ff4b879d8f5006edbca556',  // Add your API key here
+    API_KEY: '5607f37e52ff4b879d8f5006edbca556',  // Add your API key here
     ENDPOINTS: {
         RANDOM: '/recipes/random'
     }
@@ -48,32 +48,75 @@ const searchInput = document.getElementById('search-input');
 // === API FUNCTIONS ===
 
 /**
+ * Merge cached and backup recipes, removing duplicates
+ * Pure function - no side effects or UI updates
+ * @returns {Array} - Combined recipes from cache and backup
+ */
+function getMergedRecipes() {
+    const cachedRecipes = getCachedRecipes() || [];
+    const mappedBackup = backupData.recipes.map(mapSpoonacularToLocal);
+    
+    // Merge both sources, removing duplicates by ID
+    const combinedRecipes = [...cachedRecipes];
+    const existingIds = new Set(cachedRecipes.map(r => r.id));
+    
+    mappedBackup.forEach(recipe => {
+        if (!existingIds.has(recipe.id)) {
+            combinedRecipes.push(recipe);
+        }
+    });
+    
+    return combinedRecipes;
+}
+
+/**
+ * Fetch fresh recipes from Spoonacular API
+ * Pure function - only handles API call and data transformation
+ * @param {number} count - Number of recipes to fetch
+ * @returns {Promise<Array>} - Array of normalized recipe objects
+ */
+async function fetchFromSpoonacular(count) {
+    const url = `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.RANDOM}?number=${count}&apiKey=${API_CONFIG.API_KEY}`;
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+        throw new Error(`API Error: ${response.status} ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    return data.recipes.map(mapSpoonacularToLocal);
+}
+
+/**
+ * Handle API fallback with appropriate user messaging
+ * @param {Error} error - The error that occurred during API call
+ * @param {number} count - Number of recipes requested
+ * @returns {Array} - Fallback recipes with appropriate count
+ */
+function handleAPIFallback(error, count) {
+    console.error('❌ Failed to fetch recipes:', error);
+    
+    const mergedRecipes = getMergedRecipes();
+    const cachedCount = (getCachedRecipes() || []).length;
+    
+    // Show appropriate message based on what data is available
+    if (cachedCount > 0) {
+        showMessage(`⚠️ API failed - Using ${mergedRecipes.length} recipes (${cachedCount} cached + ${backupData.recipes.length} backup)`, 'success');
+    } else {
+        showMessage(`📚 Using ${mergedRecipes.length} recipes from backup library`, 'success');
+    }
+    
+    setCachedRecipes(mergedRecipes);
+    return mergedRecipes.slice(0, count);
+}
+
+/**
  * Fetch recipes from Spoonacular API with caching fallback
- * ALWAYS merges cache + backup data for maximum variety
+ * Main orchestrator function that coordinates API calls and fallbacks
  * @param {number} count - Number of recipes to fetch (max: 100)
  * @returns {Promise<Array>} - Array of recipe objects
  */
 async function fetchRecipesFromAPI(count = 100) {
-    // Helper function to merge cached and backup recipes
-    const getMergedRecipes = () => {
-        const cachedRecipes = getCachedRecipes() || [];
-        const mappedBackup = backupData.recipes.map(mapSpoonacularToLocal);
-        
-        // Merge both sources, removing duplicates by ID
-        const combinedRecipes = [...cachedRecipes];
-        const existingIds = new Set(cachedRecipes.map(r => r.id));
-        
-        let addedFromBackup = 0;
-        mappedBackup.forEach(recipe => {
-            if (!existingIds.has(recipe.id)) {
-                combinedRecipes.push(recipe);
-                addedFromBackup++;
-            }
-        });
-        
-        return combinedRecipes;
-    };
-
     // If no API key, use merged cache + backup immediately
     if (!API_CONFIG.API_KEY) {
         console.warn('⚠️ No API key found - using merged cache + backup data');
@@ -84,35 +127,77 @@ async function fetchRecipesFromAPI(count = 100) {
     }
 
     try {
+        // Show loading message and attempt API fetch
         await showMessage('🔄 Fetching fresh recipes from Spoonacular...', 'loading', 2000);
-        const url = `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.RANDOM}?number=${count}&apiKey=${API_CONFIG.API_KEY}`;
-        const response = await fetch(url);
+        const freshRecipes = await fetchFromSpoonacular(count);
         
-        if (!response.ok) {
-            throw new Error(`API Error: ${response.status} ${response.statusText}`);
-        }
-        
-        const data = await response.json();
-        const mappedRecipes = data.recipes.map(mapSpoonacularToLocal);
-        setCachedRecipes(mappedRecipes);
-        return mappedRecipes;
+        // Success: cache the fresh recipes and return them
+        setCachedRecipes(freshRecipes);
+        return freshRecipes;
         
     } catch (error) {
-        console.error('❌ Failed to fetch recipes:', error);
-        
-        // Use merged cache + backup data when API fails
-        const mergedRecipes = getMergedRecipes();
-        const cachedCount = (getCachedRecipes() || []).length;
-        
-        if (cachedCount > 0) {
-            showMessage(`⚠️ API failed - Using ${mergedRecipes.length} recipes (${cachedCount} cached + ${backupData.recipes.length} backup)`, 'success');
-        } else {
-            showMessage(`📚 Using ${mergedRecipes.length} recipes from backup library`, 'success');
-        }
-        
-        setCachedRecipes(mergedRecipes);
-        return mergedRecipes.slice(0, count);
+        // API failed: use fallback strategy
+        return handleAPIFallback(error, count);
     }
+}
+
+/**
+ * Extract diet information from Spoonacular recipe
+ * @param {object} spoonacularRecipe - Raw recipe from API
+ * @returns {Array} - Array of diet types
+ */
+function extractDiets(spoonacularRecipe) {
+    const diets = [];
+    if (spoonacularRecipe.vegetarian) diets.push('vegetarian');
+    if (spoonacularRecipe.vegan) diets.push('vegan');
+    if (spoonacularRecipe.glutenFree) diets.push('gluten-free');
+    if (spoonacularRecipe.dairyFree) diets.push('dairy-free');
+    return diets;
+}
+
+/**
+ * Extract and normalize cuisine information
+ * @param {object} spoonacularRecipe - Raw recipe from API
+ * @returns {string} - Cuisine type or 'International' as default
+ */
+function extractCuisine(spoonacularRecipe) {
+    return spoonacularRecipe.cuisines && spoonacularRecipe.cuisines.length > 0 
+        ? spoonacularRecipe.cuisines[0] 
+        : 'International';
+}
+
+/**
+ * Extract ingredient list from recipe
+ * @param {object} spoonacularRecipe - Raw recipe from API
+ * @returns {Array} - Array of ingredient names
+ */
+function extractIngredients(spoonacularRecipe) {
+    return spoonacularRecipe.extendedIngredients 
+        ? spoonacularRecipe.extendedIngredients.map(ing => ing.name)
+        : [];
+}
+
+/**
+ * Calculate normalized price per serving
+ * @param {object} spoonacularRecipe - Raw recipe from API
+ * @returns {number} - Price per serving in dollars
+ */
+function calculatePrice(spoonacularRecipe) {
+    const pricePerServing = spoonacularRecipe.pricePerServing 
+        ? (spoonacularRecipe.pricePerServing / 100).toFixed(2)
+        : 2.5;
+    return parseFloat(pricePerServing);
+}
+
+/**
+ * Calculate popularity score from various metrics
+ * @param {object} spoonacularRecipe - Raw recipe from API
+ * @returns {number} - Popularity score
+ */
+function calculatePopularity(spoonacularRecipe) {
+    return spoonacularRecipe.aggregateLikes || 
+           Math.round(spoonacularRecipe.spoonacularScore) || 
+           50;
 }
 
 /**
@@ -121,28 +206,6 @@ async function fetchRecipesFromAPI(count = 100) {
  * @returns {object} - Normalized recipe object
  */
 function mapSpoonacularToLocal(spoonacularRecipe) {
-    const diets = [];
-    if (spoonacularRecipe.vegetarian) diets.push('vegetarian');
-    if (spoonacularRecipe.vegan) diets.push('vegan');
-    if (spoonacularRecipe.glutenFree) diets.push('gluten-free');
-    if (spoonacularRecipe.dairyFree) diets.push('dairy-free');
-
-    const cuisine = spoonacularRecipe.cuisines && spoonacularRecipe.cuisines.length > 0 
-        ? spoonacularRecipe.cuisines[0] 
-        : 'International';
-
-    const ingredients = spoonacularRecipe.extendedIngredients 
-        ? spoonacularRecipe.extendedIngredients.map(ing => ing.name)
-        : [];
-
-    const pricePerServing = spoonacularRecipe.pricePerServing 
-        ? (spoonacularRecipe.pricePerServing / 100).toFixed(2)
-        : 2.5;
-
-    const popularity = spoonacularRecipe.aggregateLikes || 
-                      Math.round(spoonacularRecipe.spoonacularScore) || 
-                      50;
-
     return {
         id: spoonacularRecipe.id,
         title: spoonacularRecipe.title,
@@ -150,11 +213,11 @@ function mapSpoonacularToLocal(spoonacularRecipe) {
         readyInMinutes: spoonacularRecipe.readyInMinutes || 30,
         servings: spoonacularRecipe.servings || 4,
         sourceUrl: spoonacularRecipe.sourceUrl || spoonacularRecipe.spoonacularSourceUrl,
-        diets: diets,
-        cuisine: cuisine,
-        ingredients: ingredients,
-        pricePerServing: parseFloat(pricePerServing),
-        popularity: popularity
+        diets: extractDiets(spoonacularRecipe),
+        cuisine: extractCuisine(spoonacularRecipe),
+        ingredients: extractIngredients(spoonacularRecipe),
+        pricePerServing: calculatePrice(spoonacularRecipe),
+        popularity: calculatePopularity(spoonacularRecipe)
     };
 }
 
@@ -376,41 +439,63 @@ function sortRecipes(recipesToSort, sortBy, ascending = true) {
  * @returns {string} HTML string for the recipe card
  */
 function createRecipeCardHTML(recipe) {
-    // Step 1: Create a shortened ingredients list (max 6 ingredients)
+    return `
+        <div class="recipe-card">
+            ${createRecipeImage(recipe)}
+            ${createRecipeContent(recipe)}
+        </div>
+    `;
+}
+
+/**
+ * Creates the image section of a recipe card
+ * Includes the recipe image and favorite heart button
+ * @param {object} recipe - Recipe object
+ * @returns {string} HTML string for the image section
+ */
+function createRecipeImage(recipe) {
+    // Check if recipe is favorited to show correct heart icon
+    const isFavorited = favoriteRecipes.includes(recipe.id);
+    const heartIcon = isFavorited ? '💖' : '🤍';  // Filled or outline heart
+    const heartClass = isFavorited ? 'favorited' : '';
+    
+    return `
+        <div class="recipe-image">
+            <img src="${recipe.image}" alt="${recipe.title}" loading="lazy" />
+            <button class="heart-btn ${heartClass}" data-recipe-id="${recipe.id}" onclick="toggleFavorite(${recipe.id})">
+                <span class="heart-icon">${heartIcon}</span>
+            </button>
+        </div>
+    `;
+}
+
+/**
+ * Creates the content section of a recipe card
+ * Includes title, meta info, details, and ingredients
+ * @param {object} recipe - Recipe object
+ * @returns {string} HTML string for the content section
+ */
+function createRecipeContent(recipe) {
+    // Create a shortened ingredients list (max 6 ingredients)
     // .slice(0, 6) gets first 6 items
     // .join(', ') puts them together with commas
     const ingredientsList = recipe.ingredients.slice(0, 6).join(', ') + 
                            (recipe.ingredients.length > 6 ? '...' : '');
     
-    // Step 2: Check if recipe is favorited to show correct heart icon
-    const isFavorited = favoriteRecipes.includes(recipe.id);
-    const heartIcon = isFavorited ? '💖' : '🤍';  // Filled or outline heart
-    const heartClass = isFavorited ? 'favorited' : '';
-    
-    // Step 3: Return HTML string using template literals
-    // ${} inserts JavaScript values into the string
     return `
-        <div class="recipe-card">
-            <div class="recipe-image">
-                <img src="${recipe.image}" alt="${recipe.title}" loading="lazy" />
-                <button class="heart-btn ${heartClass}" data-recipe-id="${recipe.id}" onclick="toggleFavorite(${recipe.id})">
-                    <span class="heart-icon">${heartIcon}</span>
-                </button>
+        <div class="recipe-content">
+            <h3 class="recipe-title">${recipe.title}</h3>
+            <div class="recipe-meta">
+                <span class="recipe-time">⏱️ ${recipe.readyInMinutes} min</span>
+                <span class="recipe-difficulty">👨‍🍳 ${recipe.servings} servings</span>
             </div>
-            <div class="recipe-content">
-                <h3 class="recipe-title">${recipe.title}</h3>
-                <div class="recipe-meta">
-                    <span class="recipe-time">⏱️ ${recipe.readyInMinutes} min</span>
-                    <span class="recipe-difficulty">👨‍🍳 ${recipe.servings} servings</span>
-                </div>
-                <div class="recipe-details">
-                    <div><strong>Cuisine:</strong> ${recipe.cuisine}</div>
-                    <div><strong>Diet:</strong> ${recipe.diets.length > 0 ? recipe.diets.join(', ') : 'No restrictions'}</div>
-                    <div><strong>Price:</strong> $${recipe.pricePerServing}/serving</div>
-                </div>
-                <div class="recipe-description">
-                    <strong>Ingredients:</strong> ${ingredientsList}
-                </div>
+            <div class="recipe-details">
+                <div><strong>Cuisine:</strong> ${recipe.cuisine}</div>
+                <div><strong>Diet:</strong> ${recipe.diets.length > 0 ? recipe.diets.join(', ') : 'No restrictions'}</div>
+                <div><strong>Price:</strong> $${recipe.pricePerServing}/serving</div>
+            </div>
+            <div class="recipe-description">
+                <strong>Ingredients:</strong> ${ingredientsList}
             </div>
         </div>
     `;
@@ -652,6 +737,84 @@ function clearAllFilters() {
 }
 
 /**
+ * Get the current sort order (ascending or descending)
+ * @returns {boolean} - True if ascending, false if descending
+ */
+function getSortOrder() {
+    const orderDesc = document.getElementById('order-desc');
+    return !orderDesc.classList.contains('selected');
+}
+
+/**
+ * Create informative message about current recipe results
+ * @param {Array} recipesToShow - Filtered recipes
+ * @param {string} searchTerm - Current search term
+ * @param {object} filters - Current filter selections
+ * @returns {string} - User-friendly status message
+ */
+function createResultMessage(recipesToShow, searchTerm, filters) {
+    const totalCount = recipesToShow.length;
+    const hasAnyFilter = filters.diet || filters.cuisine;
+    
+    let message = '';
+    
+    if (searchTerm || hasAnyFilter) {
+        // User has applied filters or search
+        message = `Found ${totalCount} recipe${totalCount === 1 ? '' : 's'}`;
+        
+        if (searchTerm) message += ` matching "${searchTerm}"`;
+        if (filters.diet) message += ` for ${filters.diet} diet`;
+        if (filters.cuisine) message += ` from ${filters.cuisine} cuisine`;
+        if (filters.sort) {
+            const order = getSortOrder() ? 'ascending' : 'descending';
+            message += `, sorted by ${filters.sort.replace('-', ' ')} (${order})`;
+        }
+    } else {
+        // Showing all recipes (no filters)
+        message = `Showing ${totalCount} recipes`;
+        if (filters.sort) {
+            const order = getSortOrder() ? 'ascending' : 'descending';
+            message += `, sorted by ${filters.sort.replace('-', ' ')} (${order})`;
+        }
+        if (totalCount > recipesPerPage) {
+            message += ` (scroll for more)`;
+        }
+    }
+    
+    return message;
+}
+
+/**
+ * Apply the complete filter pipeline to recipes
+ * @param {Array} allRecipes - Complete recipe dataset
+ * @param {string} searchTerm - Search text
+ * @param {object} filters - Filter selections
+ * @returns {Array} - Filtered and sorted recipes
+ */
+function applyFilterPipeline(allRecipes, searchTerm, filters) {
+    let recipesToShow = [...allRecipes];
+    
+    // Apply search filter first (if there's a search term)
+    if (searchTerm) {
+        recipesToShow = searchRecipes(searchTerm, recipesToShow);
+    }
+    
+    // Apply diet and cuisine filters
+    const hasAnyFilter = filters.diet || filters.cuisine;
+    if (hasAnyFilter) {
+        recipesToShow = filterRecipes(filters, recipesToShow);
+    }
+    
+    // Apply sorting if a sort option is selected
+    if (filters.sort && recipesToShow.length > 0) {
+        const ascending = getSortOrder();
+        recipesToShow = sortRecipes(recipesToShow, filters.sort, ascending);
+    }
+    
+    return recipesToShow;
+}
+
+/**
  * Main function that handles filtering and displaying recipes
  * This is called every time a filter changes
  */
@@ -662,72 +825,22 @@ function findRecipe() {
         favoritesBtn.classList.remove('selected');
     }
     
-    // Get all current filter selections
+    // Get current user selections
     const filters = getAllFilters();
-    
-    // Get search term from search input
     const searchTerm = searchInput ? searchInput.value.trim() : '';
     
-    // Start with all available recipes
-    let recipesToShow = [...allRecipes];
+    // Apply complete filter pipeline
+    const recipesToShow = applyFilterPipeline(allRecipes, searchTerm, filters);
     
-    // Apply search filter first (if there's a search term)
-    if (searchTerm) {
-        recipesToShow = searchRecipes(searchTerm, recipesToShow);
-    }
-    
-    // Check if any filters are active
-    const hasAnyFilter = filters.diet || filters.cuisine;
-    
-    // Apply filters if any are selected
-    if (hasAnyFilter) {
-        recipesToShow = filterRecipes(filters, recipesToShow);
-    }
-    
-    // Apply sorting if a sort option is selected
-    if (filters.sort && recipesToShow.length > 0) {
-        const orderDesc = document.getElementById('order-desc');
-        const ascending = !orderDesc.classList.contains('selected');
-        recipesToShow = sortRecipes(recipesToShow, filters.sort, ascending);
-    }
-    
-    // Update the global recipes array
+    // Update global state and display
     recipes = recipesToShow;
-    
-    // Display the filtered/sorted recipes
     displayMultipleRecipes(recipesToShow);
     
-    // Create informative message
-    let message = '';
-    if (searchTerm || hasAnyFilter) {
-        const totalCount = recipesToShow.length;
-        message = `Found ${totalCount} recipe${totalCount === 1 ? '' : 's'}`;
-        
-        if (searchTerm) message += ` matching "${searchTerm}"`;
-        if (filters.diet) message += ` for ${filters.diet} diet`;
-        if (filters.cuisine) message += ` from ${filters.cuisine} cuisine`;
-        if (filters.sort) {
-            const orderDesc = document.getElementById('order-desc');
-            const order = orderDesc.classList.contains('selected') ? 'descending' : 'ascending';
-            message += `, sorted by ${filters.sort.replace('-', ' ')} (${order})`;
-        }
-    } else {
-        const totalCount = recipesToShow.length;
-        message = `Showing ${totalCount} recipes`;
-        if (filters.sort) {
-            const orderDesc = document.getElementById('order-desc');
-            const order = orderDesc.classList.contains('selected') ? 'descending' : 'ascending';
-            message += `, sorted by ${filters.sort.replace('-', ' ')} (${order})`;
-        }
-        if (totalCount > recipesPerPage) {
-            message += ` (scroll for more)`;
-        }
-    }
-    
-    // Step 12: Show appropriate message
+    // Show appropriate status message
     if (recipesToShow.length === 0) {
         showMessage('No recipes match your filters. Try adjusting your selections!', 'error');
     } else {
+        const message = createResultMessage(recipesToShow, searchTerm, filters);
         showMessage(message, 'success');
     }
 }
