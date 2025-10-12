@@ -1,279 +1,374 @@
-:root {
-  /* ---------- CSS custom properties (variables) ---------- */
-  --bg: #f6f9ff;
-  --ink: #0f172a;
-  --muted: #475569;
-  --stroke: #E9E9E9;
-  --white: #ffffff;
-  --blue: #0018A4;
-  --heading: #1e3a8a;
-  --pink: #FFECEA;
-  --pink-dark: #FF5C8A;
-  --mint: #CCFFE2;
+  /* ====== Color system ====== */
+  :root {
+    --bg: #f6f9ff;
+    --surface: #ffffff;
+    --ink: #0f172a;
+    --muted: #475569;
+    --stroke: #E9E9E9;
+    --brand-heading: #1e3a8a;
+    --blue: #0018A4;
+    --blue-contrast: #ffffff;
+    --pink: #FFECEA;
+    --pink-strong: #FF5C8A;
+    --mint: #CCFFE2;
+    --overlay: rgba(15, 23, 42, .45);
+    --shadow-card: 0 10px 20px rgba(2, 6, 23, .07);
+    --shadow-card-h: 0 20px 30px rgba(2, 6, 23, .12);
+    --shadow-popup: 0 20px 40px rgba(2, 6, 23, .25);
 
-  /* Controls & cards */
-  --control-w: 240px;
-  --card-min: 220px;
-  --card-gap: 16px;
-  --card-pad: 12px;
-  --card-radius: 12px;
-  --card-title: 16px;
-  --card-meta: 14px;
-}
+    /* ====== Layout sizing knobs ====== */
+    --control-w: 240px;
+    --card-min: 220px;
+    --card-gap: 16px;
+    --card-pad: 12px;
+    --card-radius: 12px;
+    --card-title: 16px;
+    --card-meta: 14px;
+  }
 
-/* ---------- Base ---------- */
-* {
-  box-sizing: border-box;
-}
+  /* ====== Base ====== */
+  * {
+    box-sizing: border-box;
+  }
 
-html,
-body {
-  height: 100%;
-}
+  html,
+  body {
+    height: 100%;
+  }
 
-body {
-  margin: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-  background: var(--bg);
-  color: var(--muted);
-}
+  body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    background: var(--bg);
+    color: var(--muted);
+  }
 
-/* ---------- Container ---------- */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 28px;
-}
+  /* ====== Container ====== */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px;
+  }
 
-/* ---------- Header ---------- */
-.page-header h1 {
-  margin: 0 0 16px;
-  font-size: 56px;
-  color: var(--heading);
-  font-weight: 800;
-}
-
-@media (max-width:520px) {
+  /* ====== Header ====== */
   .page-header h1 {
-    font-size: 40px;
+    margin: 0 0 16px;
+    font-size: 56px;
+    color: var(--brand-heading);
+    font-weight: 800;
   }
-}
 
-/* ================= FILTERS LAYOUT ================= */
-.filter-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-.panel {
-  width: var(--control-w);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  background: transparent;
-}
-
-.field-label {
-  margin: 0;
-  color: var(--ink);
-  font-size: 18px;
-  font-weight: 700;
-}
-
-/* ================= CONTROLS ================= */
-.select,
-.btn {
-  width: 100%;
-  border-radius: 999px;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 700;
-}
-
-/* Base look shared by input & select */
-.select {
-  padding: 10px 14px;
-  border: 2px solid transparent;
-  background: var(--white);
-  color: var(--blue);
-}
-
-/* Arrow ONLY for real <select> (not the search input) */
-select.select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  padding-right: 44px;
-  /* space for arrow */
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--blue) 50%),
-    linear-gradient(135deg, var(--blue) 50%, transparent 50%);
-  background-repeat: no-repeat;
-  background-size: 8px 8px, 8px 8px;
-  background-position: right 24px center, right 14px center;
-}
-
-/* Variants */
-.select--green {
-  background-color: var(--mint);
-}
-
-.select--pink {
-  background-color: var(--pink);
-}
-
-/* Hover/focus */
-.select:hover,
-.select:focus-visible {
-  border-color: var(--blue);
-}
-
-/* Selected state (via JS .is-selected or CSS :has) */
-select.select.select--green.is-selected,
-select.select.select--green:has(option:checked:not([value=""])) {
-  background-color: var(--blue);
-  color: var(--white);
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--white) 50%),
-    linear-gradient(135deg, var(--white) 50%, transparent 50%);
-}
-
-select.select.select--pink.is-selected,
-select.select.select--pink:has(option:checked:not([value=""])) {
-  background-color: var(--pink-dark);
-  color: var(--white);
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--white) 50%),
-    linear-gradient(135deg, var(--white) 50%, transparent 50%);
-}
-
-/* Search input */
-input.select[type="search"] {
-  cursor: text;
-}
-
-/* Button random recipe */
-.btn {
-  padding: 10px 16px;
-  border: 2px solid var(--blue);
-  background: var(--white);
-  color: var(--blue);
-  cursor: pointer;
-}
-
-.btn:hover,
-.btn:focus-visible {
-  background: var(--blue);
-  color: var(--white);
-}
-
-.btn:active {
-  transform: translateY(1px);
-}
-
-/* Live status text */
-.status {
-  margin-top: 8px;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--heading);
-  text-align: center;
-}
-
-/* ================= CARDS GRID ================= */
-.grid {
-  display: grid;
-  gap: var(--card-gap);
-  margin-top: 24px;
-  grid-template-columns: repeat(auto-fill, minmax(var(--card-min), 1fr));
-  align-items: start;
-}
-
-/* ================= CARD ================= */
-.card {
-  background: var(--white);
-  border: 2px solid transparent;
-  /* fixed width to avoid hover reflow */
-  border-radius: var(--card-radius);
-  padding: var(--card-pad) var(--card-pad) calc(var(--card-pad)*1.5);
-  box-shadow: 0 10px 20px rgba(2, 6, 23, .07);
-  transition: box-shadow .2s, border-color .2s;
-}
-
-.card:hover {
-  box-shadow: 0 20px 30px rgba(2, 6, 23, .12);
-  border-color: var(--blue);
-}
-
-.card__img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: calc(var(--card-radius) - 4px);
-}
-
-.card__title {
-  margin: 8px 0 0;
-  color: var(--ink);
-  font-size: var(--card-title);
-  font-weight: 800;
-}
-
-.card__meta {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 6px 10px;
-  padding-top: 8px;
-  border-top: 1px solid var(--stroke);
-  color: var(--ink);
-  font-weight: 700;
-  margin-top: 6px;
-  font-size: var(--card-meta);
-}
-
-.card__meta span {
-  color: var(--muted);
-  font-weight: 600;
-}
-
-.card__ing {
-  padding-top: 8px;
-  border-top: 1px solid var(--stroke);
-  margin-top: 8px;
-  font-size: var(--card-meta);
-}
-
-.card__ing ul {
-  margin: 6px 0 0 18px;
-  padding: 0;
-}
-
-/* ================= STATES ================= */
-.empty,
-.loading {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 24px;
-  background: var(--white);
-  border: 1px dashed var(--stroke);
-  border-radius: 12px;
-}
-
-/* ================= RESPONSIVE TWEAKS ================= */
-@media (min-width:1280px) {
-  :root {
-    --card-min: 240px;
+  @media (max-width:520px) {
+    .page-header h1 {
+      font-size: 40px;
+    }
   }
-}
 
-@media (max-width:520px) {
-  :root {
-    --card-min: 180px;
-    --card-title: 15px;
-    --card-meta: 13px;
-    --control-w: 220px;
+  /* ====== FILTERS LAYOUT ====== */
+  .filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
-}
+
+  .panel {
+    width: var(--control-w);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: transparent;
+  }
+
+  .field-label {
+    margin: 0;
+    color: var(--ink);
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  /* ================= CONTROLS =================*/
+  .select,
+  .btn {
+    width: 100%;
+    border-radius: 999px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+
+  .select {
+    padding: 10px 14px;
+    border: 2px solid transparent;
+    background: var(--surface);
+    color: var(--blue);
+  }
+
+  select.select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 44px;
+    /* space for arrow */
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--blue) 50%),
+      linear-gradient(135deg, var(--blue) 50%, transparent 50%);
+    background-repeat: no-repeat;
+    background-size: 8px 8px, 8px 8px;
+    background-position: right 24px center, right 14px center;
+  }
+
+  .select--green {
+    background-color: var(--mint);
+  }
+
+  .select--pink {
+    background-color: var(--pink);
+  }
+
+  .select:hover,
+  .select:focus-visible {
+    border-color: var(--blue);
+  }
+
+  /* Selected “pill” state */
+  select.select.select--green.is-selected,
+  select.select.select--pink.is-selected,
+  select.select.select--green:has(option:checked:not([value=""])),
+  select.select.select--pink:has(option:checked:not([value=""])) {
+    color: var(--blue-contrast);
+    border-color: transparent;
+  }
+
+  select.select.select--green.is-selected,
+  select.select.select--green:has(option:checked:not([value=""])) {
+    background-color: var(--blue);
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--blue-contrast) 50%),
+      linear-gradient(135deg, var(--blue-contrast) 50%, transparent 50%);
+  }
+
+  select.select.select--pink.is-selected,
+  select.select.select--pink:has(option:checked:not([value=""])) {
+    background-color: var(--pink-strong);
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--blue-contrast) 50%),
+      linear-gradient(135deg, var(--blue-contrast) 50%, transparent 50%);
+  }
+
+  input.select[type="search"] {
+    cursor: text;
+  }
+
+  /* Primary button */
+  .btn {
+    padding: 10px 16px;
+    border: 2px solid var(--blue);
+    background: var(--surface);
+    color: var(--blue);
+    cursor: pointer;
+  }
+
+  .btn:hover,
+  .btn:focus-visible {
+    background: var(--blue);
+    color: var(--blue-contrast);
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  /* Smaller “View recipe” button on cards */
+  .card .btn-view {
+    width: auto;
+    padding: 8px 14px;
+    font-size: 14px;
+    border: 2px solid var(--blue);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--blue);
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .card .btn-view:hover,
+  .card .btn-view:focus-visible {
+    background: var(--blue);
+    color: var(--blue-contrast);
+  }
+
+  /* Live status text */
+  .status {
+    margin-top: 8px;
+    font-weight: 700;
+    color: var(--brand-heading);
+  }
+
+  /* ====== CARDS GRID ====== */
+  .grid {
+    display: grid;
+    gap: var(--card-gap);
+    margin-top: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-min), 1fr));
+    align-items: start;
+  }
+
+  /* ====== CARD ====== */
+  .card {
+    background: var(--surface);
+    border: 2px solid transparent;
+    /* fixed width to avoid hover reflow */
+    border-radius: var(--card-radius);
+    padding: var(--card-pad) var(--card-pad) calc(var(--card-pad)*1.5);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow .2s, border-color .2s;
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-card-h);
+    border-color: var(--blue);
+  }
+
+  .card-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: calc(var(--card-radius) - 4px);
+  }
+
+  .card-title {
+    margin: 8px 0 0;
+    color: var(--ink);
+    font-size: var(--card-title);
+    font-weight: 800;
+  }
+
+  .card-meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--stroke);
+    color: var(--ink);
+    font-weight: 700;
+    margin-top: 6px;
+    font-size: var(--card-meta);
+  }
+
+  .card-meta span {
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .card-ing {
+    padding-top: 8px;
+    border-top: 1px solid var(--stroke);
+    margin-top: 8px;
+    font-size: var(--card-meta);
+  }
+
+  .card-ing ul {
+    margin: 6px 0 0 18px;
+    padding: 0;
+  }
+
+  /* ====== STATES ====== */
+  .empty,
+  .loading {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px dashed var(--stroke);
+    border-radius: 12px;
+  }
+
+  /* ====== POPUP ====== */
+  .popup-recipe {
+    position: fixed;
+    inset: 0;
+    display: none;
+    /* togglas via .is-open */
+    align-items: center;
+    justify-content: center;
+    background: var(--overlay);
+    z-index: 1000;
+    padding: 16px;
+  }
+
+  .popup-recipe.is-open {
+    display: flex;
+  }
+
+  .popup-recipe-content {
+    background: var(--surface);
+    width: min(900px, 92vw);
+    max-height: 86vh;
+    border-radius: 16px;
+    box-shadow: var(--shadow-popup);
+    overflow-y: auto;
+    padding: 18px 20px 22px;
+  }
+
+  .popup-recipe-content img {
+    width: 100%;
+    height: auto;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+    margin: 8px 0 12px;
+  }
+
+  .popup-recipe-content ul.ing {
+    margin: 8px 0 12px 18px;
+    padding: 0;
+  }
+
+  .popup-recipe-content ul.ing li {
+    margin: 4px 0;
+  }
+
+  .popup-recipe-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 6px;
+  }
+
+  /* SR-only utility (used by aria-labelledby title) */
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ====== RESPONSIVE TWEAKS ====== */
+  @media (min-width:1280px) {
+    :root {
+      --card-min: 240px;
+    }
+  }
+
+  @media (max-width:520px) {
+    :root {
+      --card-min: 180px;
+      --card-title: 15px;
+      --card-meta: 13px;
+      --control-w: 220px;
+    }
+  }

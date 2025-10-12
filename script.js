@@ -52,6 +52,10 @@ const $ = (id) => document.getElementById(id);
 const grid = $('grid');
 const setBusy = (on) => grid.toggleAttribute('aria-busy', !!on);
 
+// overlay refs for the view recipe popup (dash-case ids)
+const overlayEl = document.getElementById('popup-recipe');
+const overlayBodyEl = document.getElementById('popup-recipe-content');
+
 /* -----------------------
    4) STRING HELPERS 
    -----------------------
@@ -297,9 +301,9 @@ function buildCard(r) {
   const node = tpl.content.cloneNode(true);
 
   // Fill img + title
-  node.querySelector('.card__img').src = r.imageUrl;
-  node.querySelector('.card__img').alt = r.title;
-  node.querySelector('.card__title').textContent = r.title;
+  node.querySelector('.card-img').src = r.imageUrl;
+  node.querySelector('.card-img').alt = r.title;
+  node.querySelector('.card-title').textContent = r.title;
 
   // Fill meta info
   node.querySelector('.meta-cuisine').textContent = toTitleCase(r.cuisine);
@@ -318,6 +322,14 @@ function buildCard(r) {
     li.textContent = i;
     ul.appendChild(li);
   });
+
+  // compact “View recipe” button on each card
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn btn-view';
+  btn.textContent = 'View recipe';
+  btn.addEventListener('click', () => showRecipeDetails(r.id));
+  node.querySelector('.card').appendChild(btn);
 
   return node;
 }
@@ -352,6 +364,61 @@ function updateStatus(count, source) {
     ? `Found ${count} recipe(s) matching "${q}".`
     : `Showing ${count} recipe(s).`;
 }
+
+/* -----------------------
+   VIEW RECIPE POPUP (minimal, dash-case)
+   ----------------------- */
+function openOverlay() {
+  overlayEl?.classList.add('is-open');
+  overlayEl?.setAttribute('aria-hidden', 'false');
+}
+function closeOverlay() {
+  overlayEl?.classList.remove('is-open');
+  overlayEl?.setAttribute('aria-hidden', 'true');
+  if (overlayBodyEl) overlayBodyEl.innerHTML = '';
+}
+
+// fetch + render recipe details into popup
+async function showRecipeDetails(recipeId) {
+  if (!overlayEl || !overlayBodyEl) return;
+  openOverlay();
+  overlayBodyEl.innerHTML = '<p>Loading…</p>';
+
+  try {
+    const res = await fetch(
+      `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${API_KEY}`
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const r = await res.json();
+
+    const ingredients = Array.isArray(r.extendedIngredients)
+      ? r.extendedIngredients.map((i) => i.original).filter(Boolean)
+      : [];
+
+    overlayBodyEl.innerHTML = `
+      <img src="${r.image}" alt="${r.title}">
+      <h2>${r.title}</h2>
+      <p><strong>Cuisine:</strong> ${r.cuisines?.join(', ') || 'N/A'}</p>
+      <p><strong>Ready in:</strong> ${r.readyInMinutes || '—'} min</p>
+
+      <p><strong>Ingredients:</strong></p>
+      <ul class="ing">
+        ${ingredients.map((i) => `<li>${i}</li>`).join('')}
+      </ul>
+
+      <p><strong>Instructions:</strong></p>
+      <div class="instructions">${r.instructions || 'No instructions provided.'}</div>
+    `;
+  } catch (_) {
+    overlayBodyEl.innerHTML = '<p>Couldn’t load recipe details.</p>';
+  }
+}
+
+// close popup on backdrop click / X button / ESC
+overlayEl?.addEventListener('click', (e) => {
+  if (e.target === overlayEl || e.target.closest('[data-dismiss]')) closeOverlay();
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeOverlay(); });
 
 /* ===========================================================
    10) EVENTS + INIT (+ Random)

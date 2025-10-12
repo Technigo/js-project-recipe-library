@@ -6,7 +6,6 @@
   <title>Recipe Library</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
   <div class="container">
     <header class="page-header">
@@ -17,13 +16,9 @@
          Each <select> is an input. When the user changes any of them,
          we read the values in JS and then filter/sort/render the cards. -->
     <section class="filter-container">
+      <!-- Cuisine filter -->
       <div class="panel">
-        <label 
-          class="field-label" 
-          for="cuisine"
-          >
-          Filter on cuisine
-        </label>
+        <label class="field-label" for="cuisine">Filter on cuisine</label>
         <select id="cuisine" class="select select--green">
           <option value="">All cuisines</option>
           <option value="italian">Italian</option>
@@ -35,14 +30,9 @@
         </select>
       </div>
 
-      <!-- Diet filter (single select). Empty "" means "All". -->
+      <!-- Diet filter -->
       <div class="panel">
-        <label 
-          class="field-label" 
-          for="diet"
-          >
-          Filter by diet
-        </label>
+        <label class="field-label" for="diet">Filter by diet</label>
         <select id="diet" class="select select--green">
           <option value="">All diets</option>
           <option value="vegan">Vegan</option>
@@ -53,14 +43,9 @@
         </select>
       </div>
 
-      <!-- Sort by time (ascending/descending). Empty "" = no sort. -->
+      <!-- Sort by time -->
       <div class="panel">
-        <label 
-          class="field-label" 
-          for="sortTime"
-          >
-          Sort by cooking time
-        </label>
+        <label class="field-label" for="sortTime">Sort by cooking time</label>
         <select id="sortTime" class="select select--pink">
           <option value="">No sorting</option>
           <option value="asc">Ascending</option>
@@ -68,14 +53,9 @@
         </select>
       </div>
 
-      <!-- Sort by popularity (most/least). Empty "" = no sort. -->
+      <!-- Sort by popularity -->
       <div class="panel">
-        <label 
-          class="field-label" 
-          for="sortPop"
-          >
-          Sort by popularity
-        </label>
+        <label class="field-label" for="sortPop">Sort by popularity</label>
         <select id="sortPop" class="select select--pink">
           <option value="">No sorting</option>
           <option value="most">Most popular</option>
@@ -83,76 +63,49 @@
         </select>
       </div>
 
-      <!-- Title or ingredient Search bar -->
+      <!-- Search -->
       <div class="panel">
-        <label 
-          class="field-label" 
-          for="q"
-          >
-          Search
-        </label>
-        <input 
-          id="q" 
-          class="select" 
-          type="search" 
-          placeholder="Search title or ingredient" 
-          autocomplete="off"
-          />
+        <label class="field-label" for="q">Search</label>
+        <input id="q" class="select" type="search" placeholder="Search title or ingredient" autocomplete="off"/>
       </div>
 
-      <!-- Random recipe button -->
+      <!-- Random -->
       <div class="panel">
-        <label 
-          class="field-label" 
-          aria-hidden="true" 
-          style="visibility:hidden;"
-          >
-          Actions
-        </label>
-        <button 
-          id="btnRandom" 
-          class="btn" 
-          type="button">Random recipe
-        </button>
-        <p 
-          id="status" 
-          class="status" 
-          role="status" 
-          aria-live="polite"
-          >
-          Loading recipes…
-        </p>
+        <label class="field-label" aria-hidden="true" style="visibility:hidden;">Actions</label>
+        <button id="btnRandom" class="btn" type="button">Random recipe</button>
+        <p id="status" class="status" role="status" aria-live="polite">Loading recipes…</p>
       </div>
     </section>
 
-    <!-- ================= CARDS GRID =================
-         This section will be *filled by JavaScript* (renderGrid()).
-         We also inject "Loading..." and "Empty" messages here. -->
+    <!-- ================= CARDS GRID ================= -->
     <main>
       <section id="grid" class="grid"></section>
     </main>
+
+    <!-- Card template-->
     <template id="cardTpl">
       <article class="card">
-        <img 
-          class="card__img" 
-          alt="recipes" 
-          loading="lazy"
-          decoding="async"
-          />
-        <h3 class="card__title"></h3>
-        <div class="card__meta">
+        <img class="card-img" alt="recipe" loading="lazy" decoding="async"/>
+        <h3 class="card-title"></h3>
+        <div class="card-meta">
           <div><strong>Cuisine:</strong></div><span class="meta-cuisine">—</span>
           <div><strong>Diet:</strong></div><span class="meta-diet">—</span>
           <div><strong>Popularity:</strong></div><span class="meta-pop">—</span>
           <div><strong>Time:</strong></div><span class="meta-time">—</span>
         </div>
-
-        <div class="card__ing">
+        <div class="card-ing">
           <strong>Ingredients</strong>
           <ul class="ing-list"></ul>
         </div>
       </article>
     </template>
+  </div>
+
+  <!-- Recipe popup -->
+  <div id="popup-recipe" class="popup-recipe" role="dialog" aria-modal="true" aria-labelledby="popup-recipe-title" aria-hidden="true">
+    <button type="button" class="popup-recipe-close" data-dismiss aria-label="Close">✖</button>
+    <h2 id="popup-recipe-title" class="visually-hidden">Recipe details</h2>
+    <div id="popup-recipe-content" class="popup-recipe-content"></div>
   </div>
 
   <script src="script.js" type="module"></script>
