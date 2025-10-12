@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Library</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <main>
+      <h1>Recipe Library</h1>
+
+      <!-- ====== FILTERS / SORT / LUCKY CONTROLS ====== -->
+      <div class="controls">
+
+        <!-- FILTER SECTION -->
+        <section class="filters" id="cuisineFilter">
+          <h2 class="section-title">Filter on kitchen</h2>
+          <div class="filter-buttons">
+            <label class="filter-option">
+              <input checked type="radio" name="cuisine" value="all" />
+              All
+            </label>
+            <label class="filter-option">
+              <input type="radio" name="cuisine" value="asian" />
+              Asian
+            </label>
+            <label class="filter-option">
+              <input type="radio" name="cuisine" value="italian" />
+              Italian
+            </label>
+            <label class="filter-option">
+              <input type="radio" name="cuisine" value="mexican" />
+              Mexican
+            </label>
+            <label class="filter-option">
+              <input type="radio" name="cuisine" value="middle eastern" />
+              Middle Eastern
+            </label>
+            <label class="filter-option">
+              <input type="radio" name="cuisine" value="nordic" />
+              Nordic
+            </label>
+          </div>
+        </section>
+
+        <!-- SORT SECTION -->
+        <section class="sort" id="sortOnTime">
+          <h2 class="section-title">Sort on time</h2>
+          <div class="sort-buttons">
+            <label class="sort-button">
+              <input checked type="radio" name="order" value="desc" />
+              Descending
+            </label>
+            <label class="sort-button">
+              <input type="radio" name="order" value="asc" />
+              Ascending
+            </label>
+          </div>
+        </section>
+
+        <!-- FEELING LUCKY SECTION -->
+        <section class="lucky">
+          <h2 class="section-title">Feeling lucky?</h2>
+          <div class="lucky-button">
+            <button id="random-button" class="random-button">Surprise me!</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- ====== RECIPE CARDS GRID ====== -->
+      <section
+        class="cards"
+        id="cardsContainer"
+        aria-label="Recipe cards grid">
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

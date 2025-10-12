@@ -1,0 +1,380 @@
+/* ========== GLOBAL STYLES ========== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --page-bg: #fafafa;
+  --blue-main: #0018a4;
+  --blue-outline: #0044cc;
+  --mint-green: #c0f8d1;
+  --pink-bg: #fddddf;
+  --text-blue: #0033aa;
+}
+
+body {
+  background: var(--page-bg);
+  color: #222;
+  font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
+  padding: 0 64px;
+}
+
+/* ========== HEADINGS ========== */
+h1 {
+  font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--blue-main);
+  line-height: 100%;
+  text-align: left;
+  margin-top: 64px;
+  margin-bottom: 32px;
+}
+
+h2 {
+  font-family: "Futura", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 100%;
+  color: #000;
+}
+
+/* ========== CONTROLS WRAPPER ========== */
+.controls {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 88px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+/* ========== FILTERS / SORT / LUCKY ========== */
+.filters,
+.sort,
+.lucky {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  min-width: 220px;
+}
+
+.filters h2,
+.sort h2,
+.lucky h2 {
+  margin-bottom: 8px;
+}
+
+.filters label,
+.sort label,
+.lucky button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========== BUTTON STYLES (FILTER & SORT) ========== */
+.filter-option,
+.sort-button {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-blue);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-right: 4px;
+}
+
+/* ===== FILTER BUTTONS ===== */
+.filter-option {
+  background-color: var(--mint-green);
+}
+
+.filter-option:hover,
+.filter-option:has(input[type="radio"]:checked) {
+  border-color: var(--blue-outline);
+}
+
+.filter-option:has(input[type="radio"]:checked) {
+  background-color: var(--blue-main);
+  color: #fff;
+}
+
+/* ===== SORT BUTTONS ===== */
+.sort-button {
+  background-color: var(--pink-bg);
+}
+
+.sort-button:hover,
+.sort-button:has(input[type="radio"]:checked) {
+  background-color: #ff6589;
+  color: #fff;
+}
+
+/* ===== HIDE RADIO INPUTS ===== */
+input[type="radio"] {
+  display: none;
+}
+
+/* ========== FEELING LUCKY BUTTON ========== */
+.lucky {
+  align-items: flex-start;
+}
+
+.random-button {
+  padding: 8px 20px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  font-family: "Futura", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: rgb(250, 136, 210);
+  color: var(--text-blue);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.random-button:hover {
+  background-color: rebeccapurple;
+  border-color: var(--blue-outline);
+  color: #fff;
+}
+
+/* ========== CARD GRID ========== */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.card {
+  width: 300px;
+  border-radius: 16px;
+  border: 1px solid #e9e9e9;
+  padding: 16px 16px 24px 16px;
+  background: #fff;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  border-color: var(--blue-main);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.card-content {
+  padding: 16px 16px 24px 16px;
+}
+
+.card-content h3 {
+  font-family: "Futura", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: #000;
+}
+
+.card-content p {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card-content .ingredients-header {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 12px 0 8px 0;
+}
+
+.card-content ul {
+  list-style: disc;
+  padding-left: 20px;
+  font-size: 16px;
+  color: #000;
+}
+
+.cuisine-value,
+.time-value {
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+/* ========== EMPTY MESSAGE ========== */
+.empty-message {
+  text-align: center;
+  background-color: #fff8e1;
+  border: 2px dashed #ff9800;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 2rem;
+  font-family: "Futura", sans-serif;
+  color: #444;
+  animation: pop-in 0.5s ease;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes pop-in {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 1024px) {
+  .controls {
+    flex-wrap: wrap;
+    gap: 48px;
+    justify-content: flex-start;
+    margin-left: 48px;
+  }
+
+  .filters,
+  .sort,
+  .lucky {
+    min-width: 260px;
+  }
+
+  h1 {
+    font-size: 56px;
+    margin-left: 48px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .filters {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .filter-option {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .controls {
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 32px;
+    margin-left: 32px;
+  }
+
+  .filters,
+  .sort,
+  .lucky {
+    flex: 1 1 100%;
+    min-width: 100%;
+  }
+
+  h1 {
+    font-size: 48px;
+    margin-left: 32px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 680px) {
+  .controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .filters,
+  .sort,
+  .lucky {
+    width: 100%;
+  }
+
+  .filter-option,
+  .sort-button,
+  .random-button {
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .filters,
+  .sort,
+  .lucky {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  h1 {
+    font-size: 42px;
+    margin-top: 48px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+@media (min-width: 1600px) {
+  h1 {
+    font-size: 72px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 28px;
+  }
+
+  .card {
+    width: 320px;
+  }
+
+  .card-content h3 {
+    font-size: 24px;
+  }
+
+  .card-content p,
+  .card-content ul {
+     font-size: 17px;
+  }
+}
