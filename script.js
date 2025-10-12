@@ -1,5 +1,4 @@
 // conecting Js with my HTML file,
-
 const recipesEl = document.getElementById("recipes"); // points to the <main id="recipes"> element where recipe cards will be shown.
 const msgEl = document.getElementById("msg"); // element used for messages (like “Loading…”
 const pills = document.querySelectorAll(".pill"); // selects all filter and sort buttons with the class pill.
@@ -7,7 +6,7 @@ const randomBtn = document.getElementById("random-btn"); // button for random re
 
 // Setting up the API, spoonacular API
 const API_KEY = "2065aff4499d4fe29bdfbad342732432"
-const BASE_URL = "https://api.spoonacular.com/recipes/complexSearch"; // the main address for the API where tofetch recipes from.
+const BASE_URL = "https://api.spoonacular.com/recipes/complexSearch"; //  for complex search. the main address for the API where tofetch recipes from.
 
 // Setting up storage and filter 
 let recipes = []; //an empty array where stores the recipes data when fetched.
@@ -16,11 +15,11 @@ let filters = {
   diet: "all",
   time: "all",
   ingredients: "all",
-  sort: "time",
-  order: "asc"
+  sort: "popularity"
+  
 };
 
-// Fetching data from the API, Spoonacular //Function 1
+// Fetching data from the API, Spoonacular //Function 1 / Built in tool remove later?
 const fetchData = () => {
   recipesEl.innerHTML = `<p>Loading recipes...</p>`; // shows a loading message while fetching data/streching the goal.
 
@@ -109,9 +108,7 @@ const fetchData = () => {
 const sortRecipes = list => {  // Function 3 Sort recipes (by time, ingredients, or popularity)
   const key = filters.sort;
   const sorted = [...list];
-  sorted.sort((a, b) =>
-    filters.order === "asc" ? a[key] - b[key] : b[key] - a[key] // sorting logic based on selected key and order
-  );
+  sorted.sort((a, b) => a[key] - b[key]);
   return sorted;
 };
 
@@ -158,7 +155,7 @@ pills.forEach(btn => {
     if (btn.dataset.time) filters.time = btn.dataset.time;
     if (btn.dataset.ingredients) filters.ingredients = btn.dataset.ingredients;
     if (btn.dataset.sort) filters.sort = btn.dataset.sort;
-    if (btn.dataset.order) filters.order = btn.dataset.order;
+  
 
     // If user changes kitchen or diet → refetch from API
     if (btn.dataset.kitchen || btn.dataset.diet) {
