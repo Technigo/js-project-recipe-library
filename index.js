@@ -22,7 +22,7 @@ let showingFavourites = false;
 
 //API
 const API_KEY = "cb59bb05e6354de1a9c198d95460d7d9";
-const API_URL = `https://api.spoonacular.com/recipes/random?number=15&apiKey=${API_KEY}&addRecipeInformation=true&addRecipeInstructions=true`;
+const API_URL = `https://api.spoonacular.com/recipes/random?number=15&apiKey=${API_KEY}`;
 
 //Cache functions
 function saveCache(data) {
