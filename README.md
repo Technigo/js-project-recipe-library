@@ -1,6 +1,8 @@
 # 🍽️ Recipe Finder — API-driven recipe list
 
-## Live: https://quiet-chebakia-ed7a91.netlify.app/
+![mockup](assets/img/mockup.recipe.png)
+
+## Live: <a href="https://quiet-chebakia-ed7a91.netlify.app/">Recipe library</a>
 
 ### A responsive web app that fetches recipes from an external recipe API and allows the user to filter by cuisine, sort by cooking time, and randomly generate a recipe. Built with HTML, CSS, and Vanilla JavaScript (DOM + fetch).
 

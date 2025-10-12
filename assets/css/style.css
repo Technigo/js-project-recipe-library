@@ -39,7 +39,6 @@ body {
   padding: 0;
 }
 
-
 h1 {
   color: var(--h1);
   font-size: 65px;
@@ -166,7 +165,7 @@ h1 {
 
 .recipe-card img{
   width: 100%;
-  aspect-ratio: 16 / 10;                  /* konsekvent bildhöjd */
+  aspect-ratio: 16 / 10;                  
   object-fit: cover;
   display: block;
   margin: 0;
@@ -179,7 +178,6 @@ h1 {
   font-weight: 700;
   color: #151827;
 }
-
 
 .recipe-card p{
   margin: 0 12px 12px;
@@ -198,7 +196,7 @@ h1 {
 
   /* Rubrik: mindre & tightare marginaler */
   h1 {
-    font-size: 34px;            /* var 65px – för stort på 320px-bredd */
+    font-size: 34px;            
     margin: 24px 0 16px;
     text-align: center;
   }
@@ -210,7 +208,7 @@ h1 {
     gap: 16px;
     width: 100%;
     margin: 16px auto 24px;
-    padding: 0 12px;            /* trygg inner-padding på mobil */
+    padding: 0 12px;           
   }
 
   /* Kort: mindre padding, inga hårda höjder (du har redan tagit bort height) */
@@ -219,7 +217,7 @@ h1 {
     box-shadow: 0 1px 4px var(--recipe-shadow);
   }
   .recipe-card img{
-    aspect-ratio: 16 / 10;      /* jämn bildhöjd */
+    aspect-ratio: 16 / 10;    
     object-fit: cover;
   }
   .recipe-card h3{
@@ -228,7 +226,7 @@ h1 {
   }
   .recipe-card p{
     margin: 0 4px 10px;
-    font-size: 1em;             /* fixar din tidigare var(); */
+    font-size: 1em;             
     line-height: 1.45;
   }
 
@@ -240,7 +238,7 @@ h1 {
   .button-row .btn,
   .button-row .btn-time,
   .button-row .btn-random {
-    flex: 1 1 100%;             /* full bredd radvis */
+    flex: 1 1 100%;  
     min-height: 44px;
     font-size: 16px;
   }
