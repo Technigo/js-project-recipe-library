@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Library</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Filters Section -->
+            <section class="filters-section">
+                <h1 class="section-title">Recipe Library</h1>
+                
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="🔍 Search recipes by title or ingredients..."
+                        aria-label="Search recipes"
+                    />
+                </div>
+                
+                <div class="dropdown-filters-row">
+                    <!-- Diet Filter -->
+                    <div class="filter-group">
+                        <label class="filter-title" for="diet-filter">Dietary Preferences</label>
+                        <select id="diet-filter" class="filter-select">
+                            <option value="">Any Diet</option>
+                            <option value="vegan">Vegan</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="gluten-free">Gluten-free</option>
+                            <option value="dairy-free">Dairy-free</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Cuisine Filter -->
+                    <div class="filter-group">
+                        <label class="filter-title" for="cuisine-filter">Cuisine Type</label>
+                        <select id="cuisine-filter" class="filter-select">
+                            <option value="">Any Cuisine</option>
+                            <option value="Mediterranean">Mediterranean</option>
+                            <option value="Middle Eastern">Middle Eastern</option>
+                            <option value="Asian">Asian</option>
+                            <option value="Italian">Italian</option>
+                            <option value="Mexican">Mexican</option>
+                            <option value="European">European</option>
+                            <option value="American">American</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Sorting Options (radio buttons) -->
+                <div class="filter-group sort-group">
+                    <h3 class="filter-title">Sort By</h3>
+                    <div class="filter-options">
+                        <label class="filter-option" data-sort="cooking-time">
+                            <input type="radio" name="sort" value="cooking-time">
+                            <span class="filter-label">Cooking Time</span>
+                        </label>
+                        <label class="filter-option" data-sort="popularity">
+                            <input type="radio" name="sort" value="popularity">
+                            <span class="filter-label">Popularity</span>
+                        </label>
+                    </div>
+                </div>
+                <!-- Order Direction Buttons (not grouped with sort radios) -->
+                <div class="order-direction-group">
+                    <button type="button" class="btn btn-order-direction" id="order-desc">Descending</button>
+                    <button type="button" class="btn btn-order-direction" id="order-asc">Ascending</button>
+                </div>
+                <!-- Divider between sort and actions -->
+                <hr style="margin: 2rem 0 1.5rem 0; border: none; border-top: 2px solid #CCFFE2;" />
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" id="clear-filters-btn">
+                        <span class="btn-icon clear-icon broom-icon">🧹</span>
+                        Clear All Filters
+                    </button>
+                    <button class="btn btn-primary" id="random-recipe-btn">
+                        <span class="btn-icon dice-icon">🎲</span>
+                        Random Recipe
+                    </button>
+                    <button class="btn btn-primary" id="favorites-btn">
+                        <span class="btn-icon heart-icon">❤️</span>
+                        My Favorites
+                    </button>
+                </div>
+            </section>
+
+            <!-- Recipe Display Section -->
+            <section class="recipe-display-section">
+                <div class="recipe-container" id="recipe-container">
+                    <!-- Placeholder Recipe Card -->
+                    <div class="recipe-card placeholder-card">
+                        <div class="recipe-image">
+                            <div class="placeholder-image">🍽️</div>
+                        </div>
+                        <div class="recipe-content">
+                            <h3 class="recipe-title">Select your preferences above</h3>
+                            <p class="recipe-description">Choose your dietary preferences, cuisine type, cooking time, and sorting options to discover the perfect recipe for you!</p>
+                            <div class="recipe-meta">
+                                <span class="recipe-time">⏱️ Ready to cook</span>
+                                <span class="recipe-difficulty">👨‍🍳 Easy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Message Display Area -->
+                <div class="message-display" id="message-display">
+                    <p>👋 Welcome! Use the filters above to find your perfect recipe.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Recipe Library. Built with ❤️ for food lovers.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="backupdata.js?v=19"></script>
+    <script type="module" src="script.js?v=19"></script>
+</body>
+</html>

@@ -1,0 +1,509 @@
+/* Recipe Library CSS
+   Simple styling for recipe app
+   Responsive design with clean layout */
+
+/* Color scheme and theming */
+
+:root {
+    --color-blue: #0018A4;
+    --color-pink: #FF6589;
+    --color-light-pink: #FFECEA;
+    --color-white: #FFFFFF;
+    --color-mint: #CCFFE2;
+}
+
+/* Reset and base styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--color-blue);
+    background-color: var(--color-white);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Main content layout */
+
+.main-content {
+    padding: 2rem 0;
+    min-height: calc(100vh - 200px);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--color-blue);
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+/* Search bar styling */
+
+.search-container {
+    margin-bottom: 2rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    border: 2.5px solid var(--color-blue);
+    border-radius: 50px;
+    background: var(--color-white);
+    color: var(--color-blue);
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.search-input::placeholder {
+    opacity: 0.5;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--color-pink);
+    background: var(--color-light-pink);
+    box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
+}
+
+/* Filter controls and buttons */
+
+.filters-section {
+    background: var(--color-white);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 6px rgba(0, 24, 164, 0.08);
+    border: 1.5px solid var(--color-blue);
+}
+
+.filter-group {
+    margin-bottom: 2rem;
+}
+
+.filter-title {
+    font-size: 1.1rem;
+    color: var(--color-blue);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.dropdown-filters-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Native select dropdown styling */
+.filter-select {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    border: 2.5px solid var(--color-blue);
+    border-radius: 25px;
+    background: var(--color-white);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.filter-select:hover {
+    border-color: var(--color-pink);
+}
+
+.filter-select:focus {
+    border-color: var(--color-pink);
+    background: var(--color-light-pink);
+    box-shadow: 0 0 0 3px rgba(255, 107, 197, 0.1);
+}
+
+.sort-group {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.filter-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+}
+
+.filter-option {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--color-blue);
+    border-radius: 25px;
+    background: var(--color-white);
+    color: var(--color-blue);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.filter-option:hover {
+    background: var(--color-mint);
+    border-color: var(--color-mint);
+}
+
+.filter-option.selected {
+    background: var(--color-blue);
+    color: var(--color-white);
+}
+
+.filter-option input[type="radio"] {
+    margin-right: 0.5rem;
+}
+
+.order-direction-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.btn-order-direction {
+    background: var(--color-blue);
+    color: var(--color-white);
+    border: 2.5px solid var(--color-blue);
+    border-radius: 25px;
+    padding: 0.6rem 2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-order-direction:hover {
+    background: var(--color-mint);
+    color: var(--color-blue);
+    border-color: var(--color-mint);
+}
+
+.btn-order-direction.selected {
+    background: var(--color-pink);
+    color: var(--color-white);
+    border-color: var(--color-pink);
+}
+
+/* Button styling */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+}
+
+.btn-primary,
+.btn-secondary {
+    background: var(--color-pink);
+    color: var(--color-white);
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    background: var(--color-mint);
+    color: var(--color-blue);
+    transform: translateY(-2px);
+}
+
+.btn-primary.selected {
+    background: var(--color-blue);
+    color: var(--color-white);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.btn-icon {
+    font-size: 1.2em;
+}
+
+.btn:hover .btn-icon {
+    transform: scale(1.1);
+}
+
+/* Recipe cards and pagination */
+
+.recipe-display-section {
+    text-align: center;
+}
+
+.recipe-container {
+    margin-bottom: 2rem;
+}
+
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+/* Pagination Controls */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin: 3rem 0;
+    padding: 1.5rem;
+}
+
+.pagination-btn {
+    padding: 0.8rem 1.5rem;
+    border: 2.5px solid var(--color-blue);
+    border-radius: 25px;
+    background: var(--color-white);
+    color: var(--color-blue);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: var(--color-blue);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 165, 251, 0.3);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    border-color: #ccc;
+    color: #ccc;
+}
+
+.pagination-info {
+    font-weight: 600;
+    color: var(--color-blue);
+    font-size: 1rem;
+}
+
+.recipe-card {
+    background: var(--color-white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 0 2px var(--color-blue);
+    max-width: 400px;
+    transition: all 0.3s;
+    justify-self: center;
+}
+
+.recipe-card:hover {
+    box-shadow: 0 4px 12px var(--color-blue);
+    transform: translateY(-3px);
+}
+
+.recipe-image {
+    height: 250px;
+    background: var(--color-light-pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.recipe-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.placeholder-image {
+    font-size: 4rem;
+    color: var(--color-blue);
+    opacity: 0.5;
+}
+
+.heart-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.heart-btn:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+.heart-btn.favorited {
+    background: var(--color-pink);
+    color: white;
+}
+
+.heart-icon {
+    font-size: 1.2rem;
+}
+
+.recipe-content {
+    padding: 1.5rem;
+}
+
+.recipe-title {
+    font-size: 1.4rem;
+    color: var(--color-blue);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.recipe-description {
+    color: var(--color-pink);
+    margin-bottom: 1rem;
+}
+
+.recipe-meta {
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-blue);
+    font-size: 0.9rem;
+}
+
+.recipe-details {
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+
+/* Messages and utility classes */
+
+.message-display {
+    background: var(--color-mint);
+    border: 1.5px solid var(--color-blue);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    color: var(--color-blue);
+    font-weight: 500;
+}
+
+.message-display.error {
+    background: var(--color-light-pink);
+    border-color: var(--color-pink);
+    color: var(--color-pink);
+}
+
+.message-display.loading {
+    background: #fff3cd;
+    border-color: #ffc107;
+    color: #856404;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--color-blue);
+    background: var(--color-light-pink);
+    border-radius: 12px;
+    border: 2px solid var(--color-pink);
+}
+
+.empty-state h3 {
+    color: var(--color-pink);
+    margin-bottom: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Footer styling */
+
+.footer {
+    background: var(--color-blue);
+    color: var(--color-white);
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 3rem;
+}
+
+/* Responsive design for different screen sizes */
+
+/* Tablet and below */
+@media (max-width: 768px) {
+    .dropdown-filters-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .filter-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .recipe-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .dropdown-filters-row,
+    .filter-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .order-direction-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 250px;
+    }
+    
+    .recipe-image {
+        height: 200px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
