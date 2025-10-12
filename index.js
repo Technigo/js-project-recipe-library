@@ -14,17 +14,22 @@ function mapCuisine(value){
     asia: 'asian',
     belgia: 'belgian'
   };
-  return map[v] ?? 'all';
+  return map[v] ?? 'all'; //Fallback
 }
 
-/* Bygg URL enligt state */
+/* 
+Bygg URL enligt state 
+In short: the function builds a ready-made URL (web address) 
+to Spoonacular's search API based on what you want – 
+cuisine, sort direction, and how many recipes – and returns it as a string.
+*/
 function buildUrl({ cuisine = 'all', sortDir = 'asc', number = 14 } = {}) {
   const params = new URLSearchParams({
   apiKey: API_KEY,
   number: String(number),
   addRecipeInformation: "true",
   instructionsRequired: "true",
-  sort: "readyInMinutes",
+  sort: "time",
   sortDirection: sortDir, 
   });
   const c = mapCuisine(cuisine);
@@ -34,8 +39,9 @@ function buildUrl({ cuisine = 'all', sortDir = 'asc', number = 14 } = {}) {
 
 /* 
   STATE 
-  Variabler som berättar vad användaren har valt (kök och sortering) och vilka recept som senast hämtats.
-  När du klickar på knapparna uppdateras dessa värden – och vi hämtar nya recept.
+  Variables that tell us what the user has selected 
+  (kitchen and sorting) and which recipes were most recently retrieved.
+  When you click the buttons, these values ​​are updated – and we retrieve new recipes.
 */
 let currentCuisine = 'all';
 let currentSortDir = 'asc';
@@ -43,10 +49,10 @@ let currentRecipes = [];
 
 /* 
   DOM 
-  grid: containern där korten ska skrivas ut
-  filterBtns: alla knappar som filtrerar på kök
-  sortBtns: knappar som sätter upp/ner på tid
-  randomBtn: knappen som visar ett slumpat recept
+  grid: the container where the cards will be printed
+  filterBtns: all buttons that filter by cuisine
+  sortBtns: buttons that set up/down by time
+  randomBtn: the button that shows a random recipe
 */
 const grid = document.querySelector('.recipe-grid');
 const filterBtns = document.querySelectorAll('.btn[data-cuisine]');
@@ -55,10 +61,10 @@ const randomBtn  = document.querySelector('.btn-random');
 
 /* 
   HÄMTA & RENDERA 
-    Bygger en URL baserat på nuvarande state (kök + sortering).
-    fetch(url) anropar API:et och väntar på ett svar.
-    Om det går bra: data.results läggs i currentRecipes och skickas till renderRecipes.
-    Om det går dåligt: vi visar ett enkelt felmeddelande i grid.
+  Builds a URL based on the current state (kitchen + sorting).
+  fetch(url) calls the API and waits for a response.
+  If successful: data.results is added to currentRecipes and sent to renderRecipes.
+  If unsuccessful: we display a simple error message in the grid.
 */
 async function fetchRecipes() {
   try {
@@ -67,6 +73,15 @@ async function fetchRecipes() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     currentRecipes = data.results || [];
+
+      
+    //function for sorting ascending and descending
+    currentRecipes.sort(function (a, b) {
+      const am = Number.isFinite(a.readyInMinutes) ? a.readyInMinutes : Infinity;
+      const bm = Number.isFinite(b.readyInMinutes) ? b.readyInMinutes : Infinity;
+      return currentSortDir === 'asc' ? (am - bm) : (bm - am);
+    });
+
     renderRecipes(currentRecipes);
   } catch (e) {
     console.error(e);
@@ -80,8 +95,8 @@ async function fetchRecipes() {
 
 /* 
   Rendera listan
-    Om listan är tom -> visa “Inga recept hittades”.
-    Annars: skapa HTML för varje recept med recipeCardHTML() och stoppa in i grid.
+  If the list is empty -> show “No recipes found”.
+  Otherwise: create HTML for each recipe with recipeCardHTML() and insert into grid.
 */
 function renderRecipes(list) {
   if (!grid) return;
@@ -94,15 +109,14 @@ function renderRecipes(list) {
 
 /* 
   SKAPAR ETT RECEPTKORT
-    Väljer “säkra” fallback-värden om något saknas (t.ex. titel/bild/tid).
-    summary rensas från HTML och kortas till 160 tecken.
-    Bilden har onerror="this.style.display='none'" → om bilden är trasig försvinner <img> så layouten ser bra ut.
-    Länk till receptets sida på Spoonacular byggs via titel-slug + id
+  Chooses “safe” fallback values ​​if something is missing (e.g. title/image/time).
+  summary is cleaned from HTML and shortened to 160 characters.
+  Image has onerror="this.style.display='none'" → if the image is broken, <img> disappears so the layout looks good.
+  Link to the recipe page on Spoonacular is built via title-slug + id
 */
 function recipeCardHTML(r) {
   const title = r.title ?? 'Untitled';
   const img = r.image ?? '';
-  const time = r.time
   const minutes = Number.isFinite(r.readyInMinutes) ? r.readyInMinutes : null;
   const cuisines = (Array.isArray(r.cuisines) && r.cuisines.length) ? r.cuisines.join(', ') :
                    (currentCuisine === 'all' ? '—' : cap(mapCuisine(currentCuisine)));
@@ -123,10 +137,10 @@ function recipeCardHTML(r) {
 
 /* 
   HJÄLPARE 
-    stripHtml: tar bort HTML-taggar från en text (för att undvika konstigt innehåll i summary).
-    esc: “escapar” text så att specialtecken inte bryter HTML.
-    slug: gör “fina” URL-vänliga strängar (för länken).
-    cap: stor bokstav i början (för att visa “Asian” i stället för “asian”).
+  stripHtml: removes HTML tags from a text (to avoid strange content in summary).
+  esc: “escaps” text so that special characters do not break HTML.
+  slug: makes “nice” URL-friendly strings (for the link).
+  cap: capitalizes the first letter (to display “Asian” instead of “asian”).
 */
 function stripHtml(html){
   const el = document.createElement('div');
@@ -139,9 +153,9 @@ function cap(s){ return String(s).charAt(0).toUpperCase() + String(s).slice(1); 
 
 /* 
   INTERAKTION 
-    Filterknappar: uppdaterar currentCuisine och hämtar nya recept utifrån det valet.
-    Sortknappar: ändrar currentSortDir (asc/desc) och hämtar igen.
-    Random: tar ett slumpat recept från senaste hämtningen och renderar bara det kortet.
+  Filter buttons: updates currentCuisine and fetches new recipes based on that selection.
+  Sort buttons: changes currentSortDir (asc/desc) and fetches again.
+  Random: takes a random recipe from the last fetch and renders only that card.
 */
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -154,6 +168,9 @@ filterBtns.forEach(btn => {
 sortBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     currentSortDir = (btn.dataset.sort === 'desc') ? 'desc' : 'asc';
+        console.log('[SORT CLICK]', { dataset: btn.dataset.sort, currentSortDir });
+    const testUrl = buildUrl({ cuisine: currentCuisine, sortDir: currentSortDir, number: 14 });
+    console.log('[URL]', testUrl);
     setActive(sortBtns, btn);
     fetchRecipes();
   });
@@ -173,8 +190,8 @@ function setActive(nodeList, activeEl){
 
 /* 
   INIT 
-    Sätter visuellt “All” + “Ascending” som startval.
-    Kör fetchRecipes() direkt så sidan fylls med recept när den laddas.
+  Visually sets “All” + “Ascending” as the starting selection.
+  Run fetchRecipes() immediately so the page is populated with recipes when it loads.
 */
 (function init(){
   document.querySelector('.btn[data-cuisine="all"]')?.classList.add('active');
