@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Recipe Library</h1>
+      <section id="fav-cont" class="filter fav-container">
+        <button id="btnFavourites" class="btn btn-fav">
+          My fav recipes &#9825;
+        </button>
+      </section>
+    </header>
+    <main>
+      <section class="filter-container">
+        <div class="filter-wrapper">
+          <h3>Filter by kitchen</h3>
+          <div class="filter filter-kitchen">
+            <button id="btnAll" class="btn btn-filter-kitch">All</button>
+            <button id="asianCuisine" class="btn btn-filter-kitch">
+              Asian
+            </button>
+            <button id="frenchCuisine" class="btn btn-filter-kitch">
+              French
+            </button>
+            <button id="mexicanCuisine" class="btn btn-filter-kitch">
+              Mexican
+            </button>
+            <button id="italianCuisine" class="btn btn-filter-kitch">
+              Italian
+            </button>
+          </div>
+        </div>
+
+        <div class="filter-wrapper">
+          <h3>Filter by cooking time</h3>
+          <div class="filter filter-time">
+            <button class="btn btn-filter-min">Under 30 min</button>
+            <button class="btn btn-filter-min">Under 45 min</button>
+            <button class="btn btn-filter-min">Under 1,5 hour</button>
+            <button class="btn btn-filter-min">Under 3 hours</button>
+          </div>
+        </div>
+
+        <div class="filter-wrapper">
+          <h3>Sort by time</h3>
+          <div class="filter sort-options">
+            <button class="btn btn-sort" id="sortShortest">
+              Shortest Time ⏱️
+            </button>
+            <button class="btn btn-sort" id="sortLongest">
+              Longest Time ⏱️
+            </button>
+          </div>
+        </div>
+
+        <div class="filter filter-wrapper filter-random">
+          <h3>Feeling adventurous?</h3>
+          <button id="btnRandom" class="btn">✨Get a random recipe✨</button>
+        </div>
+      </section>
+
+      <article class="cards-container">
+        <div class="card">
+          <a
+            href="https://www.kingarthurbaking.com/blog/2025/01/03/recipe-of-the-year-focaccia"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card-link"
+            ><img
+              class="card-img"
+              src="./Assets/focaccia.png"
+              alt="close-up photo of a focaccia with cherry tomatoes on it"
+            />
+            <div class="card-content">
+              <h2 class="card-big-heading">Cheat's cheesy Focaccia</h2>
+              <hr class="card-line" />
+              <dl class="details-card">
+                <div class="card-detail">
+                  <dt>Cuisine:</dt>
+                  <dd>Italian</dd>
+                </div>
+                <div class="card-detail">
+                  <dt>Time:</dt>
+                  <dd>40 minutes</dd>
+                </div>
+              </dl>
+              <hr class="card-line" />
+              <h3>Ingredients</h3>
+              <ul class="ingredient-list">
+                <li class="ingredient">500 pack bread mix</li>
+                <li class="ingredient">
+                  2tbsp. olive oil, plus a little extra for drizzling
+                </li>
+                <li class="ingredient">
+                  25g parmesan (or vegetarian alternative), grated
+                </li>
+                <li class="ingredient">
+                  75g dolcelatte cheese (or vegetarian alternative)
+                </li>
+              </ul>
+            </div>
+          </a>
+          <button class="favourite-btn" data-id="1" title="Add to favourites">
+            🤍
+          </button>
+        </div>
+      </article>
+    </main>
+
+    <script src="./index.js" type="module"></script>
+  </body>
+</html>
