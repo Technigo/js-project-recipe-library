@@ -16,6 +16,12 @@ body {
   background-color: #FAFBFF;
 }
 
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 h1 {
   color: #0018A4;
   font-size: 64px;
@@ -23,6 +29,31 @@ h1 {
   line-height: 100%;
   text-align: left;
   margin: 64px 0 0 64px;
+  display: inline-block;
+}
+
+.fav-container {
+  display: inline-block;
+  margin: 64px 64px 0 0;
+  padding: 0;
+}
+
+#btnFavourites {
+  background-color: #fbb0c2;
+  align-self: flex-end;
+  border: 2px solid transparent;
+}
+
+#btnFavourites:hover {
+  border: 2px solid #0018A4;
+  transition: 0.3s;
+}
+
+#btnFavourites.active {
+  color: #fff;
+  background: #FF6589;
+  border: 2px solid transparent;
+  transition: 0.3s;
 }
 
 /* Media queries  for H1 */
@@ -35,20 +66,41 @@ h1 {
 }
 
 /* Tablet screen between 481px-768px */
-@media (min-width: 481px) and (max-width: 768px) {
+@media (min-width: 481px) and (max-width: 1024px) {
+  header {
+    display: flex;
+    flex-direction: column;
+  }
+
   h1 {
     font-size: 10vw;
     text-wrap: nowrap;
     margin: 40px 0 0 40px;
   }
+
+  .fav-container {
+    margin: 24px 0 24px 40px;
+    padding: 0;
+  }
 }
 
 /* Mobile screen <=480px */
 @media (max-width: 480px) {
+  header {
+    display: flex;
+    flex-direction: column;
+  }
+
   h1 {
     font-size: 12vw;
     text-wrap: nowrap;
     margin: 20px 0 0 20px;
+  }
+
+
+  .fav-container {
+    margin: 20px 20px 0;
+    padding: 0;
   }
 }
 
@@ -159,7 +211,7 @@ h1 {
   transition: 0.3s;
 }
 
-#btnRandom:active {
+#btnRandom.active {
   color: #fff;
   background: #2c1493;
   border: 2px solid transparent;
@@ -210,11 +262,17 @@ h1 {
   transition: 0.3s;
 }
 
-.btn-sort:active {
+.btn-sort.active {
   color: #fff;
   background: #86048d;
   border: 2px solid transparent;
   transition: 0.3s;
+}
+
+button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
 }
 
 /* Media queries for filter buttons */
@@ -234,9 +292,10 @@ h1 {
   grid-template-rows: auto;
   grid-auto-rows: auto;
   gap: 1rem;
-  margin: 0 64px 64px;
+  margin: 0 auto 64px;
   box-sizing: border-box;
-  max-width: 200px;
+  max-width: 1600px;
+  width: 90%;
 }
 
 /* Media queries for cards block */
@@ -273,17 +332,30 @@ h1 {
   border: 1px solid #E9E9E9;
   border-radius: 16px;
   display: flex;
+  position: relative;
+  overflow: hidden;
   max-width: 400px;
   min-width: fit-content;
   padding: 16px 16px 24px 16px;
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
 }
 
 .card:hover {
   border: 2px solid #0018A4;
   box-shadow: 0 0 30px 0 rgba(0, 24, 164, 0.20);
+}
+
+.card-link {
+  display: block;
+  pointer-events: auto;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  width: 100%;
 }
 
 .card-img {
@@ -296,6 +368,46 @@ h1 {
   font-size: 22px;
   font-weight: 700;
   line-height: normal;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card a {
+  pointer-events: auto;
+}
+
+.favourite-btn {
+  background: white;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  pointer-events: auto;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+  font-size: 1.5rem;
+  padding: 4px 8px;
+  transition: transform 0.2s ease;
+}
+
+
+
+.favourite-btn:hover {
+  transform: scale(1.2);
+}
+
+.favourite-btn:focus {
+  outline: none;
+}
+
+.favourite-btn:active {
+  transform: scale(1.1);
 }
 
 .card-line {

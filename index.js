@@ -1,413 +1,300 @@
-const recipes = [
-  {
-    id: 1,
-    title: "Vegan Lentil Soup",
-    image: "./Assets/focaccia.png",
-    readyInMinutes: 30,
-    servings: 4,
-    sourceUrl: "https://example.com/vegan-lentil-soup",
-    diets: ["vegan"],
-    cuisine: "Mediterranean",
-    ingredients: [
-      "red lentils",
-      "carrots",
-      "onion",
-      "garlic",
-      "tomato paste",
-      "cumin",
-      "paprika",
-      "vegetable broth",
-      "olive oil",
-      "salt"
-    ],
-    pricePerServing: 2.5,
-    popularity: 85
-  },
-  {
-    id: 2,
-    title: "Vegetarian Pesto Pasta",
-    image: "./Assets/focaccia.png",
-    readyInMinutes: 25,
-    servings: 2,
-    sourceUrl: "https://example.com/vegetarian-pesto-pasta",
-    diets: ["vegetarian"],
-    cuisine: "Italian",
-    ingredients: [
-      "pasta",
-      "basil",
-      "parmesan cheese",
-      "garlic",
-      "pine nuts",
-      "olive oil",
-      "salt",
-      "black pepper"
-    ],
-    pricePerServing: 3.0,
-    popularity: 92
-  },
-  {
-    id: 3,
-    title: "Gluten-Free Chicken Stir-Fry",
-    image: "./Assets/focaccia.png",
-    readyInMinutes: 67,
-    servings: 3,
-    sourceUrl: "https://example.com/gluten-free-chicken-stir-fry",
-    diets: ["gluten-free"],
-    cuisine: "Asian",
-    ingredients: [
-      "chicken breast",
-      "broccoli",
-      "bell pepper",
-      "carrot",
-      "soy sauce (gluten-free)",
-      "ginger",
-      "garlic",
-      "sesame oil",
-      "cornstarch",
-      "green onion",
-      "sesame seeds",
-      "rice"
-    ],
-    pricePerServing: 4.0,
-    popularity: 78
-  },
-  {
-    id: 4,
-    title: "Dairy-Free Tacos",
-    image: "./Assets/focaccia.png",
-    readyInMinutes: 15,
-    servings: 2,
-    sourceUrl: "https://example.com/dairy-free-tacos",
-    diets: ["dairy-free"],
-    cuisine: "Mexican",
-    ingredients: [
-      "corn tortillas",
-      "ground beef",
-      "taco seasoning",
-      "lettuce",
-      "tomato",
-      "avocado"
-    ],
-    pricePerServing: 2.8,
-    popularity: 88
-  },
-  {
-    id: 5,
-    title: "Middle Eastern Hummus",
-    image: "./Assets/focaccia.png",
-    readyInMinutes: 47,
-    servings: 4,
-    sourceUrl: "https://example.com/middle-eastern-hummus",
-    diets: ["vegan", "gluten-free"],
-    cuisine: "Italian",
-    ingredients: [
-      "chickpeas",
-      "tahini",
-      "garlic",
-      "lemon juice",
-      "olive oil"
-    ],
-    pricePerServing: 1.5,
-    popularity: 95
-  },
-  {
-    id: 6,
-    title: "Quick Avocado Toast",
-    image: "./Assets/focaccia.png",
-    readyInMinutes: 5,
-    servings: 1,
-    sourceUrl: "https://example.com/quick-avocado-toast",
-    diets: ["vegan"],
-    cuisine: "Mediterranean",
-    ingredients: [
-      "bread",
-      "avocado",
-      "lemon juice",
-      "salt"
-    ],
-    pricePerServing: 2.0,
-    popularity: 90
-  },
-  {
-    id: 7,
-    title: "Beef Stew",
-    image: "./Assets/focaccia.png",
-    readyInMinutes: 90,
-    servings: 5,
-    sourceUrl: "https://example.com/beef-stew",
-    diets: [],
-    cuisine: "European",
-    ingredients: [
-      "beef chunks",
-      "potatoes",
-      "carrots",
-      "onion",
-      "garlic",
-      "tomato paste",
-      "beef broth",
-      "red wine",
-      "bay leaves",
-      "thyme",
-      "salt",
-      "black pepper",
-      "butter",
-      "flour",
-      "celery",
-      "mushrooms"
-    ],
-    pricePerServing: 5.5,
-    popularity: 80
-  }
-]
+import { backupData } from "./backupdata.js";
 
-//Variables
-const cardsContainer = document.querySelector(".cards-container");
+console.log("backup data loaded:", backupData);
 
+//Main DOM
+const btnAll = document.getElementById("btnAll");
 const btnAsian = document.getElementById("asianCuisine");
 const btnFrench = document.getElementById("frenchCuisine");
 const btnMexican = document.getElementById("mexicanCuisine");
 const btnItalian = document.getElementById("italianCuisine");
-const btnAll = document.getElementById("btnAll");
-
+const timeBtns = document.querySelectorAll(".btn-filter-min");
+const sortShortest = document.getElementById("sortShortest");
+const sortLongest = document.getElementById("sortLongest");
 const btnRandom = document.getElementById("btnRandom");
+const btnFavourites = document.getElementById("btnFavourites");
+const cardsContainer = document.querySelector(".cards-container");
 
-const timeFilterButtons = document.querySelectorAll(".btn-filter-min");
+//Default states
+let recipes = [];
+let favourites = JSON.parse(localStorage.getItem("favourites")) || [];
+let activeCuisines = [];
+let activeTime = null;
+let activeSort = null;
+let showingFavourites = false;
 
-const sortShortestBtn = document.getElementById("sortShortest");
-const sortLongestBtn = document.getElementById("sortLongest");
-//const messageCard = document.querySelector(".cards-container .card h2");
+//API
+const API_KEY = "e0b47753fa494923995b12db50a75eef";
+const API_URL = `https://api.spoonacular.com/recipes/random?number=15&apiKey=${API_KEY}`;
 
-//const firstMessage = "Welcome to the Recipe Library! 🍽️";
-//messageCard.textContent = firstMessage;
+//Cache functions
+function saveCache(data) {
+  localStorage.setItem("cachedRecipes", JSON.stringify(data));
+  localStorage.setItem("cacheTime", Date.now());
+}
 
-const cuisineButtons = [btnAsian, btnFrench, btnMexican, btnItalian, btnAll];
+function getCache() {
+  const cached = localStorage.getItem("cachedRecipes");
+  const time = localStorage.getItem("cacheTime");
+  if (!cached || !time) return null;
+  const SIX_HOURS = 6 * 60 * 60 * 1000;
+  if (Date.now() - time > SIX_HOURS) return null;
+  return JSON.parse(cached);
+}
 
-//Default
-function displayRecipes(list) {
+//Show recipes
+function displayRecipes(recipesToShow) {
   cardsContainer.innerHTML = "";
 
-  //Nothing found
-  if (list.length === 0) {
-    return cardsContainer.innerHTML = `
+  if (!recipesToShow || recipesToShow.length === 0) {
+    cardsContainer.innerHTML = `
+      <div class="card" style="text-align:center; padding:2rem;">
+        <h2>No recipes found</h2>
+        <p>Try another filter, or go back to all recipes.</p>
+      </div>`;
+    return;
+  }
+
+  recipesToShow.forEach(recipe => {
+    const isFav = favourites.some(f => f.id === recipe.id);
+    const cuisine = recipe.cuisines?.join(", ") || "Unknown";
+    const time = recipe.readyInMinutes ? `${recipe.readyInMinutes} min` : "N/A";
+    const ingredients = recipe.extendedIngredients
+      ? recipe.extendedIngredients.map(ing => `<li>${ing.name}</li>`).join("")
+      : "<li>No ingredients listed</li>";
+
+    const cardHTML = `
       <div class="card">
-        <h2>I looked everywhere, but couldn't find anything</h2>
-        <p>Try resetting your search by pressing "All" or get lucky with a random recipe!</p>
-        <img src="./Assets/404error.jpg">
+        <a href="${recipe.sourceUrl || `https://spoonacular.com/recipes/${encodeURIComponent(recipe.title)}-${recipe.id}`}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="card-link"
+        >
+          <img class="card-img" src="${recipe.image}" alt="${recipe.title}" />
+          <div class="card-content">
+            <h2 class="card-big-heading">${recipe.title}</h2>
+            <hr class="card-line" />
+            <dl class="details-card">
+              <div class="card-detail">
+                <dt>Cuisine:</dt><dd>${cuisine}</dd>
+              </div>
+              <div class="card-detail">
+                <dt>Time:</dt><dd>${time}</dd>
+              </div>
+            </dl>
+            <hr class="card-line" />
+            <h3>Ingredients</h3>
+            <ul class="ingredient-list">${ingredients}</ul>
+          </div>
+        </a>
+        <button class="favourite-btn" data-id="${recipe.id}" title="Add to favourites">
+          ${isFav ? "❤️" : "🤍"}
+        </button>
       </div>
     `;
-  }
-
-  list.forEach(recipe => {
-    const card = document.createElement("div");
-    card.classList.add("card");
-
-    card.innerHTML = `
-      <img class="card-img" src="${recipe.image}" alt="${recipe.title}" />
-      <h2 class="card-big-heading">${recipe.title}</h2>
-      <hr class="card-line" />
-      <dl class="details-card">
-        <div class="card-detail"><dt>Cuisine:</dt><dd>${recipe.cuisine}</dd></div>
-        <div class="card-detail"><dt>Time:</dt><dd>${recipe.readyInMinutes} min</dd></div>
-      </dl>
-      <hr class="card-line" />
-      <h3>Ingredients</h3>
-      <ul class="ingredient-list">
-        ${recipe.ingredients.map(ing => `<li class="ingredient">${ing}</li>`).join("")}
-      </ul>
-    `;
-    cardsContainer.appendChild(card);
+    cardsContainer.insertAdjacentHTML("beforeend", cardHTML);
   });
+
+  attachFavouriteEvents();
 }
 
-function getSelectedCuisines() {
-  return cuisineButtons
-    .filter(btn => btn.classList.contains("active") && btn !== btnAll)
-    .map(btn => btn.textContent.trim());
-}
+//Filters and sorting functions
+function applyFiltersAndSorting() {
+  if (showingFavourites) return;
 
-function getSelectedTimeLimit() {
-  const activeBtn = [...timeFilterButtons].find(b => b.classList.contains("active"));
-  if (!activeBtn) return null;
-  if (activeBtn.textContent.includes("30")) return 30;
-  if (activeBtn.textContent.includes("45")) return 45;
-  if (activeBtn.textContent.includes("1,5")) return 90;
-  if (activeBtn.textContent.includes("3")) return 180;
-  return null;
-}
+  let filtered = [...recipes];
 
-/* function getSelectedSort() {
-  const selected = [...sortButtons].find(b => b.classList.contains("active"));
-  return selected ? selected.textContent.trim() : null;
-} */
-
-//Filter and Sorting
-
-function addFiltersAndSorting() {
-  btnRandom.classList.remove("active");
-
-  let filtered = recipes;
-  const cuisines = getSelectedCuisines();
-  const timeLimit = getSelectedTimeLimit();
-
-  //Cuisine filter logic
-  if (!btnAll.classList.contains("active") && cuisines.length > 0) {
-    filtered = filtered.filter(r => cuisines.includes(r.cuisine)); // show all if “All” or none selected
-  } /* else {
-    filtered = recipes.filter(r => cuisines.includes(r.cuisine));
-  }; */
-  //Time filter logic
-  if (timeLimit) {
-    filtered = filtered.filter(r => r.readyInMinutes <= timeLimit);
+  // Cuisine multi-filter
+  if (activeCuisines.length > 0) {
+    filtered = filtered.filter(r =>
+      r.cuisines?.some(c => activeCuisines.includes(c))
+    );
   }
 
-  //Sorting logic
-  if (sortShortestBtn.classList.contains("active")) {
-    filtered.sort((a, b) => a.readyInMinutes - b.readyInMinutes);
-  } else if (sortLongestBtn.classList.contains("active")) {
-    filtered.sort((a, b) => b.readyInMinutes - a.readyInMinutes);
+  // Time filter
+  if (activeTime) {
+    const limits = { "30": 30, "45": 45, "90": 90, "180": 180 };
+    filtered = filtered.filter(r => r.readyInMinutes && r.readyInMinutes <= limits[activeTime]);
   }
+
+  // Sort
+  if (activeSort === "asc") filtered.sort((a, b) => a.readyInMinutes - b.readyInMinutes);
+  else if (activeSort === "desc") filtered.sort((a, b) => b.readyInMinutes - a.readyInMinutes);
 
   displayRecipes(filtered);
 }
 
+// Fetching Data
+async function fetchRecipes() {
+  const loading = document.createElement("div");
+  loading.textContent = "Loading recipes...";
+  loading.style.textAlign = "center";
+  cardsContainer.innerHTML = "";
+  cardsContainer.appendChild(loading);
 
-//Filter by cuisine
-cuisineButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    btnRandom.classList.remove("active");
-
-    if (btn.id === "btnAll") {
-      // "All" resets everything
-      cuisineButtons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-    } else {
-      // Toggle selected cuisine
-      btn.classList.toggle("active");
-      btnAll.classList.remove("active");
-
-      //By dafault All is applied
-      const anyActive = cuisineButtons.some(b => b.classList.contains("active") && b !== btnAll);
-      if (!anyActive) btnAll.classList.add("active");
+  try {
+    const cache = getCache();
+    if (cache) {
+      recipes = cache;
+      applyFiltersAndSorting();
+      return;
     }
-     //cuisineMessageUpdate();
-    addFiltersAndSorting();
+
+    const response = await fetch(API_URL);
+    if (!response.ok) {
+      if (response.status === 402 || response.status === 429) {
+        cardsContainer.innerHTML = `
+          <div class="card" style="text-align:center; padding:2rem;">
+            <h2>Daily API quota reached</h2>
+            <p>Please try again later or use cached recipes.</p>
+          </div>`;
+        return;
+      }
+      throw new Error("Failed to fetch recipes");
+    }
+
+    const data = await response.json();
+    recipes = data.recipes;
+    saveCache(recipes);
+    applyFiltersAndSorting();
+  } catch (err) {
+    cardsContainer.innerHTML = `<p style="color:red; text-align:center;">${err.message}</p>`;
+  }
+}
+
+// Random button
+function getRandomRecipe() {
+  const all = showingFavourites ? favourites : recipes;
+  if (!all.length) return;
+  const random = all[Math.floor(Math.random() * all.length)];
+  displayRecipes([random]);
+}
+
+// Favs storage
+function attachFavouriteEvents() {
+  const favBtns = document.querySelectorAll(".favourite-btn");
+  favBtns.forEach(btn => {
+    btn.addEventListener("click", e => {
+      const id = parseInt(e.target.dataset.id);
+      toggleFavourite(id);
+    });
   });
-});
+}
 
-//Filter by time
-timeFilterButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    btnRandom.classList.remove("active");
+function toggleFavourite(id) {
+  const recipe = recipes.find(r => r.id === id) || favourites.find(f => f.id === id);
+  if (!recipe) return;
 
-    const isActive = btn.classList.contains("active");
+  const exists = favourites.some(f => f.id === id);
+  if (exists) {
+    favourites = favourites.filter(f => f.id !== id);
+  } else {
+    favourites.push(recipe);
+  }
 
-    // Deactivate all time filter buttons
-    timeFilterButtons.forEach(b => b.classList.remove("active"));
+  localStorage.setItem("favourites", JSON.stringify(favourites));
 
-    // Toggle clicked one
-    if (!isActive) {
-      btn.classList.add("active");
-    }
+  if (showingFavourites) displayRecipes(favourites);
+  else applyFiltersAndSorting();
+}
 
-    //Reapply filters and sorting
-    addFiltersAndSorting();
+// UI events (Cuisine filters, Time filters, Sorting, Add Favs)
+function attachUiEvents() {
+  const cuisineButtons = [btnAll, btnAsian, btnFrench, btnMexican, btnItalian];
+
+  // Cuisine filter (multi-select)
+  cuisineButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const clickedCuisine = btn.textContent.trim();
+
+      if (clickedCuisine === "All") {
+        // Reset all
+        activeCuisines = [];
+        cuisineButtons.forEach(b => b.classList.remove("active"));
+        btnAll.classList.add("active");
+      } else {
+        btnAll.classList.remove("active");
+
+        if (activeCuisines.includes(clickedCuisine)) {
+          activeCuisines = activeCuisines.filter(c => c !== clickedCuisine);
+          btn.classList.remove("active");
+        } else {
+          activeCuisines.push(clickedCuisine);
+          btn.classList.add("active");
+        }
+
+        if (activeCuisines.length === 0) btnAll.classList.add("active");
+      }
+
+      applyFiltersAndSorting();
+    });
   });
-});
 
+  // Cooking time filters
+  timeBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const text = btn.textContent;
+      let newTime = null;
 
+      if (text.includes("30")) newTime = "30";
+      else if (text.includes("45")) newTime = "45";
+      else if (text.includes("1,5")) newTime = "90";
+      else if (text.includes("3")) newTime = "180";
 
-//Sort buttons
-const sortButtons = [sortShortestBtn, sortLongestBtn];
-sortButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    const isActive = btn.classList.contains("active");
+      if (activeTime === newTime) {
+        activeTime = null;
+        timeBtns.forEach(b => b.classList.remove("active"));
+      } else {
+        activeTime = newTime;
+        timeBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      }
 
-    //Deactivate both
-    sortButtons.forEach(b => b.classList.remove("active"));
+      applyFiltersAndSorting();
+    });
+  });
 
-    //Toggle clicked one
-    if (!isActive) {
-      btn.classList.add("active");
-    }
-
-    //Reapply filters and sorting
+  // Sorting
+  sortShortest.addEventListener("click", () => {
+    activeSort = activeSort === "asc" ? null : "asc";
+    sortShortest.classList.toggle("active", activeSort === "asc");
+    sortLongest.classList.remove("active");
     applyFiltersAndSorting();
   });
-});
 
-//Random Button
-btnRandom.addEventListener("click", () => {
-  //Clear all filters and sorts
-  cuisineButtons.forEach(b => b.classList.remove("active"));
-  timeFilterButtons.forEach(b => b.classList.remove("active"));
-  sortButtons.forEach(b => b.classList.remove("active"));
+  sortLongest.addEventListener("click", () => {
+    activeSort = activeSort === "desc" ? null : "desc";
+    sortLongest.classList.toggle("active", activeSort === "desc");
+    sortShortest.classList.remove("active");
+    applyFiltersAndSorting();
+  });
 
-  btnRandom.classList.add("active");
+  // Random recipe
+  btnRandom.addEventListener("click", getRandomRecipe);
 
-  //Pick and show random recipe
-  const randomRecipe = recipes[Math.floor(Math.random() * recipes.length)];
+  // Favourites button
+  const originalFavText = btnFavourites.innerHTML;
 
-  displayRecipes([randomRecipe]);
-});
-
-//First loading
-displayRecipes(recipes);
-
-
-////////////////
-//for week 1
-/* function cuisineMessageUpdate() {
-  const active = cuisineButtons.filter(btn => btn.classList.contains("active") && btn !== btnAll);
-
-  //Filter "All"
-  if (btnAll.classList.contains("active")) {
-    return messageCard.textContent = "Showing all cuisines 🍽️";
-  }
-
-  //Default(no filter)
-  if (active.length === 0) {
-    return messageCard.textContent = firstMessage;
-  }
-
-  // >1 filter
-  if (active.length === 2) {
-    return messageCard.textContent = "Double the flavor combo! 🍲🍜";
-  }
-
-   if (active.length === 3) {
-    return messageCard.textContent = "Wow, ho many guests do you have today?! 🍲🍜";
-  }
-
-   if (active.length === 4) {
-   return messageCard.textContent = "Oh, just press All now, honey, won't you?";     
-  }
-
-  // 1 filter
-  const btn = active[0];
-  if (btn === btnAsian) messageCard.textContent = "Wow, fellow spicy cuisine lover! 🌶️";
-  else if (btn === btnItalian) messageCard.textContent = "Mamma mia! Time for pasta and focaccia! 🍝";
-  else if (btn === btnMexican) messageCard.textContent = "¡Olé! Let’s add some tacos to the mix! 🌮";
-  else if (btn === btnFrench) messageCard.textContent = "Bon appétit! 🥐 Time for something elegant.";
-} */
-
-
-//Sorting by time
-
-/* function clearActive(group) {
-  group.forEach(btn => btn.classList.remove("active"));
-}
-  
-sortButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    const isActive = btn.classList.contains("active");
-    clearActive(sortButtons);
-
-    if (!isActive) {
-      btn.classList.add("active");
-      messageCard.textContent = `Sorting by: ${btn.textContent}`;
-    } else {
-      messageCard.textContent = firstMessage;
+  btnFavourites.addEventListener("click", e => {
+    e.preventDefault();
+    showingFavourites = !showingFavourites;
+    btnFavourites.innerHTML = showingFavourites
+      ? "Back to All Recipes"
+      : originalFavText;
+    if (showingFavourites) {
+      displayRecipes(favourites);
+    }
+    else {
+      applyFiltersAndSorting();
     }
   });
-});
- */
+}
+
+// Initial load
+function init() {
+  attachUiEvents();
+  btnAll.classList.add("active");
+  fetchRecipes();
+}
+
+init();

@@ -8,7 +8,14 @@
   </head>
 
   <body>
-    <h1>Recipe Library</h1>
+    <header>
+      <h1>Recipe Library</h1>
+      <section class="filter fav-container">
+        <button id="btnFavourites" class="btn btn-fav">
+          My fav recipes &#9825;
+        </button>
+      </section>
+    </header>
     <main>
       <section class="filter-container">
         <div class="filter-wrapper">
@@ -67,38 +74,49 @@
         <div class="card">
           <a
             href="https://www.kingarthurbaking.com/blog/2025/01/03/recipe-of-the-year-focaccia"
-            class="temporary-receipe-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card-link"
             ><img
               class="card-img"
               src="./Assets/focaccia.png"
               alt="close-up photo of a focaccia with cherry tomatoes on it"
-          /></a>
-          <h2 class="card-big-heading">Cheat's cheesy Focaccia</h2>
-          <hr class="card-line" />
-          <dl class="details-card">
-            <div class="card-detail">
-              <dt>Cuisine:</dt>
-              <dd>Italian</dd>
-            </div>
-            <div class="card-detail">
-              <dt>Time:</dt>
-              <dd>40 minutes</dd>
-            </div>
-          </dl>
-          <hr class="card-line" />
-          <h3>Ingredients</h3>
-          <ul class="ingredient-list">
-            <li class="ingredient">500 pack bread mix</li>
-            <li class="ingredient">
-              2tbsp. olive oil, plus a little extra for drizzling
-            </li>
-            <li class="ingredient">
-              25g parmesan (or vegetarian alternative), grated
-            </li>
-            <li class="ingredient">
-              75g dolcelatte cheese (or vegetarian alternative)
-            </li>
-          </ul>
+            />
+              <div class="card-content"></div>
+                <h2 class="card-big-heading">Cheat's cheesy Focaccia</h2>
+                <hr class="card-line" />
+                <dl class="details-card">
+                  <div class="card-detail">
+                    <dt>Cuisine:</dt>
+                    <dd>Italian</dd>
+                  </div>
+                  <div class="card-detail">
+                    <dt>Time:</dt>
+                    <dd>40 minutes</dd>
+                  </div>
+                </dl>
+                <hr class="card-line" />
+                <h3>Ingredients</h3>
+                <ul class="ingredient-list">
+                  <li class="ingredient">500 pack bread mix</li>
+                  <li class="ingredient">
+                    2tbsp. olive oil, plus a little extra for drizzling
+                  </li>
+                  <li class="ingredient">
+                    25g parmesan (or vegetarian alternative), grated
+                  </li>
+                  <li class="ingredient">
+                    75g dolcelatte cheese (or vegetarian alternative)
+                  </li>
+                </ul>
+              </div>
+          </a>
+          <button 
+            class="favourite-btn"
+            data-id="1"
+            title="Add to favourites">
+            🤍
+          </button>
         </div>
         <!--   <div class="card">
           <img class="card-img" src="./Assets/scallion.png" alt="" />
@@ -151,6 +169,6 @@
       </article>
     </main>
 
-    <script src="./index.js"></script>
+    <script src="./index.js" type="module"></script>
   </body>
 </html>
