@@ -247,6 +247,9 @@ async function getRecipeInfo(id) {
    Includes a stale-cache + backupData fallback to keep UI useful when offline/quota.
    =========================================================== */
 async function fetchRecipes(count = 24) {
+  // clear any previous UI note so status doesn't keep old messages
+  delete $('status').dataset.note;
+
   grid.innerHTML = '<div class="loading">Loading recipes…</div>';
   $('status').textContent = 'Loading recipes…';
   setBusy(true);
@@ -277,6 +280,9 @@ async function fetchRecipes(count = 24) {
     $('status').textContent = isQuota
       ? 'Daily API quota reached — attempting cached recipes.'
       : 'Network error — attempting cached recipes.';
+
+    // mark status element with a machine-readable note (used by updateStatus)
+    $('status').dataset.note = isQuota ? 'quota' : 'offline';
 
     // 3a) Stale cache (ignore TTL)
     const stale = readCache(true);
@@ -309,7 +315,7 @@ async function fetchRecipes(count = 24) {
    Non-mutating patterns are used (returns new arrays).
    =========================================================== */
 
-// Get current UI selections from the dropdowns. Empty string "" means “no filter/sort”.
+// Get current UI selections from the dropdowns. Empty string "" means “no filter/sort”
 function getSelectedCuisine() {
   return $('cuisine').value || '';
 }
@@ -433,15 +439,27 @@ function render(list, sourceLabel = 'filters') {
 }
 
 // Simplified user-friendly status messages
+// appends a clear user-facing note when quota/offline fallback is active
 function updateStatus(count, source) {
   if (count === 0) {
     $('status').textContent = ''; // hide status when grid is empty
     return;
   }
   const q = getQuery();
-  $('status').textContent = q
+  const base = q
     ? `Found ${count} recipe(s) matching "${q}".`
     : `Showing ${count} recipe(s).`;
+
+  // Note set in fetchRecipes() catch: 'quota' | 'offline' | undefined
+  const noteType = $('status').dataset.note;
+  const note =
+    noteType === 'quota'
+      ? ' (daily API quota reached — showing cached/backup data)'
+      : noteType === 'offline'
+        ? ' (offline/unavailable — showing cached/backup data)'
+        : '';
+
+  $('status').textContent = base + note;
 }
 
 // View recipe popup (open/close + fetch details)
