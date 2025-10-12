@@ -36,11 +36,17 @@ const API_URL = (n = 24) =>
   - CACHE_TTL_MS → how long cached data is valid (6h). After that we try to fetch fresh data.
   - MAX_INGREDIENTS → keep recipe cards short by limiting the number of shown ingredients
   - RECIPES → global array holding all normalized recipes (so filter/sort/render share the same data)
+
+  We keep a separate cache for /recipes/{id}/information responses.
+  - DETAIL_TTL_MS can be longer than list cache (24h is fine).
+  - Data structure in localStorage: { ts, data: { [id]: fullRecipeObj } }
   ===========================================================*/
 const CACHE_KEY = 'spoon_recipes_cache_v1';
 const CACHE_TTL_MS = 1000 * 60 * 60 * 6; // 6 hours
 const MAX_INGREDIENTS = 4;
 let RECIPES = [];
+const DETAIL_CACHE_KEY = 'spoon_recipe_detail_cache_v1';
+const DETAIL_TTL_MS = 1000 * 60 * 60 * 24; // 24 hours
 
 /* ===========================================================
    3) DOM HELPERS
@@ -90,9 +96,13 @@ function escapeHTML(str) {
     .replace(/'/g, '&#39;');
 }
 
-// Build a clean, numbered <ol> for instructions.
-// 1) Prefer structured analyzedInstructions[].steps
-// 2) Fallback: split the free-text "instructions" and strip any leading "1. ", "2) " etc.
+/* ---------- Instructions HTML builder ----------
+   Reason: Spoonacular sometimes returns:
+   • structured analyzedInstructions[].steps
+   • AND/OR a big free-text “instructions” string that already contains numbers.
+   We normalize to a clean <ol><li>…</li></ol> with our own numbering,
+   and we strip any leading “1. ” / “2) ” etc. to avoid double numbers.
+--------------------------------------------------*/
 function buildInstructionsHTML(recipe) {
   const steps = recipe?.analyzedInstructions?.[0]?.steps;
   if (Array.isArray(steps) && steps.length) {
@@ -194,6 +204,41 @@ function writeCache(recipes) {
   } catch {
     // storage full/blocked – fail silently
   }
+}
+
+/* detail cache helpers (for /recipes/{id}/information)
+   These prevent repeated API calls when the user opens the same recipe
+   multiple times or navigates back and forth. */
+function readDetailCache() {
+  try {
+    const raw = localStorage.getItem(DETAIL_CACHE_KEY);
+    return raw ? JSON.parse(raw) : { ts: 0, data: {} };
+  } catch {
+    return { ts: 0, data: {} };
+  }
+}
+function writeDetailCache(store) {
+  try {
+    localStorage.setItem(DETAIL_CACHE_KEY, JSON.stringify(store));
+  } catch {
+    // ignore quota errors
+  }
+}
+// Unified accessor that returns cached detail (if fresh) or fetches/saves one
+async function getRecipeInfo(id) {
+  const store = readDetailCache();
+  const fresh = Date.now() - (store.ts || 0) < DETAIL_TTL_MS;
+  if (fresh && store.data && store.data[id]) return store.data[id];
+
+  const res = await fetch(
+    `https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`
+  );
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const json = await res.json();
+
+  const next = { ts: Date.now(), data: { ...(store.data || {}), [id]: json } };
+  writeDetailCache(next);
+  return json;
 }
 
 /* ===========================================================
@@ -345,13 +390,12 @@ function buildCard(r) {
   node.querySelector('.meta-pop').textContent = starsFromPopularity(r.popularity);
   node.querySelector('.meta-time').textContent = minutesToLabel(r.timeMin);
 
-  // Ingredients list (cap to MAX_INGREDIENTS)
+  // Ingredients list
   const ul = node.querySelector('.ing-list');
   const list =
     r.ingredients.length > MAX_INGREDIENTS
       ? [...r.ingredients.slice(0, MAX_INGREDIENTS), '…']
       : r.ingredients;
-
   list.forEach((i) => {
     const li = document.createElement('li');
     li.textContent = i;
@@ -418,23 +462,20 @@ async function showRecipeDetails(recipeId) {
   overlayBodyEl.innerHTML = '<p>Loading…</p>';
 
   try {
-    const res = await fetch(
-      `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${API_KEY}`
-    );
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const r = await res.json();
+    // use cached detail accessor instead of raw fetch 
+    const r = await getRecipeInfo(recipeId);
 
     const ingredients = Array.isArray(r.extendedIngredients)
       ? r.extendedIngredients.map((i) => i.original).filter(Boolean)
       : [];
 
-    // Build normalized, numbered instructions (avoids double numbering/missing numbers)
+    // Build instructions HTML (normalized numbering)
     const instructionsHTML = buildInstructionsHTML(r);
 
     overlayBodyEl.innerHTML = `
-      <img src="${r.image}" alt="${r.title}">
-      <h2>${r.title}</h2>
-      <p><strong>Cuisine:</strong> ${r.cuisines?.join(', ') || 'N/A'}</p>
+      <img src="${r.image}" alt="${escapeHTML(r.title)}">
+      <h2>${escapeHTML(r.title)}</h2>
+      <p><strong>Cuisine:</strong> ${escapeHTML(r.cuisines?.join(', ') || 'N/A')}</p>
       <p><strong>Ready in:</strong> ${r.readyInMinutes || '—'} min</p>
 
       <p><strong>Ingredients:</strong></p>
@@ -456,10 +497,7 @@ async function showRecipeDetails(recipeId) {
 overlayEl?.addEventListener('click', (e) => {
   if (e.target === overlayEl || e.target.closest('[data-dismiss]')) closeOverlay();
 });
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeOverlay();
-});
-
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeOverlay(); });
 
 /* ===========================================================
    10) EVENTS + INIT (+ Random)
