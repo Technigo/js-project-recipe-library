@@ -1,0 +1,175 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+  background-color: #FAFBFF;
+}
+
+h1 {
+  color: #0018A4;
+  font-size: 64px;
+  font-style: bold;
+  /* height: 85px; */
+  width: 320px;
+  line-height: 100%;
+  padding: 50px 20px 30px;
+}
+
+.filter-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.filter-box {
+  gap: 16px;
+}
+
+h2 {
+  width: 189px;
+  /* height: 29px; */
+  font-style: bold;
+  font-size: 22px;
+  text-align: left;
+  line-height: 100%;
+  padding: 0 0 10px 5px;
+}
+
+button {
+  border-radius: 50px;
+  padding: 8px 16px;
+  margin: 0 0 10px 0;
+  border: none;
+}
+
+button:hover {
+  border: solid 2px #0018A4;
+}
+
+button::selection {
+  border: none;
+}
+
+.filter-box button {
+  background-color: #CCFFE2A4;
+  color: #0018A4;
+}
+
+.filter-box button.active {
+  background-color: #0018A4;
+  color: #fff;
+  border: none;
+}
+
+.sort-box button {
+  background-color: #FFECEA;
+  color: #0018A4;
+}
+
+.sort-box button.active {
+  background-color: #FF6589;
+  color: #fff;
+  border: none;
+}
+
+.random-box button {
+  background-color: #FFECEA;
+  color: #0018A4;
+}
+
+.random-box button.active {
+  background-color: #FF6589;
+  color: #fff;
+  border: none;
+}
+
+a{
+  text-decoration-line: none;
+  color: inherit;
+}
+
+.card-grid {
+  display: grid;
+  gap: 16px;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  grid-template-columns: repeat(1, 300px);
+}
+
+.card {
+  color: #000000;
+  background-color: #fff;
+  border: solid 2px #E9E9E9;
+  border-radius: 16px;
+  width: 300px;
+  padding: 16px 16px 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* margin: 20px auto; */
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: #E9E9E9;
+}
+
+.card:hover {
+  border: solid 2px #0018A4;
+  box-shadow: 0px 0px 30px 0px #0018A433;
+}
+
+.ingredients-list {
+display: flex;
+flex-direction: column;
+flex-wrap: wrap; 
+}
+
+img {
+  width: 268px;
+  height: 200px;
+  border-radius: 12px;
+  color: #899CCC;
+}
+
+/*Tablet responsive design*/
+@media (min-width: 667px) {
+
+  h1 {
+    font-size: 64px;
+    width: 495px;
+  }
+
+  .filter-menu {
+    display: flex;
+    flex-direction: row;
+    gap: 88px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 300px);
+  }
+}
+
+@media (min-width: 940px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 300px);
+  }
+}
+
+/*Desktop-ish responsive design*/
+@media (min-width: 1260px) {
+  .card-grid {
+    grid-template-columns: repeat(4, 300px);
+  }
+}
