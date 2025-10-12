@@ -1,7 +1,3 @@
-/* import { backupData } from "./backupdata.js";
-
-console.log("backup data loaded:", backupData); */
-
 //Main DOM
 const btnAll = document.getElementById("btnAll");
 const btnAsian = document.getElementById("asianCuisine");
@@ -26,7 +22,7 @@ let showingFavourites = false;
 
 //API
 const API_KEY = "cb59bb05e6354de1a9c198d95460d7d9";
-const API_URL = `https://api.spoonacular.com/recipes/random?number=10&apiKey=${API_KEY}&addRecipeInformation=true&addRecipeInstructions=true`;
+const API_URL = `https://api.spoonacular.com/recipes/random?number=15&apiKey=${API_KEY}&addRecipeInformation=true&addRecipeInstructions=true`;
 
 //Cache functions
 function saveCache(data) {
@@ -49,7 +45,7 @@ function displayRecipes(recipesToShow) {
 
   if (!recipesToShow || recipesToShow.length === 0) {
     cardsContainer.innerHTML = `
-      <div class="card" style="text-align:center; padding:2rem;">
+      <div class="empty-state">
         <h2>No recipes found</h2>
         <img src="./Assets/404error.jpg" alt="No recipes found" class="empty-state-img" />
         <p>Try another filter, or go back to all recipes.</p>
@@ -200,99 +196,9 @@ function toggleFavourite(id) {
   else applyFiltersAndSorting();
 }
 
-/* // UI events (Cuisine filters, Time filters, Sorting, Add Favs)
-function attachUiEvents() {
-  const cuisineButtons = [btnAll, btnAsian, btnFrench, btnMexican, btnItalian];
+//Main functions for filters and sortings
 
-  // Cuisine filter (multi-select)
-  cuisineButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const clickedCuisine = btn.textContent.trim();
-
-      if (clickedCuisine === "All") {
-        // Reset all
-        activeCuisines = [];
-        cuisineButtons.forEach(b => b.classList.remove("active"));
-        btnAll.classList.add("active");
-      } else {
-        btnAll.classList.remove("active");
-
-        if (activeCuisines.includes(clickedCuisine)) {
-          activeCuisines = activeCuisines.filter(c => c !== clickedCuisine);
-          btn.classList.remove("active");
-        } else {
-          activeCuisines.push(clickedCuisine);
-          btn.classList.add("active");
-        }
-
-        if (activeCuisines.length === 0) btnAll.classList.add("active");
-      }
-
-      applyFiltersAndSorting();
-    });
-  });
-
-  // Cooking time filters
-  timeBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const text = btn.textContent;
-      let newTime = null;
-
-      if (text.includes("30")) newTime = "30";
-      else if (text.includes("45")) newTime = "45";
-      else if (text.includes("1,5")) newTime = "90";
-      else if (text.includes("3")) newTime = "180";
-
-      if (activeTime === newTime) {
-        activeTime = null;
-        timeBtns.forEach(b => b.classList.remove("active"));
-      } else {
-        activeTime = newTime;
-        timeBtns.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-      }
-
-      applyFiltersAndSorting();
-    });
-  });
-
-  // Sorting
-  sortShortest.addEventListener("click", () => {
-    activeSort = activeSort === "asc" ? null : "asc";
-    sortShortest.classList.toggle("active", activeSort === "asc");
-    sortLongest.classList.remove("active");
-    applyFiltersAndSorting();
-  });
-
-  sortLongest.addEventListener("click", () => {
-    activeSort = activeSort === "desc" ? null : "desc";
-    sortLongest.classList.toggle("active", activeSort === "desc");
-    sortShortest.classList.remove("active");
-    applyFiltersAndSorting();
-  });
-
-  // Random recipe
-  btnRandom.addEventListener("click", getRandomRecipe);
-
-  // Favourites button
-  const originalFavText = btnFavourites.innerHTML;
-
-  btnFavourites.addEventListener("click", e => {
-    e.preventDefault();
-    showingFavourites = !showingFavourites;
-    btnFavourites.innerHTML = showingFavourites
-      ? "Back to All Recipes"
-      : originalFavText;
-    if (showingFavourites) {
-      displayRecipes(favourites);
-    }
-    else {
-      applyFiltersAndSorting();
-    }
-  });
-} */
-
-  function initCuisineFilters() {
+function initCuisineFilters() {
   const cuisineButtons = [btnAll, btnAsian, btnFrench, btnMexican, btnItalian];
 
   cuisineButtons.forEach(btn => {
@@ -376,6 +282,8 @@ function initFavouritesButton() {
     btnFavourites.innerHTML = showingFavourites
       ? "Back to All Recipes"
       : originalFavText;
+
+      btnFavourites.classList.toggle("active", showingFavourites);
 
     if (showingFavourites) displayRecipes(favourites);
     else applyFiltersAndSorting();

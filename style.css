@@ -167,6 +167,7 @@ h1 {
 @media (min-width: 481px) and (max-width: 768px) {
   .filter-container {
     display: flex;
+    flex-direction: column;
     gap: 2rem;
     margin: 24px 40px;
   }
@@ -338,7 +339,7 @@ button.disabled {
   display: flex;
   position: relative;
   overflow: hidden;
-  max-width: 100%;
+  max-width: 400px;
   min-width: 0;
   padding: 16px 16px 24px 16px;
   flex-direction: column;
@@ -446,13 +447,42 @@ button.disabled {
   padding-left: 0;
 }
 
+/* No recipes found card */
+.empty-state {
+  background: none;
+  border: none;
+  box-shadow: none;
+  text-align: center;
+  padding: 3rem 1rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 4rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state h2 {
+  font-size: 1.8rem;
+  color: #0018A4;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  color: #333;
+}
+
 .empty-state-img {
-  max-width: 600px;
+  width: 100%;
+  max-width: 500px;
   height: auto;
   margin-bottom: 1rem;
 }
 
 /* Media queries for the cards*/
+
 /* Tablet screen between 576px-1024px */
 @media (min-width: 576px) and (max-width: 1024px) {
   .card {
@@ -493,8 +523,15 @@ button.disabled {
   }
 
   .empty-state-img {
-    max-width: 300px;
-    width: 100%;
+    max-width: 280px;
+  }
+
+  .empty-state h2 {
+    font-size: 1.4rem;
+  }
+
+  .empty-state p {
+    font-size: 0.9rem;
   }
 }
 
