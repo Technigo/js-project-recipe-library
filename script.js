@@ -1,88 +1,12 @@
-let activeSort = "ascending";
-let cuisineQueryParam = "";
-let sortQueryParam = "";
-let activeFilter = document.getElementById("filter__all");
-
-function setActiveFilter(filter) {
-  if (activeFilter === filter) {
-    return;
-  }
-  // remove active class from activeFilter element
-  activeFilter.classList.remove("active");
-  if (filter === "all") {
-    cuisineQueryParam = "";
-    activeFilter = document.getElementById("filter__all");
-  } else {
-    cuisineQueryParam = "&cuisine=" + filter;
-    activeFilter = document.getElementById(`filter__${filter}`);
-  }
-  activeFilter.className = "active";
-}
-
-function setActiveSort(direction) {
-  if (activeSort === direction) {
-    return;
-  }
-  sortQueryParam = `&sort=readyInMinutes&sortDirection=${direction}`;
-
-  activeSort = document.getElementById(`sort__${decending}`);
-  activeSort.className = "active";
-}
-
-async function fetchRecipes() {
-  const URL = `https://api.spoonacular.com/recipes/complexSearch?fillIngredients=true&addRecipeInformation=true&apiKey=3f2445631f2d458b92fe40f9832bcc51${cuisineQueryParam}${sortQueryParam}`;
-  // fetch(URL)
-  //   .then((response) => response.json())
-  //   .then((result) => console.log(result))
-  //   .catch((error) => console.error(error));
-
-  const recepies = response.map((recipe) => ({
-    image: recipe.image,
-    title: recipe.title,
-    cuisines: recipe.cuisines,
-    readyInMinutes: recipe.readyInMinutes,
-    ingredients: recipe.extendedIngredients.map(
-      (ingredient) => ingredient.name
-    ),
-  }));
-
-  return recepies;
-}
-
-console.log(URL);
-
-function showCase(recepies) {
-  const load = document.getElementById("loading");
-
-  recepies.forEach((recipe) => {
-    const recipeCard = document.createElement("div");
-    recipeCard.className = "recipe__card";
-
-    recipeCard.innerHTML = `
-            <img src=${recipe.image} alt="" />
-    <h3>${recipe.title}</h3>
-    <h4>Cuisine:${recipe.cuisines}</h4>
-    <h4>Time:${recipe.readyInMinutes}</h4>
-    <h4>Ingredients:</h4>
-    <ul>
-    <li>${recipe.ingredients.join("</li><li>")}</li>
-   </ul>
-
-     });
-     `;
-  });
-}
-
-showCase(fetchRecipes());
-
-var response = {
+const response = {
   results: [
     {
       id: 157101,
-      image: "https://img.spoonacular.com/recipes/157101-312x231.jpg",
+      image:
+        "https://img.spoonacular.com/ingredients_100x100/garlic-powder.png",
       imageType: "jpg",
       title: "Chocolate Chai Panna Cotta",
-      readyInMinutes: 20,
+      readyInMinutes: 120,
       servings: 4,
       sourceUrl: "http://spoonacular.com/-1381771108088",
       vegetarian: false,
@@ -1322,7 +1246,7 @@ var response = {
       image: "https://img.spoonacular.com/recipes/654571-312x231.jpg",
       imageType: "jpg",
       title: "Panna Cotta with Raspberry and Orange Sauce",
-      readyInMinutes: 45,
+      readyInMinutes: 333,
       servings: 6,
       sourceUrl:
         "https://www.foodista.com/recipe/K62J5T4T/panna-cotta-with-raspberry-and-orange-sauce",
@@ -4429,3 +4353,100 @@ var response = {
   number: 10,
   totalResults: 271,
 };
+
+let activeSort = "ascending";
+let cuisineQueryParam = "";
+let sortQueryParam = "";
+let activeFilter = null;
+
+setActiveFilter("all");
+
+function setActiveFilter(filter) {
+  if (activeFilter === filter) {
+    return;
+  }
+  if (activeFilter) {
+    // remove active class from activeFilter element
+    activeFilter.classList.remove("active");
+  }
+  if (filter === "all") {
+    cuisineQueryParam = "";
+    activeFilter = document.getElementById("filter__all");
+  } else {
+    cuisineQueryParam = "&cuisine=" + filter;
+    activeFilter = document.getElementById(`filter__${filter}`);
+  }
+  activeFilter.className = "active";
+}
+
+function setActiveSort(direction) {
+  if (activeSort === direction) {
+    return;
+  }
+  if (activeSort.classList) {
+    activeSort.classList.remove("active");
+  }
+  sortQueryParam = `&sort=readyInMinutes&sortDirection=${direction}`;
+
+  activeSort = document.getElementById(`sort__${direction}`);
+  activeSort.className = "active";
+
+  console.log(direction);
+}
+
+async function fetchRecipes() {
+  const URL = `https://api.spoonacular.com/recipes/complexSearch?fillIngredients=true&addRecipeInformation=true&apiKey=3f2445631f2d458b92fe40f9832bcc51${cuisineQueryParam}${sortQueryParam}`;
+  // fetch(URL)
+  //   .then((response) => response.json())
+  //   .then((result) => console.log(result))
+  //   .catch((error) => console.error(error));
+
+  console.log(response);
+  const recipies = response.results.map((recipe) => ({
+    image: recipe.image,
+    title: recipe.title,
+    cuisines: recipe.cuisines.join(", "),
+    readyInMinutes: recipe.readyInMinutes,
+    ingredients: recipe.extendedIngredients.map(
+      (ingredient) =>
+        `${ingredient.amount} ${ingredient.unit} ${ingredient.name}`
+    ),
+  }));
+
+  return recipies;
+}
+
+async function showCase(recipiesPromise) {
+  const recipeGrid = document.getElementById("recipe__grid");
+  recipeGrid.innerHTML = "";
+
+  const recipies = await recipiesPromise;
+
+  console.log(recipies);
+  recipies.forEach((recipe) => {
+    const recipeCard = document.createElement("div");
+    recipeCard.className = "recipe__card";
+    const ingredientList = document.createElement("ul");
+    recipe.ingredients.forEach((ingredient) => {
+      const ingredientItem = document.createElement("li");
+      ingredientItem.textContent = ingredient;
+      ingredientList.appendChild(ingredientItem);
+    });
+    // created recipeCard
+    recipeCard.innerHTML = `
+    <img src=${recipe.image} alt="" />
+    <h3>${recipe.title}</h3>
+    <p><b>Cuisine:</b>&nbsp;${recipe.cuisines}</p>
+    <p><b>Time:</b>&nbsp;${new Intl.DurationFormat("en", {}).format({
+      hours: Math.floor(recipe.readyInMinutes / 60),
+      minutes: recipe.readyInMinutes % 60,
+    })}</p>
+    <h4>Ingredients:</h4>
+  
+     `;
+    recipeCard.appendChild(ingredientList);
+    recipeGrid.appendChild(recipeCard);
+  });
+}
+
+showCase(fetchRecipes());

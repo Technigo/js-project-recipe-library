@@ -4,40 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header>
-      <h1>Recipe library</h1>
-    </header>
+    <div class="container">
+      <h1>Recipe Library</h1>
 
-    <section id="controls">
-      <div>
-        <h2>Filter on kitchen</h2>
+      <section id="controls">
+        <div>
+          <h2>Filter on kitchen</h2>
+          <div class="controls__container filter">
+            <button onclick="setActiveFilter('all')" id="filter__all">
+              All
+            </button>
+            <button onclick="setActiveFilter('italian')" id="filter__italian">
+              Italy
+            </button>
+            <button onclick="setActiveFilter('american')" id="filter__american">
+              USA
+            </button>
+            <button onclick="setActiveFilter('chinese')" id="filter__chinese">
+              China
+            </button>
+          </div>
+        </div>
 
-        <button onclick="setActiveFilter('all')" id="filter__all">All</button>
-        <button onclick="setActiveFilter('italian')" id="filter__italian">
-          Italy
-        </button>
-        <button onclick="setActiveFilter('american')" id="filter__american">
-          USA
-        </button>
-        <button onclick="setActiveFilter('chinese')" id="filter__chinese">
-          China
-        </button>
-      </div>
+        <div>
+          <h2>Sort on time</h2>
+          <div class="controls__container sort">
+            <button onclick="setActiveSort('dec')" id="sort__dec">
+              Decending
+            </button>
+            <button onclick="setActiveSort('asc')" id="sort__asc">
+              Ascending
+            </button>
+          </div>
+        </div>
+      </section>
 
-      <div>
-        <h2>Sort on time</h2>
-
-        <button onclick="setActiveSort('dec')" id="sort__dec">Decending</button>
-        <button onclick="setActiveSort('asc')" id="sort__asc">Ascending</button>
-      </div>
-    </section>
-
-    <section id="Recipe__grid">
-      <!-- <div id="loading">loading</div> -->
-    </section>
+      <section id="recipe__grid">
+        <!-- <div id="loading">loading</div> -->
+      </section>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
