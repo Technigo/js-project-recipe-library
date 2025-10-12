@@ -4,7 +4,7 @@ A progressive recipe discovery app built over Weeks 5-7 of the Web Development B
 
 ## Live Demo & Screenshot
 
-- **Live App:** recipelibrarya.netlify.app
+- **Live App:** https://recipelibrarya.netlify.app
 - **Screenshot:**
 
 ![Recipe Library Screenshot](/screenshot/screenshot.png)
