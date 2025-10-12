@@ -270,7 +270,23 @@ function initSortingButtons() {
 }
 
 function initRandomButton() {
-  btnRandom.addEventListener("click", getRandomRecipe);
+  btnRandom.addEventListener("click", () => {
+    btnRandom.classList.add("active");
+    getRandomRecipe();
+  });
+
+  const otherButtons = [
+    btnAll, btnAsian, btnFrench, btnMexican, btnItalian,
+    ...timeBtns,
+    sortShortest, sortLongest,
+    btnFavourites
+  ];
+
+  otherButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      btnRandom.classList.remove("active");
+    })
+  })
 }
 
 function initFavouritesButton() {
