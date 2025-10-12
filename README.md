@@ -2,7 +2,7 @@
 
 ### Netlify link:
 
-Link here
+https://juls-recipe-library.netlify.app/
 
 ### Description:
 
@@ -57,4 +57,3 @@ Apart from the requirements from previous weeks, you should:
 - Show a loading state while fetching data
 - Allow users to search for specific recipe names or ingredients
 - Allow users to save/like recipes and store them in local storage. This includes adding a heart button to the recipe card and adding a "View favourites" button that only shows favourite recipes.
-- Implement pagination for large results or infinite scrolling (e.g. fetching more recipes when the user has reached the bottom)
