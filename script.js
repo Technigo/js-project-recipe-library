@@ -1,6 +1,6 @@
 /* ===========================================================
    Recipe Finder App
-   Code is split up into small, named functions that describe what they do. 
+   Code is split up into small, named functions that describe what they do(purpose). 
    Each section is clearly marked with a header.
 
    Sections:
@@ -19,9 +19,9 @@
 // Import backup data
 import { backupData } from './backupData.js';
 
-/* -----------------------
+/* ===========================================================
    1) API CONFIG
-   ----------------------- */
+   =========================================================== */
 const API_KEY = '42a3e506a5a6493080872a8509f9c7d5';
 const CUISINES = ['Italian', 'American', 'Chinese', 'Asian', 'Mediterranean', 'Middle Eastern'];
 const API_URL = (n = 24) =>
@@ -29,40 +29,38 @@ const API_URL = (n = 24) =>
     CUISINES.join(',')
   )}&addRecipeInformation=true&instructionsRequired=true&fillIngredients=true&sort=random`;
 
-/* -----------------------
+/* ===========================================================
    2) CACHE + UI CONSTANTS
-   ----------------------- 
-  These constants + the global array are shared settings/memory:
+  PURPOSE:These constants + the global array are shared settings/memory:
   - CACHE_KEY → name used to save/load recipes in localStorage
   - CACHE_TTL_MS → how long cached data is valid (6h). After that we try to fetch fresh data.
   - MAX_INGREDIENTS → keep recipe cards short by limiting the number of shown ingredients
   - RECIPES → global array holding all normalized recipes (so filter/sort/render share the same data)
-*/
+  ===========================================================*/
 const CACHE_KEY = 'spoon_recipes_cache_v1';
 const CACHE_TTL_MS = 1000 * 60 * 60 * 6; // 6 hours
 const MAX_INGREDIENTS = 4;
 let RECIPES = [];
 
-/* -----------------------
+/* ===========================================================
    3) DOM HELPERS
-   ----------------------- */
+  =========================================================== */
 // $() → shortcut for document.getElementById()
 // grid → reference to <section id="grid"> where recipe cards go
 const $ = (id) => document.getElementById(id);
 const grid = $('grid');
 const setBusy = (on) => grid.toggleAttribute('aria-busy', !!on);
 
-// overlay refs for the view recipe popup (dash-case ids)
+// overlay refs for the view recipe popup
 const overlayEl = document.getElementById('popup-recipe');
 const overlayBodyEl = document.getElementById('popup-recipe-content');
 
-/* -----------------------
-   4) STRING HELPERS 
-   -----------------------
+/* ===========================================================
+   4) STRING HELPERS
    Purpose: Avoid duplicating string transforms in multiple places.
    - toKebabCase: "Middle Eastern" → "middle-eastern" (stable codes for filters)
    - toTitleCase: "middle-eastern" → "Middle Eastern" (friendly UI labels)
-*/
+  ===========================================================*/
 function toKebabCase(str = '') {
   return String(str).trim().toLowerCase().replace(/\s+/g, '-');
 }
@@ -82,13 +80,49 @@ function starsFromPopularity(p) {
   return '★'.repeat(n) + '☆'.repeat(5 - n);
 }
 
-/* -----------------------
+// Converts text to safe HTML (used when injecting API text)
+function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// Build a clean, numbered <ol> for instructions.
+// 1) Prefer structured analyzedInstructions[].steps
+// 2) Fallback: split the free-text "instructions" and strip any leading "1. ", "2) " etc.
+function buildInstructionsHTML(recipe) {
+  const steps = recipe?.analyzedInstructions?.[0]?.steps;
+  if (Array.isArray(steps) && steps.length) {
+    const items = steps
+      .map(s => `<li>${escapeHTML(s.step || '').trim()}</li>`)
+      .join('');
+    return `<ol>${items}</ol>`;
+  }
+
+  const raw = (recipe?.instructions || '').trim();
+  if (!raw) return '<p>No instructions provided.</p>';
+
+  const text = raw.replace(/<[^>]+>/g, ' '); // strip any embedded HTML
+  const chunks = text
+    .split(/\n+|(?<=\.)\s+(?=[A-Z0-9])/)
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  const cleaned = chunks.map(s => s.replace(/^\s*\d+[\.\)]\s*/, '')); // remove "1. " / "2) " etc.
+  const items = cleaned.map(s => `<li>${escapeHTML(s)}</li>`).join('');
+  return `<ol>${items}</ol>`;
+}
+
+
+/* ===========================================================
    5) NORMALIZATION HELPERS
-   -----------------------
-   PURPOSE:The API returns big objects with many fields and inconsistent shapes.
+   PURPOSE: The API returns big objects with many fields and inconsistent shapes.
    normalizeRecipe() cleans and reformats data into a consistent structure
    that our UI can easily use.
-*/
+  ===========================================================*/
 function normalizeRecipe(recipe) {
   if (!recipe) throw new Error('Recipe input is null or undefined');
 
@@ -311,12 +345,13 @@ function buildCard(r) {
   node.querySelector('.meta-pop').textContent = starsFromPopularity(r.popularity);
   node.querySelector('.meta-time').textContent = minutesToLabel(r.timeMin);
 
-  // Ingredients list (cap to MAX_INGREDIENTS )
+  // Ingredients list (cap to MAX_INGREDIENTS)
   const ul = node.querySelector('.ing-list');
   const list =
     r.ingredients.length > MAX_INGREDIENTS
       ? [...r.ingredients.slice(0, MAX_INGREDIENTS), '…']
       : r.ingredients;
+
   list.forEach((i) => {
     const li = document.createElement('li');
     li.textContent = i;
@@ -365,9 +400,7 @@ function updateStatus(count, source) {
     : `Showing ${count} recipe(s).`;
 }
 
-/* -----------------------
-   VIEW RECIPE POPUP (minimal, dash-case)
-   ----------------------- */
+// View recipe popup (open/close + fetch details)
 function openOverlay() {
   overlayEl?.classList.add('is-open');
   overlayEl?.setAttribute('aria-hidden', 'false');
@@ -395,6 +428,9 @@ async function showRecipeDetails(recipeId) {
       ? r.extendedIngredients.map((i) => i.original).filter(Boolean)
       : [];
 
+    // Build normalized, numbered instructions (avoids double numbering/missing numbers)
+    const instructionsHTML = buildInstructionsHTML(r);
+
     overlayBodyEl.innerHTML = `
       <img src="${r.image}" alt="${r.title}">
       <h2>${r.title}</h2>
@@ -403,11 +439,13 @@ async function showRecipeDetails(recipeId) {
 
       <p><strong>Ingredients:</strong></p>
       <ul class="ing">
-        ${ingredients.map((i) => `<li>${i}</li>`).join('')}
+        ${ingredients.map((i) => `<li>${escapeHTML(i)}</li>`).join('')}
       </ul>
 
-      <p><strong>Instructions:</strong></p>
-      <div class="instructions">${r.instructions || 'No instructions provided.'}</div>
+      <h3>Instructions:</h3>
+      <div class="inst">
+        ${instructionsHTML}
+      </div>
     `;
   } catch (_) {
     overlayBodyEl.innerHTML = '<p>Couldn’t load recipe details.</p>';
@@ -418,7 +456,10 @@ async function showRecipeDetails(recipeId) {
 overlayEl?.addEventListener('click', (e) => {
   if (e.target === overlayEl || e.target.closest('[data-dismiss]')) closeOverlay();
 });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeOverlay(); });
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeOverlay();
+});
+
 
 /* ===========================================================
    10) EVENTS + INIT (+ Random)
