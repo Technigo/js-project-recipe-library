@@ -1,0 +1,281 @@
+ :root {
+  --bg: #FAFBFF;
+  --h1: #0018A4;
+  --h2: black;
+  --h3: #6F6F6F;
+  --button1:  rgb(204, 255, 226);
+  --button2: rgb(255, 236, 234);
+
+  /* button */
+  --btn-height: 48px;
+  --btn-font: 18px;
+  --btn-font-weight: 150;      
+  --btn-radius: 999px;   
+  --btn-gap: 12px;
+  --block-gap: 16px;
+
+  /*Recipe card */ 
+  --recipe-width: 300px;
+  --recipe-height: 621px;
+  --recipe-radius: 8px;
+  --recipe-shadow: rgba(0, 0, 0, 0.1);
+  --recipe-shadow-hover: rgba(0, 0, 0, 0.2);
+  --group-width: 1000px;
+  --group-height: 85px;
+
+    /* Layout */
+  --container-max: 1200px;
+  --page-pad: 16px;
+}
+
+ * {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: var(--h1);
+  font-size: 65px;
+  font-weight: bold;
+  /* margin: 50px 0; */
+  margin: 40px 0 24px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.recipe-header {
+  display: grid; 
+  place-items: center;
+} 
+
+/*buttonarea och filter 1*/
+.buttonarea, .filter{
+  display: block;                         /* block på mobil */
+  width: 100%;                            /* släpp var(--group-width) */
+  /* height: auto;  <-- implicit */
+  box-sizing: border-box;
+  padding-left: max(clamp(12px, 6vw, 20px), env(safe-area-inset-left));
+  padding-right: max(clamp(12px, 6vw, 20px), env(safe-area-inset-right));
+
+}
+
+.group{ 
+  display: grid; 
+  grid-template-columns: 1fr;             /* 1 kolumn på mobil */
+  grid-template-areas:
+    "head-left"
+    "head-right"
+    "buttons";
+  gap: 16px;
+  margin: 0 auto;
+  max-width: var(--container-max);  
+} 
+
+.group h2{ 
+  margin: 0; 
+}
+
+.group h2:first-of-type{
+  grid-area: head-left;
+}
+.group h2:nth-of-type(2){
+  grid-area: head-right; text-align: left;
+}
+
+.btn, .btn-time, .btn-random{
+  font-family: 'sans-serif';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--btn-height);
+  height: var(--btn-height);
+  font-size: var(--btn-font);
+  padding: 0 18px;
+  border-radius: var(--btn-radius);
+  border: 2px solid transparent;
+  font-weight: var(--btn-font-weight);
+  white-space: nowrap;
+  margin: 0;
+  cursor: pointer;
+  /* gör att de bryter rad snyggt på mobil */
+  flex: 0 1 150px;    
+}
+
+.btn { 
+  background: var(--button1);
+  color: var(--h1);
+}
+.btn-time { 
+  background: var(--button2);
+  color: var(--h1);
+}
+
+.btn:hover, .btn-time:hover, .btn-random:hover{ 
+  border-color: var(--h1); 
+}
+.btn:active, .btn-time:active, .btn-random:active{ 
+  transform: translateY(1px); 
+  border-color: var(--h1);
+} 
+
+ .button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;   /*centrera rader i mobil */
+} 
+
+/* Fyll ut rad på mobil men behåll min-bredd */
+.button-row .btn,
+.button-row .btn-time,
+.button-row .btn-random {
+  flex: 0 1 150px;          /* väx, krymp, min 140px */
+} 
+
+/*recipe and cards*/
+.recipe-grid, .recipe-card-placeholder{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 24px;
+}
+
+.recipe-card {
+  display: block;
+  border: 2px solid transparent;
+  border-radius: var(--recipe-radius);
+  width: 100%;
+  padding: 16px 16px 24px 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 1px 4px var(--recipe-shadow);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.recipe-card:hover {
+  border-color: var(--h1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--recipe-shadow-hover);
+}
+
+.recipe-card img{
+  width: 100%;
+  aspect-ratio: 16 / 10;                  
+  object-fit: cover;
+  display: block;
+  margin: 0;
+  border-radius: calc(var(--recipe-radius) - 2px);
+}
+
+.recipe-card h3{
+  margin: 10px 12px 4px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #151827;
+}
+
+.recipe-card p{
+  margin: 0 12px 12px;
+  color: #6F6F6F;
+  font-size: 1em;
+  line-height: 1.5;
+} 
+
+/* 1) Allra minsta mobiler (≤ 399px) */
+@media (max-width: 399px) {
+  /* Mindre sidomarginaler */
+  .buttonarea, .filter {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* Rubrik: mindre & tightare marginaler */
+  h1 {
+    font-size: 34px;            
+    margin: 24px 0 16px;
+    text-align: center;
+  }
+
+  /* Grid: 1 kolumn, lite mindre gap och full bredd */
+  .recipe-grid,
+  .recipe-card-placeholder{
+    grid-template-columns: 1fr;
+    gap: 16px;
+    width: 100%;
+    margin: 16px auto 24px;
+    padding: 0 12px;           
+  }
+
+  /* Kort: mindre padding, inga hårda höjder (du har redan tagit bort height) */
+  .recipe-card {
+    padding: 12px;
+    box-shadow: 0 1px 4px var(--recipe-shadow);
+  }
+  .recipe-card img{
+    aspect-ratio: 16 / 10;    
+    object-fit: cover;
+  }
+  .recipe-card h3{
+    font-size: 15px;
+    margin: 8px 4px 4px;
+  }
+  .recipe-card p{
+    margin: 0 4px 10px;
+    font-size: 1em;             
+    line-height: 1.45;
+  }
+
+  /* Knapprader: en knapp per rad på minsta mobiler */
+  .button-row {
+    gap: 8px;
+    justify-content: stretch;
+  }
+  .button-row .btn,
+  .button-row .btn-time,
+  .button-row .btn-random {
+    flex: 1 1 100%;  
+    min-height: 44px;
+    font-size: 16px;
+  }
+}
+
+/* 2) Små/mellanmobiler (400–639px): två knappar i rad, 1 kolumn grid */
+@media (min-width: 400px) and (max-width: 639px) {
+  .recipe-grid,
+  .recipe-card-placeholder{
+    grid-template-columns: 1fr; /* håll 1 kolumn här också */
+    gap: 20px;
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .button-row .btn,
+  .button-row .btn-time,
+  .button-row .btn-random {
+    flex: 1 1 calc(50% - 8px);  /* två knappar per rad */
+  }
+}
+
+/* 3 small tablets */
+@media (min-width: 640px){        
+  .group{
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "head-left head-right"
+      "buttons   buttons";
+  }
+  .recipe-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+
+@media (min-width: 960px){        /* laptop */
+  .recipe-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+
+@media (min-width: 1280px){       /* desktop */
+  .recipe-grid{ grid-template-columns: repeat(4, minmax(0,1fr)); }
+}

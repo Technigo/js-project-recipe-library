@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Library</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <main class="recipe-library">
+    <h1 class="recipe-header">
+     Recipe Library
+    </h1>
+
+    <!-- Buttons för filter av  -->
+    <section class="buttonarea">
+      <div class="filter" aria-label="Filter & Sort">
+        <div class="group">
+          <div class="btn-row">
+            <h2>Filter on kitchen</h2>
+            <button class="btn" data-cuisine="all">All</button>
+            <button class="btn" data-cuisine="italian">Italian</button>
+            <button class="btn" data-cuisine="american">American</button>
+            <button class="btn" data-cuisine="asia">Asian</button>
+            <button class="btn" data-cuisine="belgia">Belgian</button>
+          </div>
+            <!-- Sort time / random recipebuttons -->
+            
+          <div class="btn-row">
+            <h2>Sort on time</h2>
+            <button class="btn-time" data-sort="desc">Descending</button>
+            <button class="btn-time" data-sort="asc">Ascending</button>
+            <button class="btn-random">Not sure?</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+   <!-- Recipe Cards --> 
+   <section class="recipe-cards" id="recipe-cards">
+      <div 
+        class="recipe-grid">
+      </div> 
+    </section>  
+    <script src="index.js"></script>
+  </main>
+</body>
+</html>
