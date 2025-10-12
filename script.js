@@ -20,7 +20,7 @@ function updateSortSelectedClass() {
 
 const API_CONFIG = {
     BASE_URL: 'https://api.spoonacular.com',
-    ///API_KEY: '5607f37e52ff4b879d8f5006edbca556',  // Add your API key here
+    API_KEY: '5607f37e52ff4b879d8f5006edbca556',  
     ENDPOINTS: {
         RANDOM: '/recipes/random'
     }
