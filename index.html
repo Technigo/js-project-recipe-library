@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Recipe-library</title>
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+</head>
+
+<body>
+  <h1>Recipe Library
+  </h1>
+
+  <div class="text-container">
+    <div class="filter">
+      <h2>Filter on kitchen
+      </h2>
+      <button
+        value="All"
+        class="btn-filter active"
+      >All</button>
+      <button
+        value="Italian"
+        class="btn-filter"
+      >Italian</button>
+      <button
+        value="Middle Eastern"
+        class="btn-filter"
+      >Middle Eastern</button>
+      <button
+        value="Asian"
+        class="btn-filter"
+      >Asian</button>
+      <button
+        value="Mediterranean"
+        class="btn-filter"
+      >Mediterranean</button>
+      <button
+        value="Mexican"
+        class="btn-filter"
+      >Mexican</button>
+
+    </div>
+
+    <div class="sort">
+      <h2>Sort on time</h2>
+      <button
+        value="Descending"
+        class="btn-sort active"
+      >Descending</button>
+      <button
+        value="Ascending"
+        class="btn-sort"
+      >Ascending</button>
+    </div>
+
+    <div class="random">
+      <h2>Don't know what you want?</h2>
+      <button
+        value="Random"
+        class="btn-random"
+      >Random Recipe</button>
+    </div>
+  </div>
+
+  <section
+    class="container"
+    id="container"
+  >
+  </section>
+
+
+  <script
+    type="module"
+    src="./recipes.js"
+  ></script>
+
+</body>
+
+
+</html>

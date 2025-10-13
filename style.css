@@ -1,0 +1,137 @@
+body {
+  background-color: rgb(250, 251, 255);
+  font-family: "Futura", sans-serif;
+}
+
+h1 {
+  color: rgb(0, 24, 164);
+  font-weight: 700;
+  font-size: 64px;
+  margin-bottom: 52px;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+.text-container {
+  display: grid;
+  grid-template-columns: repeat(1, 350px);
+}
+
+
+.btn-filter,
+.btn-sort,
+.btn-random {
+  border: none;
+  border-radius: 50px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: rgb(0, 24, 164);
+  padding: 8px 16px;
+  margin: 3px;
+}
+
+.filter .btn-filter {
+  background: rgb(204, 255, 226);
+}
+
+.filter .active {
+  background-color: #0018A4;
+  color: white;
+}
+
+.sort .btn-sort {
+  background: rgb(255, 236, 234);
+}
+
+.sort .active {
+  background-color: #FF6589;
+  color: white;
+}
+
+.btn-filter:hover,
+.btn-random:hover {
+  outline: 2px solid rgb(0, 24, 164);
+}
+
+.btn-sort:hover {
+  background-color: #FF6589;
+  outline: 2px solid rgb(0, 24, 164);
+}
+
+.btn-random {
+  background-image: linear-gradient(to right, rgb(204, 255, 226), rgb(255, 236, 234));
+  color: rgb(0, 24, 164);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+
+.card {
+  border: 1px solid rgb(204, 204, 204);
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  padding: 16px 16px;
+  padding-bottom: 24px;
+  list-style-type: none;
+  width: 300px;
+  height: auto;
+  margin: 15px 0;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.card:hover {
+  outline: 2px solid rgba(0, 24, 164, 1);
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.25);
+}
+
+
+/* tablet */
+@media (min-width: 700px) and (max-width: 1430px) {
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .text-container {
+    display: flex;
+    flex-direction: row;
+    gap: 88px;
+  }
+}
+
+
+/* desktop */
+@media (min-width: 1431px) {
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .text-container {
+    display: flex;
+    flex-direction: row;
+    gap: 88px;
+  }
+}
