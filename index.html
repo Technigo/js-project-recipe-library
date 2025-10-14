@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Recipe Library</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -12,39 +12,49 @@
 
       <section id="controls">
         <div>
-          <h2>Filter on kitchen</h2>
+          <h2>Filter by cuisine</h2>
           <div class="controls__container filter">
-            <button onclick="setActiveFilter('all')" id="filter__all">
+            <button
+              onclick="setActiveFilter('all')"
+              id="filter__all"
+              class="btn">
               All
             </button>
-            <button onclick="setActiveFilter('italian')" id="filter__italian">
+            <button
+              onclick="setActiveFilter('italian')"
+              id="filter__italian"
+              class="btn">
               Italy
             </button>
-            <button onclick="setActiveFilter('american')" id="filter__american">
+            <button
+              onclick="setActiveFilter('american')"
+              id="filter__american"
+              class="btn">
               USA
             </button>
-            <button onclick="setActiveFilter('chinese')" id="filter__chinese">
+            <button
+              onclick="setActiveFilter('chinese')"
+              id="filter__chinese"
+              class="btn">
               China
             </button>
           </div>
         </div>
 
         <div>
-          <h2>Sort on time</h2>
+          <h2>Sort by time</h2>
           <div class="controls__container sort">
-            <button onclick="setActiveSort('dec')" id="sort__dec">
-              Decending
+            <button onclick="setActiveSort('desc')" id="sort__desc" class="btn">
+              Descending
             </button>
-            <button onclick="setActiveSort('asc')" id="sort__asc">
+            <button onclick="setActiveSort('asc')" id="sort__asc" class="btn">
               Ascending
             </button>
           </div>
         </div>
       </section>
 
-      <section id="recipe__grid">
-        <!-- <div id="loading">loading</div> -->
-      </section>
+      <section id="recipe__grid"></section>
     </div>
     <script src="script.js"></script>
   </body>
