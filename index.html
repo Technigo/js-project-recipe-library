@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Library</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Recipe Library</h1>
+
+      <section id="controls">
+        <div>
+          <h2>Filter by cuisine</h2>
+          <div class="controls__container filter">
+            <button
+              onclick="setActiveFilter('all')"
+              id="filter__all"
+              class="btn">
+              All
+            </button>
+            <button
+              onclick="setActiveFilter('italian')"
+              id="filter__italian"
+              class="btn">
+              Italy
+            </button>
+            <button
+              onclick="setActiveFilter('american')"
+              id="filter__american"
+              class="btn">
+              USA
+            </button>
+            <button
+              onclick="setActiveFilter('chinese')"
+              id="filter__chinese"
+              class="btn">
+              China
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <h2>Sort by time</h2>
+          <div class="controls__container sort">
+            <button onclick="setActiveSort('desc')" id="sort__desc" class="btn">
+              Descending
+            </button>
+            <button onclick="setActiveSort('asc')" id="sort__asc" class="btn">
+              Ascending
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="recipe__grid"></section>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
