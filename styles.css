@@ -1,0 +1,169 @@
+/* General Styles */
+body {
+  font-family: Montserrat, sans-serif;
+  background-color: #FAFBFF;
+  margin: 0;
+  padding: 10px;
+}
+
+h1 {
+  color: #0018A4;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Filters & Sorting */
+.filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.filter-group,
+.sort-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  padding: 10px 16px;
+  border-radius: 50px;
+  outline: 0;
+  border: 2px solid transparent;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+button:hover {
+  border: 2px solid #0018A4;
+}
+
+.filter {
+  background: #CCFFE2;
+  color: #0018A4;
+}
+
+.filter.active {
+  background: #0018A4;
+  color: white;
+}
+
+.sort {
+  background: #FFECEA;
+}
+
+.sort.active {
+  background: #FF6589;
+  color: white;
+}
+
+/* Special Button Styles */
+.popular-btn {
+  background: #FF6589; /* Red for Popularity */
+  color: white;
+}
+
+.cooking-time-btn:hover,
+.popular-btn:hover,
+.price-btn:hover,
+.random-btn:hover {
+  background: #FF6589; /* Red hover */
+  color: white;
+}
+
+.cooking-time-btn:active,
+.popular-btn:active,
+.price-btn:active,
+.random-btn:active {
+  background: #FF6589; /* Red active */
+  color: white;
+}
+
+/* Recipe Grid */
+
+.recipes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns per row */
+  gap: 20px; /* More space between cards */
+  justify-content: center;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 16px; /* Increased padding */
+  border-radius: 12px; /* Smoother edges */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Slightly deeper shadow */
+  text-align: center;
+  max-width: 450px; /* Bigger cards */
+  margin: auto;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+p {
+  font-size: 16px;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+  h1 {
+      font-size: 36px;
+  }
+
+  .filters {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  button {
+      font-size: 14px;
+      padding: 8px;
+      width: 90%;
+  }
+
+  .recipes {
+      grid-template-columns: 1fr; /* Single-column layout */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+      font-size: 28px;
+  }
+
+  button {
+      font-size: 14px;
+      padding: 10px;
+      width: 100%;
+  }
+
+  .recipes {
+      grid-template-columns: 1fr;
+      gap: 12px;
+  }
+
+  .card {
+      padding: 12px;
+  }
+}
