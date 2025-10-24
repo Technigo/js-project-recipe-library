@@ -1,146 +1,135 @@
-// conecting Js with my HTML file,
-const recipesEl = document.getElementById("recipes"); // points to the <main id="recipes"> element where recipe cards will be shown.
-const msgEl = document.getElementById("msg"); // element used for messages (like “Loading…”
-const pills = document.querySelectorAll(".pill"); // selects all filter and sort buttons with the class pill.
-const randomBtn = document.getElementById("random-btn"); // button for random recipe
+// --- CONNECTING JS WITH HTML ---
+const recipesEl = document.getElementById("recipes");
+const msgEl = document.getElementById("msg");
+const pills = document.querySelectorAll(".pill");
+const randomBtn = document.getElementById("random-btn");
 
-// Setting up the API, spoonacular API
-const API_KEY = "2065aff4499d4fe29bdfbad342732432"
-const BASE_URL = "https://api.spoonacular.com/recipes/complexSearch"; //  for complex search. the main address for the API where tofetch recipes from.
+// --- API SETUP ---
+const API_KEY = "2065aff4499d4fe29bdfbad342732432";
+const BASE_URL = "https://api.spoonacular.com/recipes/complexSearch";
 
-// Setting up storage and filter 
-let recipes = []; //an empty array where stores the recipes data when fetched.
+// --- STATE ---
+let recipes = [];
 let filters = {
   kitchen: "all",
   diet: "all",
   time: "all",
   ingredients: "all",
-  sort: "popularity"
-  
+  sort: "popularity",
 };
 
-// Fetching data from the API, Spoonacular //Function 1 /
-  recipesEl.innerHTML = `<p>Loading recipes...</p>`; // shows a loading message while fetching data/streching the goal.
+// --- FETCH DATA FUNCTION ---
+async function fetchData() {
+  recipesEl.innerHTML = `<p>Loading recipes...</p>`;
+  msgEl.textContent = "Fetching data...";
 
-  // Build dynamic query string based on selected filters
-  let url = `${BASE_URL}?number=10&addRecipeInformation=true&apiKey=${API_KEY}`;
+  // Build query
+  let url = `${BASE_URL}?number=12&addRecipeInformation=true&apiKey=${API_KEY}`;
 
-  if (filters.kitchen !== "all") {
-    url += `&cuisine=${filters.kitchen}`;
+  if (filters.kitchen !== "all") url += `&cuisine=${filters.kitchen}`;
+  if (filters.diet !== "all") url += `&diet=${filters.diet}`;
+
+  try {
+    const res = await fetch(url);
+
+    if (res.status === 402) {
+      recipesEl.innerHTML = `<p>Daily API quota exceeded. Please try again tomorrow.</p>`;
+      msgEl.textContent = "API limit reached.";
+      throw new Error("Quota reached");
+    }
+
+    const data = await res.json();
+    console.log("Fetched data:", data);
+
+    if (!data.results || data.results.length === 0) {
+      recipesEl.innerHTML = `<p>No recipes found for your selected filters.</p>`;
+      msgEl.textContent = "No results found.";
+      return;
+    }
+
+    // Normalize data
+    recipes = data.results.map(recipe => ({
+      id: recipe.id,
+      title: recipe.title || "Unknown title",
+      image: recipe.image || "https://via.placeholder.com/300x200?text=No+Image",
+      kitchen:
+        recipe.cuisines && recipe.cuisines.length > 0
+          ? recipe.cuisines[0]
+          : "Various",
+      diet:
+        recipe.diets && recipe.diets.length > 0
+          ? recipe.diets[0]
+          : "General",
+      time: recipe.readyInMinutes || 0,
+      ingredients: recipe.extendedIngredients
+        ? recipe.extendedIngredients.length
+        : 0,
+      popularity: recipe.aggregateLikes || 0,
+    }));
+
+    showRecipes(recipes);
+    msgEl.textContent = `Fetched ${recipes.length} recipes (${filters.kitchen}, ${filters.diet})`;
+  } catch (err) {
+    console.error("Fetch error:", err);
+    recipesEl.innerHTML = `<p>Something went wrong. Please try again later.</p>`;
+    msgEl.textContent = "Failed to load recipes.";
   }
+}
 
-  if (filters.diet !== "all") {
-    url += `&diet=${filters.diet}`;
-  }
+// --- FILTER FUNCTION ---
+const filterRecipes = list =>
+  list.filter(r => {
+    // Time filters
+    if (filters.time === "under15" && !(r.time < 15)) return false;
+    if (filters.time === "15to30" && !(r.time >= 15 && r.time <= 30)) return false;
+    if (filters.time === "30to60" && !(r.time >= 30 && r.time <= 60)) return false;
+    if (filters.time === "over60" && !(r.time > 60)) return false;
 
-  // Here I am using the fetch function to make a request to the API endpoint.
-  // This is where calls the API and waits for a response. If the status is 402, spoonacular is 
-  // showing that the daily quota is all used.
-  // Otherwise, it converts the response to JSON so you can use the data.
-   fetch(url)
-    .then(res => {
-      if (res.status === 402) {
-        recipesEl.innerHTML = `<p>Daily API quota exceeded. Please try again tomorrow.</p>`;
-        msgEl.textContent = "API limit reached"; 
-        throw new Error("Quota reached");
-      }
-      return res.json();
-    })
-
-    // If the fetch is successful, it processes the data.
-    // It normalizes the data to a consistent format and stores it in the DATA array.
-    // Finally, it calls showRecipes to display the recipes on the page.
-    .then(data => {
-      console.log("Fetched data:", data);
-
-      if (!data.results || data.results.length === 0) {
-        recipesEl.innerHTML = `<p>No recipes found for your selected filters.</p>`;
-        msgEl.textContent = "No results found.";
-        return;
-      }
-
-      recipes = data.results.map(recipe => ({  //this is the array of recipes Spoonacular gives.  
-        title: recipe.title,                // map function to transform to a simpler format so it fits the app.
-        image: recipe.image,
-        kitchen: recipe.cuisines[0] || "Unknown",
-        diet: recipe.diets[0] || "General",
-        time: recipe.readyInMinutes || 0,
-        ingredients: recipe.extendedIngredients
-          ? recipe.extendedIngredients.length
-          : 0,
-        popularity: recipe.aggregateLikes || 0
-      }));
-
-      showRecipes(recipes);
-      msgEl.textContent = `Fetched ${recipes.length} recipes (${filters.kitchen}, ${filters.diet})`;
-    })
-    
-    //Catches problems (like no internet, bad key, or quota) and shows a friendly error.
-    .catch(err => {
-      console.error("Fetch error:", err);
-      recipesEl.innerHTML = `<p>Something went wrong. Please try again later.</p>`;
-      msgEl.textContent = "Failed to load recipes.";
-    });
-
-    // Filter function  (time + ingredients) (locally), Filters the list by the user’s selected time and ingredient count.
-    // Returns only recipes that match.
-    const filterRecipes = list =>  // Function 2
-    list.filter(r => {
-    // Cooking time
-      if (filters.time === "under15" && !(r.time < 15)) return false;
-      if (filters.time === "15to30" && !(r.time >= 15 && r.time <= 30)) return false;
-      if (filters.time === "30to60" && !(r.time >= 30 && r.time <= 60)) return false;
-      if (filters.time === "over60" && !(r.time > 60)) return false;
-
-    // Ingredient amount
-      if (filters.ingredients === "under5" && !(r.ingredients < 5)) return false;
-      if (filters.ingredients === "6to10" && !(r.ingredients >= 6 && r.ingredients <= 10)) return false;
-      if (filters.ingredients === "11to15" && !(r.ingredients >= 11 && r.ingredients <= 15)) return false;
-      if (filters.ingredients === "over16" && !(r.ingredients > 16)) return false;
+    // Ingredient filters
+    if (filters.ingredients === "under5" && !(r.ingredients < 5)) return false;
+    if (filters.ingredients === "6to10" && !(r.ingredients >= 6 && r.ingredients <= 10)) return false;
+    if (filters.ingredients === "11to15" && !(r.ingredients >= 11 && r.ingredients <= 15)) return false;
+    if (filters.ingredients === "over16" && !(r.ingredients > 16)) return false;
 
     return true;
   });
 
-//Sort recispes
-const sortRecipes = list => {  // Function 3, sort recipes (by ingredients or popularity)
+// --- SORT FUNCTION ---
+const sortRecipes = list => {
   const key = filters.sort;
   const sorted = [...list];
-  sorted.sort((a, b) => a[key] - b[key]);
+  sorted.sort((a, b) => b[key] - a[key]); // highest first
   return sorted;
 };
 
-// Show recipes in the HTML
-// First filters and sorts the recipe list. then builds HTML <div> cards for each recipe.
-// Displays them inside <main id="recipes"> and updates the message line at the top with  current filters.
-const showRecipes = list => { // Function 4 
-  const filtered = filterRecipes(list); //to streching the goal, combine filter and sorting 
+// --- SHOW RECIPES ---
+const showRecipes = list => {
+  const filtered = filterRecipes(list);
   const sorted = sortRecipes(filtered);
 
   recipesEl.innerHTML = sorted.length
     ? sorted
         .map(
           r => `
-      <div class="card">
-        <img src="${r.image}" alt="${r.title}" class="card-img">
-        <div class="card-body">
-          <h3>${r.title}</h3>
-          <p><strong>Cuisine:</strong> ${r.kitchen}</p>
-          <p><strong>Diet:</strong> ${r.diet}</p>
-          <p><strong>Time:</strong> ${r.time} min</p>
-          <p><strong>Ingredients:</strong> ${r.ingredients}</p>
-          <p><strong>Popularity:</strong> ${r.popularity}</p>
-        </div>
-      </div>`
+        <div class="card">
+          <img src="${r.image}" alt="${r.title}" class="card-img">
+          <div class="card-body">
+            <h3>${r.title}</h3>
+            <p><strong>Cuisine:</strong> ${r.kitchen}</p>
+            <p><strong>Diet:</strong> ${r.diet}</p>
+            <p><strong>Time:</strong> ${r.time} min</p>
+            <p><strong>Ingredients:</strong> ${r.ingredients}</p>
+            <p><strong>Popularity:</strong> ${r.popularity}</p>
+          </div>
+        </div>`
         )
         .join("")
     : `<p>No recipes match your filters.</p>`;
 
-  msgEl.textContent = `Results: ${sorted.length} | Kitchen: ${filters.kitchen} | Diet: ${filters.diet} | Sort: ${filters.sort} (${filters.order})`;
+  msgEl.textContent = `Results: ${sorted.length} | Kitchen: ${filters.kitchen} | Diet: ${filters.diet} | Sort: ${filters.sort}`;
 };
 
-// The event listeners for the filter and sort buttons (pills).
-// When a button is clicked, it updates the state, highlights the active button,
-// and either fetches new data (for kitchen or diet changes) or updates the displayed recipes (for other filters).
+// --- EVENT LISTENERS ---
 pills.forEach(btn => {
   btn.addEventListener("click", () => {
     const group = btn.parentElement.querySelectorAll(".pill");
@@ -152,21 +141,21 @@ pills.forEach(btn => {
     if (btn.dataset.time) filters.time = btn.dataset.time;
     if (btn.dataset.ingredients) filters.ingredients = btn.dataset.ingredients;
     if (btn.dataset.sort) filters.sort = btn.dataset.sort;
-  
 
-    // If user changes kitchen or diet → refetch from API
     if (btn.dataset.kitchen || btn.dataset.diet) {
-      fetchData();
+      fetchData(); // refetch from API
     } else {
-      // Other filters (time, ingredients, sorting) work locally
-      showRecipes(recipes);
+      showRecipes(recipes); // filter locally
     }
   });
 });
+
+// --- RANDOM RECIPE BUTTON ---
 randomBtn.addEventListener("click", () => {
   const random = recipes[Math.floor(Math.random() * recipes.length)];
   showRecipes([random]);
 });
 
-// Runs automatically once when the page loads — it fetches the first batch of recipe
+// --- INITIAL FETCH ---
 fetchData();
+
