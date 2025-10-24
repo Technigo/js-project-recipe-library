@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recipe Library</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1 class="page-title">Recipe Library</h1>
+
+    <!-- Controls -->
+    <section class="controls">
+
+      <!-- Kitchen filters -->
+ 
+<div class="control-group">
+  <h2 class="control-title">Kitchen</h2>
+  <div class="pill-group">
+    <button class="pill active" data-kitchen="all">All</button>
+    <button class="pill" data-kitchen="Italian">Italian</button>
+    <button class="pill" data-kitchen="Asian">Asian</button>
+    <button class="pill" data-kitchen="Middle Eastern">Middle Eastern</button>
+    <button class="pill" data-kitchen="American">American</button>
+  </div>
+</div>
+
+<!-- Diet filters -->
+<div class="control-group">
+  <h2 class="control-title">Diets</h2>
+  <div class="pill-group">
+    <button class="pill active" data-diet="all">All</button>
+    <button class="pill" data-diet="vegan">Vegan</button>
+    <button class="pill" data-diet="vegetarian">Vegetarian</button>
+    <button class="pill" data-diet="gluten free">Gluten-free</button>
+    <button class="pill" data-diet="dairy free">Dairy-free</button>
+  </div>
+</div>
+
+
+      <!-- Cooking time filters -->
+      <div class="control-group">
+        <h2 class="control-title">Cooking time</h2>
+        <div class="pill-group">
+          <button class="pill active" data-time="all">All</button>
+          <button class="pill" data-time="under15">Under 15 min</button>
+          <button class="pill" data-time="15to30">15–30 min</button>
+          <button class="pill" data-time="30to60">30–60 min</button>
+          <button class="pill" data-time="over60">Over 60 min</button>
+        </div>
+      </div>
+
+      <!-- Ingredient filters -->
+      <div class="control-group">
+        <h2 class="control-title">Amount of ingredients</h2>
+        <div class="pill-group">
+          <button class="pill active" data-ingredients="all">All</button>
+          <button class="pill" data-ingredients="under5">Under 5</button>
+          <button class="pill" data-ingredients="6to10">6–10</button>
+          <button class="pill" data-ingredients="11to15">11–15</button>
+          <button class="pill" data-ingredients="over16">Over 16</button>
+        </div>
+      </div>
+
+      <!-- Sorting options + Random button -->
+      <div class="control-group sorting-row">
+        <h2 class="control-title">Sorting options</h2>
+
+      <div class="pill-group sort-row">
+          
+          <button class="pill" data-sort="popularity">By popularity</button>
+          <button class="pill" data-sort="ingredients">By ingredients</button>
+          <button id="random-btn" class="pill pink-btn">Random Recipe</button>
+  </div>
+</div>
+
+
+
+    <!-- Message output -->
+    <p id="msg" class="note"></p>
+
+    <!-- Recipe cards -->
+    <main id="recipes" class="recipes"></main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
