@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Library</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="data.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  
+  <h1>Recipe Library</h1>
+
+  <section class="filters">
+    <div class="filtername-and-buttons">
+      <h2>Dietary Preference</h2>
+
+      <div class="filter-diet">
+        <input 
+          type="radio" 
+          name="diet" 
+          value="all" 
+          id="all"
+          checked>
+          <label for="all" class="diet-label">All</label>
+
+        <input 
+          type="radio" 
+          name="diet" 
+          value="vegetarian"
+          id="vegetarian">
+          <label for="vegetarian" class="diet-label">Vegetarian</label>
+
+        <input 
+          type="radio" 
+          name="diet" 
+          value="vegan"
+          id="vegan">
+          <label for="vegan" class="diet-label">Vegan</label>
+
+        <input 
+          type="radio" 
+          name="diet" 
+          value="gluten free"
+          id="gluten-free">
+          <label for="gluten-free" class="diet-label">Gluten-Free</label>
+
+        <input 
+          type="radio" 
+          name="diet" 
+          value="dairy free"
+          id="dairy-free">
+          <label for="dairy-free" class="diet-label">Dairy-Free</label>
+
+      </div>
+    </div>
+
+      <div class="filtername-and-buttons">
+        <h2>Sort by Time</h2>
+
+        <div class="sort-time">
+          <input 
+            type="radio" 
+            name="sort-time" 
+            value="desc" 
+            id="sort-desc">
+
+            <label 
+            for="sort-desc" class="time-label">Longest to Shortest</label>
+
+          <input 
+            type="radio" 
+            name="sort-time" 
+            value="asc" 
+            id="sort-asc">
+
+            <label 
+            for="sort-asc" class="time-label">Shortest to Longest</label>
+        </div>
+      </div>
+
+      <div class="filtername-and-buttons">
+        <h2>Not sure?</h2>
+        <button id="random-recipe-btn">Random Recipe</button>
+      </div>
+
+  </section>
+
+  
+
+  <section class="recipe-card-container"></section>
+</body>
+</html>

@@ -1,0 +1,237 @@
+/*Background*/
+body {
+  margin-top: 60px;
+  margin-left: 40px;
+  margin-right: 40px;
+  background: #FAFBFF;
+}
+
+/*Text styles*/
+h1 { /*Big blue header*/
+  font-family: sans-serif;
+  font-weight: 800; /*Bold*/
+  font-size: 40pt;
+  color: #0018A4;
+}
+
+h2 { /*Filter names*/
+  font-family: sans-serif;
+  font-size: 11pt;
+  font-weight: 800; /*Bold*/
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+h3 { /*Recipe title*/
+  font-family: sans-serif;
+  font-size: 14pt;
+  font-weight: 600; /*Bold*/
+  margin-top: 20px;
+  margin-bottom: 12px;
+}
+
+h4 {
+  font-family: sans-serif;
+  font-size: 12pt;
+  font-weight: 600; /*Bold*/
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+ul {
+  list-style: disc;
+}
+
+li {
+  font-family: sans-serif;
+  font-size: 12pt;
+  margin-bottom: 6px;
+}
+
+
+/*Filters*/
+.filters {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  flex-wrap: wrap;
+  
+}
+
+.filter-diet {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-diet label {
+  height: auto;
+  width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #CCFFE2;
+  border: 2px solid #CCFFE2;
+  border-radius: 50px;
+  font-family: sans-serif;
+  font-size: 10pt;
+  color: #0018A4;
+}
+
+.filter-diet input:checked + .diet-label{
+  background: #0018A4;
+  color: white;
+  border: 2px solid #0018A4;
+}
+
+.filter-diet :hover {
+  background: #CCFFE2;
+  color: #0018A4;
+  border: 2px solid #0018A4;
+}
+
+.filter-diet input {
+  display: none;
+}
+
+.sort-time {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sort-time label {
+  height: auto;
+  width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFECEA;
+  border: 2px solid #FFECEA;
+  border-radius: 50px;
+  font-family: sans-serif;
+  font-size: 10pt;
+  color: #0018A4;
+}
+
+.sort-time input:checked + .time-label{
+  background: #FF6589;
+  color: white;
+  border: 2px solid #FF6589;
+}
+
+.sort-time :hover {
+  background: #FF6589;
+  color: #FFFFFF;
+  border: 2px solid rgb(0, 24, 164);
+}
+
+.sort-time input {
+  display: none;
+}
+
+#random-recipe-btn {
+  height: auto;
+  width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #CCFFE2;
+  border: 2px solid #CCFFE2;
+  border-radius: 50px;
+  font-family: sans-serif;
+  font-size: 10pt;
+  color: #0018A4;
+}
+
+#random-recipe-btn:hover {
+  border: 2px solid #0018A4;
+}
+
+#random-recipe-btn:active {
+  background-color: #0018A4;
+  color: white;
+  border: 2px solid #0018A4;
+}
+
+
+/*Recipe cards and container*/
+.recipe-card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.recipe-card {
+  border: 2px solid #E9E9E9;
+  border-radius: 15px;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px;
+  grid-column: span 4;
+}
+
+.recipe-card:hover {
+  box-shadow: 0 4px 8px rgb(0, 24, 164, 0.5);
+  border: 2px solid #0018A4;
+  cursor: pointer;
+}
+
+.recipe-card hr {
+  width: 100%;
+  border: 1px solid #E9E9E9;
+  margin: 0;
+}
+
+.recipe-images {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.no-recipes {
+    padding: 20px;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #333333;
+    font-family: sans-serif;
+    font-size: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    border: 1px solid #e9e9e9;
+}
+
+@media (max-width: 600px) {
+  .recipe-card {
+    grid-column: span 4;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1199px) {
+  .recipe-card{
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 1200px) {
+  .recipe-card {
+    grid-column: span 1;
+  }
+}
