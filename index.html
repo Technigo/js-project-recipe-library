@@ -3,67 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recept boken</title>
-    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
+
 <body>
-    
-    <h1> Recipe Liberary </h1>
-    <!-- country buttons-->
-    <section class="filters">
-        <div>
-            <h2>Filter your kitchen</h2>
-            <button class="filter" id="all"> All</button>
-            <button class="filter" id="italy"> Italy</button>
-            <button class="filter" id="usa"> USA</button>
-            <button class="filter active" id="china"> China</button>
-        </div>
+  <header>
+    <h1>Recipe Library</h1>
+    <nav class="filtersort-larger"id="filterSort">
 
-    <!--sort time-->
-        <div >
-            <h2> Sort by time</h2>
-            <button class="sort" id=" highToLow">Decending</button>
-            <button class="sort active" id="lowToHigh">Ascending</button>
-        </div>
-    </section>
+      <div class="flex filter">
+        <h2>Filter by Cuisine</h2>
+        <form class="selectors green"id="filterButtonsContainer"></form>
+      </div>
 
-    <!--cards-->
-    <section class="recipes" id="recipes">
-        <section id="messages" class="card">
-            <h2> temp placeholder for filter</h2>
-        </section>
+      <div class="flex sort">
+        <h2>Sort by</h2>
+        <form id="sortButtons"class="selectors pink"></form>
+      </div>
 
+      <div class="right-side-nav">
+        <label for="search-mobile"hidden> Search for cuisines, diets and ingredients </label>
         
-            <section class="card">
-                <a href="#" target="blank"></a>
-                <img src="https://recipe-demo-part-1.netlify.app/chicken.webp" alt="">
-                <h2>Temporary placholder recipe</h2>
-                <!--<hr> tag to define thematic changes in the content-->
-                <hr>
-                <p class="details">
-                    <span class="bold">Cuisine: </span>
-                    American
-                </p>
-                <p class="details">
-                    <span class="bold">Time</span>
-                    1h 30min
-                </p>
-                <hr>
-                <div class="ingredients">
-                    <p class="details bold">Ingredients</p>
-                    <ul>
-                        <li>1 Chicken</li>
-                        <li>1/2 tsp salt</li>
-                        <li>1/2 tsp Mrs. Dash sesoning</li>
-                        <li>1/4 tsp black pepper </li>
-                    </ul>
-                </div>
-                </a>
-            </section>
+        <div class="search-container">
+          <input type="text"class="search-input"id="search"placeholder="What are you craving"/>
+        </div>
+
+        <button type="button"id="randomRecipeButton"> Surprise me!</button>
+      </div>
+    </nav>
+    <nav class="filtersort-mobile"id="mobileDropdown">
+
+      <!-- Filter Dropdown -->
+      <div class="dropdown filter">
+        <button class="dropbtn">Filter</button>
+        <ul id="filterDropdown"class="selectors filter-content"></ul>
+      </div>
+
+      <!-- Sort Dropdown -->
+      <div class="dropdown sort">
+        <button class="dropbtn">Sort</button>
+        <ul id="sortDropdown"class="selectors sort-content"></ul>
+      </div>
+
+      <div class="search-mobile">
+        <label for="search-mobile"hidden> Search for cuisines, diets and ingredients </label>
+        <input type="text" class="search-input" id="searchMobile" placeholder="What are you craving"/>
+      </div>
+
+      <button id="randomMobile"class="random mobile"> Surprise me! </button>
+
+    </nav>
+  </header>
+  <main>
+    <section id="recipe-container"class="recipe-container"></section>
+  </main>
     
-
-</div>
-
-<script src="index.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>

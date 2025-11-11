@@ -5,21 +5,23 @@
 }
 
 :root {
-  --first-color: #eaf6ff;
-  --second-color: #bffaed;
-  --third-color: #FFECEA;
-  --forth-color: #082bee;
-  --fifth-color: #c2e3fd;
-  --hover-1: #5dd4bb;
-  --hover-2: #f8cbc6;
-  --hover-3: #01199e; 
-  --border-radius: 12px;
-  --transition: 0.3s ease;
- 
+  --background-light: #f2f8fd;
+  --select-green: #a7f8e7;
+  --select-pink: #ffe0e0;
+  --primary: #0a26ca;
+  --second-pink: #ffc4c4;
+  --second-green: #44f8d1;
+  --shadow-light: rgba(212, 212, 212, 0.671);
+  --border-dark: #1f2521;
+  --text-underline: #56af8a;
+  --text-select: #e9ffe9;
+  --text-dark: #1a1818;
+  --find: #d0ff00;
 }
 
+
 body {
-  background-color: var(--fifth-color);
+  background-color: var(--background-light);
   color: var(--text-dark);
   font-family: "futura", sans-serif;
   width: 100vw;
@@ -40,12 +42,12 @@ h4 {
 
 h5 {
   font: bold 1rem "futura", sans-serif;
-  color: var(--text-light);
+  color: var(--text-select);
   margin: 0;
 }
 
 i {
-  color: var(--text-light);
+  color: var(--text-select);
   cursor: pointer;
   padding: 0 .25rem;
 }
@@ -84,11 +86,11 @@ ul {
 }
 
 .filter-content {
-  background-color: var(--primary);
+  background-color: var(--select-green);
 }
 
 .sort-content {
-  background-color: var(--secondary);
+  background-color: var(--select-pink);
 }
 
 .show {
@@ -98,7 +100,7 @@ ul {
 /* Filter buttons */
 .dropbtn {
   font: 1.25rem "futura", sans-serif;
-  color: var(--primary);
+  color: var(--find);
   width: 100dvw;
   border: none;
   padding: 1rem .5rem;
@@ -114,43 +116,44 @@ ul {
   margin-bottom: .5rem;
 }
 
+/*color of dropdown mobile pink*/
 #sortDropdown .sort-button {
-  color: var(--text-light);
-  background-color: var(--secondary);
+  color: var(--primary);
+  background-color: var(--select-pink);
 }
-
+/*color of dropdown mobile green*/
 #filterDropdown .filter-button {
-  color: var(--text-light);
-  background-color: var(--primary);
+  color: var(--primary);
+  background-color: var(--select-green);
 }
 
 .filter,
 .sort {
   position: relative;
 }
-
+/*dropdown menu color*/
 .filter.active>button {
-  color: var(--text-light);
-  background-color: var(--primary);
-  border: 2px solid var(--primary);
+  color: var(--primary);
+  background-color: var(--second-green);
+  border: 2px solid var(--second-green);
   z-index: 2;
 }
 
 .sort.active>button {
-  color: var(--text-light);
-  background-color: var(--secondary);
-  border: 2px solid var(--secondary);
+  color: var(--primary);
+  background-color: var(--second-pink);
+  border: 2px solid var(--second-pink);
   z-index: 2;
 }
 
 .filter>button {
-  background-color: var(--select-dark);
+  background-color: var(--select-green);
   color: var(--primary);
   cursor: pointer;
 }
 
 .sort>button {
-  background-color: var(--select-light);
+  background-color: var(--second-pink); /*//*/
   color: var(--primary);
   cursor: pointer;
 }
@@ -173,8 +176,9 @@ ul {
 ::placeholder {
   text-align: center;
 }
+/* */
 
-/* Random button */
+/* Random button mobile*/
 #randomRecipeButton,
 #randomMobile {
   display: block;
@@ -184,7 +188,7 @@ ul {
   padding: 1rem .5rem;
   cursor: pointer;
   background-color: var(--primary);
-  color: var(--text-light);
+  color: var(--text-select);
 }
 
 /* Recipe cards */
@@ -217,7 +221,7 @@ ul {
 
 .sort li {
   text-align: center;
-  color: var(--text-light);
+  color: var(--text-select);
 }
 
 .ingredients-list {
@@ -240,7 +244,7 @@ ul {
 span {
   width: 16rem;
   height: 2px;
-  background-color: var(--border-light);
+  background-color: var(--text-underline);
   justify-self: center;
 }
 
@@ -253,40 +257,11 @@ img {
   box-sizing: border-box;
 }
 
-/* Footer */
-.footer-parent {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  background-color: var(--primary);
-  padding: 1rem 0;
-  align-items: center;
-  align-content: center;
-  max-height: fit-content;
-}
 
-.footer-right,
-.footer-left {
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  color: var(--background-light);
-  font: 1rem "futura", sans-serif;
-}
 
-.footer-right li a {
-  text-decoration: none;
-  display: block;
-  color: var(--text-light);
-  text-align: center;
-}
 
-li {
-  list-style-type: none;
-}
 
-@media (min-width: 820px) {
+@media (min-width: 520px) {
   .filtersort-mobile {
     display: none;
   }
@@ -310,15 +285,15 @@ li {
   }
 
   .filter .green>button:focus {
-    color: var(--text-light);
-    background-color: var(--primary);
+    color: var(--primary);
+    background-color: var(--second-green);
     border: 2px solid var(--primary);
   }
 
   .sort .selectors>button:focus {
-    color: var(--select-light);
-    background-color: var(--secondary);
-    border: 2px solid var(--secondary);
+    color: var(--primary);
+    background-color: var(--second-pink);
+    border: 2px solid var(--primary);
   }
 
   button {
@@ -329,13 +304,13 @@ li {
   }
 
   .filter .green>button {
-    background-color: var(--select-dark);
+    background-color: var(--select-green);
     color: var(--primary);
     margin: .25rem;
   }
 
   .sort .selectors>button {
-    background-color: var(--select-light);
+    background-color: var(--select-pink);
     color: var(--primary);
     margin: .25rem;
   }
@@ -403,7 +378,7 @@ li {
     max-height: 2rem;
     box-shadow: 0px 0px 2.5rem var(--shadow-light);
     background-color: var(--primary);
-    color: var(--text-light);
+    color: var(--text-select);
     cursor: pointer;
     height: 2rem;
   }
@@ -429,10 +404,5 @@ li {
     border-radius: 1rem;
   }
 
-  .footer-left,
-  .footer-right {
-    gap: 2rem;
-    font: 2rem "futura", sans-serif;
-    color: var(--text-light);
-  }
+ 
 }
