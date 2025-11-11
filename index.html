@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+  <header>
+    <h1>Recipe Library</h1>
+    <nav class="filtersort-larger"id="filterSort">
+
+      <div class="flex filter">
+        <h2>Filter by Cuisine</h2>
+        <form class="selectors green"id="filterButtonsContainer"></form>
+      </div>
+
+      <div class="flex sort">
+        <h2>Sort by</h2>
+        <form id="sortButtons"class="selectors pink"></form>
+      </div>
+
+      <div class="right-side-nav">
+        <label for="search-mobile"hidden> Search for cuisines, diets and ingredients </label>
+        
+        <div class="search-container">
+          <input type="text"class="search-input"id="search"placeholder="What are you craving"/>
+        </div>
+
+        <button type="button"id="randomRecipeButton"> Surprise me!</button>
+      </div>
+    </nav>
+    <nav class="filtersort-mobile"id="mobileDropdown">
+
+      <!-- Filter Dropdown -->
+      <div class="dropdown filter">
+        <button class="dropbtn">Filter</button>
+        <ul id="filterDropdown"class="selectors filter-content"></ul>
+      </div>
+
+      <!-- Sort Dropdown -->
+      <div class="dropdown sort">
+        <button class="dropbtn">Sort</button>
+        <ul id="sortDropdown"class="selectors sort-content"></ul>
+      </div>
+
+      <div class="search-mobile">
+        <label for="search-mobile"hidden> Search for cuisines, diets and ingredients </label>
+        <input type="text" class="search-input" id="searchMobile" placeholder="What are you craving"/>
+      </div>
+
+      <button id="randomMobile"class="random mobile"> Surprise me! </button>
+
+    </nav>
+  </header>
+  <main>
+    <section id="recipe-container"class="recipe-container"></section>
+  </main>
+    
+  <script src="script.js"></script>
+</body>
+
+</html>
