@@ -153,7 +153,7 @@ ul {
 }
 
 .sort>button {
-  background-color: var(--second-pink); /*//*/
+  background-color: var(--second-pink);
   color: var(--primary);
   cursor: pointer;
 }
