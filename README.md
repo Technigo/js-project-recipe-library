@@ -6,6 +6,18 @@ This project is live on [Netlify](https://favorate-dessert.netlify.app/).
 
 ---
 
+## 🔗 Demo
+
+Check out the project live here: [Favorite Dessert on Netlify](https://favorate-dessert.netlify.app/)
+
+---
+
+## 📸 Screenshot
+
+![Favorite Dessert Screenshot](website-screenshot/Screenshot.png)
+
+---
+
 ## 🚀 Features
 
 - 🔍 **Search desserts** by name or favorite recipes
@@ -13,12 +25,6 @@ This project is live on [Netlify](https://favorate-dessert.netlify.app/).
 - 🔄 **Sorting options**: Descending ⬇️, Popularity ⭐, Random 🎲
 - ❤️ **Like your favorite desserts** and find them in the **Favorites** section
 - 📱 **Responsive design** — works beautifully on desktop 💻, tablet 📱, and mobile 📲
-
----
-
-## 🔗 Demo
-
-Check out the project live here: [Favorite Dessert on Netlify](https://favorate-dessert.netlify.app/)
 
 ---
 
