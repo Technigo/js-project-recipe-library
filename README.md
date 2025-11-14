@@ -1,7 +1,7 @@
 # 🍰 Favorite Dessert
 
-Welcome to **Favorite Dessert** — a fun and interactive dessert recipe app!  
-You can discover, filter, and save your favorite desserts while practicing API integration, filtering, and responsive design.  
+Welcome to **Favorite Dessert** — a fun and interactive dessert recipe app! You can discover, filter, and save your favorite desserts while practicing API integration, filtering, and responsive design.  
+
 This project is live on [Netlify](https://favorate-dessert.netlify.app/).  
 
 ---
