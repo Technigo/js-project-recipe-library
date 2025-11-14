@@ -326,6 +326,7 @@ const DEMO_CAKES = [
     cuisines: ["Asian"],
     aggregateLikes: 30,
   },
+  console.log(aggregateLikes),
   {
     id: "demo_2",
     title: "Tiramisu",
