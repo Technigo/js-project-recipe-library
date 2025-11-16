@@ -1,0 +1,23 @@
+{
+  "name": "js-project-recipe-library",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch sass/main.scss css/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kausyar-coder/js-project-recipe-library.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kausyar-coder/js-project-recipe-library/issues"
+  },
+  "homepage": "https://github.com/Kausyar-coder/js-project-recipe-library#readme",
+  "devDependencies": {
+    "sass": "^1.93.2"
+  }
+}

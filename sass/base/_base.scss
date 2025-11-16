@@ -1,0 +1,36 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%; // 10px = 1rem
+
+  @include respond(big-desktop) {
+    font-size: 75%; // 12px
+  }
+
+  @include respond(tab-land) {
+    font-size: 56.25%; // 9px
+  }
+
+  @include respond(tab-port) {
+    font-size: 56.25%; // 9px
+  }
+
+  @include respond(xs-phone) {
+    font-size: 50%; // оставляем 8px, не меньше!
+  }
+}
+
+body {
+  box-sizing: border-box;
+  background-color: #f8f9fa;
+  margin: 0 auto;
+}

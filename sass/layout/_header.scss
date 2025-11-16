@@ -1,0 +1,194 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.header {
+  &__desktop {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 3rem;
+    margin: 2rem 0;
+
+    @include respond-max(48.75em) {
+      //780px
+      display: none;
+    }
+  }
+
+  &__title {
+    line-height: 1.3;
+    font-size: 3rem;
+
+    @include respond-max(48.75em) {
+      //780px
+      display: none;
+    }
+  }
+
+  &__search-form-desktop {
+    display: flex;
+    position: relative;
+    flex: 1;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    color: var(--color-primary-first);
+    width: 2rem;
+  }
+
+  &__input {
+    border: 1.5px solid var(--color-primary-first);
+    background-color: var(--color-white);
+    padding: 1.5rem;
+    flex: 1;
+    border-radius: 0.8rem;
+    padding-left: 4rem;
+  }
+
+  &__input::placeholder {
+    color: var(--color-primary-first);
+    font-family: "montserrat", sans-serif;
+    font-size: 1.5rem;
+
+    display: block;
+    padding: 2rem 0;
+  }
+
+  &__input:focus {
+    outline: none;
+    border-color: var(--color-primary-first);
+    background-color: var(--color-primary-first-light);
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    @include respond-max(48.75em) {
+      //780px
+      display: none;
+    }
+  }
+
+  &__icon-short {
+    background-color: var(--color-primary-second);
+    color: var(--color-primary-second-light);
+
+    border: 1.5px solid transparent;
+    border-radius: 1rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    padding: 1rem;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
+  &__icon-short:hover {
+    color: var(--color-primary-second);
+    fill: var(--color-primary-second);
+    background-color: var(--color-primary-second-light);
+    border-color: var(--color-primary-second);
+  }
+
+  &__icon-short.active {
+    color: var(--color-primary-second);
+    fill: var(--color-primary-second);
+    background-color: var(--color-primary-second-light);
+    border-color: var(--color-primary-second);
+  }
+
+  &__logo {
+    background-image: url(../img/uifaces-cartoon-avatar.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 1rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    padding: 1rem;
+    transition: 0.3s;
+  }
+
+  &__logo:hover {
+    transform: scale(1.1);
+  }
+}
+
+//--------------//
+// MOBILE MENUR //
+//--------------//
+
+.header {
+  &__mobile {
+    display: none;
+    width: 100%;
+
+    @include respond-max(48.75em) {
+      //780px
+      display: inline-block;
+    }
+  }
+
+  &__first {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 0;
+    gap: 1rem;
+  }
+
+  &__mobile-menue__button {
+    width: 4.5rem;
+    height: 4.5rem;
+    background-color: var(--color-primary-second);
+    border-radius: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__mobile-menue__icon {
+    color: var(--color-primary-second-light);
+  }
+
+  &__search-form-mobile {
+    display: flex;
+    position: relative;
+    flex: 1;
+  }
+
+  &__icon-mobile {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    color: var(--color-primary-first);
+    width: 2rem;
+  }
+
+  &__input-mobile {
+    border: 1px solid var(--color-grey-light-2);
+    background-color: var(--color-grey-light-2);
+    padding: 1.4rem;
+    flex: 1;
+    border-radius: 0.8rem;
+    padding-left: 4rem;
+  }
+
+  &__input-mobile::placeholder {
+    color: var(--color-grey-dark);
+    font-family: "montserrat", sans-serif;
+    font-size: 1.5rem;
+  }
+
+  &__input-mobile:focus {
+    outline: none;
+    border-color: var(--color-grey-light-2);
+    background-color: var(--color-grey-light-1);
+  }
+}

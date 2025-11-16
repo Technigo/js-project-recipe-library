@@ -1,0 +1,95 @@
+/* ------------------------------------------------------
+  | THEME VARIABLES: (light) ☀️
+  ------------------------------------------------------ */
+
+:root {
+  // COLORS
+  --color-salad-green: #ccffe2;
+  --color-dark-yellow: #f6a400;
+  --color-light-yellow: #fdf8e1;
+
+  // PRIMARY
+  --color-primary-first-light: #fafbff;
+  --color-primary-first: #0018a4;
+  --color-primary-second-light: #ffecea;
+  --color-primary-second: #ff6589;
+
+  //GREY
+  --color-white: #ffffff;
+
+  --color-grey-light-1: #f8f9fa;
+  --color-grey-light-2: #e9ecef;
+  --color-grey-light-3: #dee2e6;
+  --color-grey-light-4: #ced4da;
+
+  --color-grey-dark: #868e96;
+
+  --color-font: #212529;
+  --color-font-base: #212529;
+
+  --color-button: #8d9271;
+  --color-black: #000000;
+
+  //BLUE
+  --color-blue: #176d8c;
+
+  //BORDER RADIUS
+  --border-radius-xxs: 0.5rem; // 5px
+  --border-radius-xs: 1rem; // 10px
+  --border-radius-sm: 1.5rem; // 15px
+  --border-radius-md: 2rem; // 20px
+  --border-radius-lg: 2.5rem; // 25px
+  --border-radius-xl: 3rem; // 30px
+
+  //BOX SHADOW
+
+  --box-shadow: 0 0.5rem 1rem #0019a453;
+}
+
+/* -------------------------------
+  |  1️⃣ GRID FOR BASE DESKTOP 1️⃣ |
+  ------------------------------- */
+
+$grid-header-width: 140rem; // menu and main block
+$grid-choose-option-width: 104rem; // menu and main block
+$grid-arrows-width: 120rem; // left and right buttons
+$grid-main-container-width: 100rem; // main grid
+
+$gutter-horizontal-big: 10rem; // spacing between blocks
+$gutter-horizontal-medium: 5rem; // spacing between blocks
+$gutter-horizontal-small: 3rem; // spacing between blocks
+$row-gap: 2rem; // between cards
+
+/* ---------------------------------------------
+  |  2️⃣ GRID FOR Tablet landscape: ≤ 1200px 2️⃣ |
+  -------------------------------------------- */
+
+$grid-header-tablet-landscape-width: 120rem; // menu and main block
+$grid-choose-option-tablet-landscape-width: 100rem; // menu and main block
+$grid-arrows-tablet-landscape-width: 120rem; // left and right buttons
+$grid-main-container-tablet-landscape-width: 100rem; // main grid
+
+/* ---------------------------------------------
+  |  3️⃣ GRID FOR Tablet portrait: ≤ 900px 3️⃣ |
+  -------------------------------------------- */
+
+$grid-header-tab-port-width: 100rem; // menu and main block
+$grid-choose-option-tab-port-width: 90rem; // menu and main block
+$grid-arrows-tab-port-width: 108rem; // left and right buttons
+$grid-main-container-tab-port-width: 90rem; // main grid
+
+/* ---------------------------------------
+  |  4️⃣ Phone: ≤ 600px HORIZONTAL 4️⃣ |
+  -------------------------------------- */
+
+$grid-header-phone-width: 70rem; // menu and main block
+$grid-choose-option-phone-width: 70rem; // menu and main block
+$grid-main-container-phone-width: 65rem; // main grid
+
+/* -------------------------------------
+  |  5️⃣ Extra small phone: ≤ 320px 5️⃣ |
+  ------------------------------------ */
+
+$grid-header-xs-phone-width: 95vw; // menu and main block
+$grid-choose-option-xs-phone-width: 95vw; // menu and main block
+$grid-main-container-xs-phone-width: 90vw; // main grid
