@@ -8,20 +8,13 @@
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(14rem, 23rem));
-  justify-content: start;
-  align-items: start;
   gap: 2rem;
-  flex-wrap: wrap;
 
-  height: auto;
-  max-height: 60vh; /* высота, например 80% от экрана */
-  overflow-y: auto; /* вертикальный скролл */
   scrollbar-width: none;
-
   cursor: pointer;
 
   @include respond-max(25.8125em) {
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(auto, 1fr));
     gap: 1rem;
   }
 
@@ -40,14 +33,10 @@
     background-color: var(--color-white);
     border: 2.5px solid var(--color-grey-light-2);
     padding: 1rem;
-
     display: flex;
     flex-direction: column;
-
-    // height: 40rem; // фиксированная высота
-    // min-height: 40rem; // на всякий случа
-    // max-width: 25rem;
     transition: 0.3s;
+    min-height: 36rem;
 
     &:hover {
       border-color: var(--color-primary-first);
@@ -59,7 +48,6 @@
       border-color: var(--color-primary-second);
       background-color: var(--color-primary-second-light);
       box-shadow: var(--box-shadow);
-      transform: translateY(-1rem);
     }
 
     &__title {
@@ -86,13 +74,8 @@
     border: 2.5px solid var(--color-grey-light-2);
     padding: 1rem;
     margin-bottom: 3rem;
-
     display: flex;
     flex-direction: column;
-
-    // height: 36rem; // фиксированная высота
-    // min-height: 36rem; // на всякий случа
-    // max-width: 25rem;
     transition: 0.3s;
 
     &:hover {
@@ -124,7 +107,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ccffe2;
+  background-color: var(--color-salad-green);
   border-radius: 2rem;
   border: 2px solid var(--color-primary-first);
   padding: 2rem 3rem;
@@ -155,7 +138,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ccffe2;
+  background-color: var(--color-salad-green);
   border: 2px solid var(--color-primary-first);
 
   h2,

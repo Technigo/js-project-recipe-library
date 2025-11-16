@@ -3,16 +3,14 @@
    MEDIA QUERY MANAGER
    ------------------------------------------------------
    
-   Брейкпоинты (по ширине экрана):
+   Breakpoints (by screen width):
 
-   0 - 320px: Extra small (мини-телефоны)
+   0 - 320px: Extra small (mini phones)
    0 - 600px: Phone
    600px - 900px: Tablet portrait
    900px - 1200px: Tablet landscape
-   1200px - 1800px:  Desktop (базовый дизайн) is where our normal style apply 
+   1200px - 1800px: Desktop (base design) is where our normal styles apply
    1800px + : Big desktop
-
-  
 
    $breakpoint argument choices:
    - xs-phone
@@ -67,21 +65,21 @@
   }
 }
 
-// 📌 ширина между (чило ниже - чило выше)
+// 📌 width between (number below - number above)
 @mixin respond-between($min, $max) {
   @media only screen and (min-width: $min) and (max-width: $max) {
     @content;
   }
 }
 
-// 📌 Минимальная ширина (от числа и выше)
+// 📌 Minimum width (from number and up)
 @mixin respond-min($min) {
   @media (min-width: $min) {
     @content;
   }
 }
 
-// 📌 Максимальная ширина (до числа и ниже)
+// 📌 Maximum width (up to number)
 @mixin respond-max($max) {
   @media (max-width: $max) {
     @content;

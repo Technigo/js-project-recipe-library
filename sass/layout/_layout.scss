@@ -61,11 +61,6 @@
 }
 
 .cards {
-  flex: 3;
-  height: 100%;
-  border-radius: 2rem 2rem 0 0;
-  padding: 5rem 1rem;
-
   @include respond(tab-port) {
     flex: 2;
   }
@@ -75,6 +70,28 @@
   }
 }
 
-.footer {
-  background-color: greenyellow;
+#demo-status {
+  opacity: 0;
+  animation: fadeInOut 4s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.main-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 5rem 2rem;
 }

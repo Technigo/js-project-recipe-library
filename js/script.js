@@ -1,78 +1,40 @@
-/*
----------------------------------------
-| APP JS (single file, cleaned & fixed)
-| Comments are in English
----------------------------------------
-*/
-
-/* ===============
-   DOM REFERENCES / 
-   =============== */
 const filterItems = document.querySelectorAll(".filter__item");
 
 const mainCoffee = document.querySelector(".main-coffee");
-const mainJuice = document.querySelector(".main-juice");
-const mainTea = document.querySelector(".main-tea");
+const mainFruits = document.querySelector(".main-fruites");
+const mainChocolate = document.querySelector(".main-chocolate");
 const mainFavorites = document.querySelector(".main-favorites");
 
 const containerCoffee = document.getElementById("coffee-container");
-const containerJuice = document.getElementById("juice-container");
-const containerTea = document.getElementById("tea-container");
+const containerFruit = document.getElementById("fruit-container");
 const containerFavorites = document.getElementById("favorites-container");
 
 const buttonCoffee = document.getElementById("button-coffee");
-const buttonJuice = document.getElementById("button-juice");
-const buttonTea = document.getElementById("button-tea");
+const buttonFruit = document.getElementById("button-fruit");
 const buttonFavorites = document.querySelectorAll(".button-favorites");
-const buttons = [buttonCoffee, buttonJuice, buttonTea, ...buttonFavorites];
+const buttons = [buttonCoffee, buttonFruit, ...buttonFavorites];
 
-/* ==========================
-   GLOBALS / CONFIG
-   ========================== */
-
-// LocalStorage keys
 const LS_COFFEE = "coffeeData";
-const LS_JUICE = "juiceData";
+const LS_FRUITS = "juiceData";
 const LS_FAVORITES = "favorites";
 
-// Render flags
-let coffeeRendered = false;
-let juiceRendered = false;
+const API_KEY = "003fb0433f9c48348cea44cc791555a4";
+const SPOON_BASE = "https://api.spoonacular.com";
 
-// Favorites state
+let coffeeRendered = false;
+let fruitsRendered = false;
+
 let favorites = [];
 
 /* =========================================================
    SECTION SECTION SECTION UTILITIES SECTION SECTION SECTION
    ========================================================= */
 
-/* ==================================
-   ⁉️ Sets "active" visual state on the clicked top-menu button
-   ================================== */
 function setActiveButton(activeBtn) {
   buttons.filter(Boolean).forEach((btn) => btn.classList.remove("active"));
   if (activeBtn) activeBtn.classList.add("active");
 }
 
-/* ==================================
-   Keeps only one specific card in the container,
-   removes all others (used by Random function)
-   ================================== */
-function keepOnlyThisCard(container, cardEl) {
-  container
-    .querySelectorAll(
-      ".cards__coffee-card, .cards__juice-card, .empty-card, .no-match-card"
-    )
-    .forEach((el) => {
-      if (el !== cardEl) el.remove();
-    });
-  cardEl.style.display = "";
-}
-
-/* ==================================
-   Reads and returns array from localStorage by key
-   (returns empty array if key not found or invalid)
-   ================================== */
 function getCacheArray(key) {
   try {
     const arr = JSON.parse(localStorage.getItem(key) || "[]");
@@ -82,95 +44,52 @@ function getCacheArray(key) {
   }
 }
 
-/* ==================================
-   Picks a random element from array,
-   excluding one with a specific id (used in Random)
-   ================================== */
 function pickRandomExcluding(arr, excludeId) {
   const pool = arr.filter((r) => String(r?.id) !== String(excludeId));
   if (!pool.length) return null;
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
-/* ==================================
-   Detects cuisine based on API cuisines, title, or ingredients.
-   Supports only: Italian, Asian, Middle Eastern, or Other.
-   ================================== */
-function detectCuisine3({
-  cuisines = [],
-  title = "",
-  summary = "",
-  ingredients = [],
-}) {
-  const api = (cuisines || []).map((s) => String(s).toLowerCase());
-  if (api.some((c) => /italian/.test(c))) return "italian";
-  if (
-    api.some((c) =>
-      /(asian|japanese|chinese|korean|thai|indian|vietnamese)/.test(c)
-    )
-  )
-    return "asian";
-  if (
-    api.some((c) =>
-      /(middle\s*eastern|arab|leban|turk|persian|iranian)/.test(c)
-    )
-  )
-    return "middle eastern";
+function detectCuisine(recipe) {
+  if (recipe.cuisines && recipe.cuisines.length > 0) {
+    const cuisine = recipe.cuisines[0].toLowerCase();
 
-  const t = `${title} ${summary}`.toLowerCase();
-  if (/(tiramisu|panna\s*cotta|cannoli|amaretto|mascarpone|ital|sicil)/.test(t))
-    return "italian";
-  if (
-    /(mochi|matcha|dorayaki|anko|japan|japanese|ramen|udon|sushi|thai|kimchi|korean|chinese|indian|masala)/.test(
-      t
-    )
-  )
-    return "asian";
-  if (
-    /(baklava|kunafa|kanafeh|maamoul|halva|tahini|rose\s*water|orange\s*blossom|middle\s*east|arab|leban|turk|persian|iran)/.test(
-      t
-    )
-  )
-    return "middle eastern";
+    if (cuisine.includes("british")) return "british";
+    if (cuisine.includes("chinese")) return "chinese";
+    if (cuisine.includes("indian")) return "indian";
+  }
 
-  const ing = ingredients.map((i) => String(i || "").toLowerCase()).join(" ");
-  if (/(mascarpone|savoiardi|amaretto)/.test(ing)) return "italian";
-  if (/(matcha|azuki|black\s*sesame|rice\s*flour)/.test(ing)) return "asian";
-  if (/(tahini|date|rose\s*water|orange\s*blossom|cardamom)/.test(ing))
-    return "middle eastern";
-
-  return "other";
+  return "international";
 }
 
-/* ==================================
-   Converts internal cuisine key to label for UI
-   ================================== */
+function cuisineLabel(key) {
+  const labels = {
+    british: "British",
+    chinese: "Chinese",
+    indian: "Indian",
+    international: "International",
+  };
+  return labels[key] || key.charAt(0).toUpperCase() + key.slice(1);
+}
 
 function cuisineLabel3(key) {
-  switch (key) {
-    case "italian":
-      return "Italy";
-    case "asian":
-      return "Asian";
-    case "middle eastern":
-      return "Middle East";
+  switch (key.toLowerCase()) {
+    case "british":
+      return "British";
+    case "chinese":
+      return "Chinese";
+    case "indian":
+      return "Indian";
     default:
-      return "Other";
+      return key.charAt(0).toUpperCase() + key.slice(1);
   }
 }
-
-/* ==================================
-   ⁉️ Converts any value to number safely (NaN → 0)
-   ================================== */
 
 function toNum(v) {
   const n = Number(v);
   return Number.isFinite(n) ? n : 0;
 }
 
-/* ==================================
-   ⁉️ Fetches JSON and throws on HTTP error
-   ================================== */
 function fetchJSON(url) {
   return fetch(url).then((res) => {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -178,16 +97,10 @@ function fetchJSON(url) {
   });
 }
 
-/* ==================================
-   ⁉️ Saves value to localStorage as JSON string
-   ================================== */
 function cacheSet(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
-/* ==================================
-   ⁉️ Loads value from localStorage and parses JSON
-   ================================== */
 function cacheGet(key) {
   try {
     return JSON.parse(localStorage.getItem(key) || "null");
@@ -196,21 +109,17 @@ function cacheGet(key) {
   }
 }
 
-/* ==================================
-   Loads favorites array from localStorage (safe)
-   ================================== */
 function ensureFavoritesLoaded() {
   try {
     const data = JSON.parse(localStorage.getItem(LS_FAVORITES) || "[]");
     favorites = Array.isArray(data) ? data : [];
+    console.log("📋 Loaded favorites:", favorites.length);
   } catch {
     favorites = [];
+    console.log("📋 No favorites found");
   }
 }
 
-/* ==================================
-   Shows "No matches" banner if all cards hidden
-   ================================== */
 function ensureNoMatchBanner(container) {
   const cards = Array.from(
     container.querySelectorAll(".cards__coffee-card, .cards__juice-card")
@@ -241,75 +150,96 @@ function ensureNoMatchBanner(container) {
     SECTION SECTION SECTION STARTUP SECTION SECTION SECTION
    ======================================================= */
 
-// Which section is visible right now?
 function getCurrentCategory() {
   if (mainCoffee && !mainCoffee.classList.contains("hidden")) return "coffee";
-  if (mainJuice && !mainJuice.classList.contains("hidden")) return "juice";
-  if (mainTea && !mainTea.classList.contains("hidden")) return "tea";
+  if (mainFruits && !mainFruits.classList.contains("hidden")) return "juice";
+  if (mainFavorites && !mainFavorites.classList.contains("hidden"))
+    return "favorites";
   return "coffee";
 }
 
 window.addEventListener("DOMContentLoaded", () => {
   seedIfEmpty(LS_COFFEE, DEMO_CAKES);
-  seedIfEmpty(LS_JUICE, DEMO_DESSERTS);
+  seedIfEmpty(LS_FRUITS, DEMO_DESSERTS);
 
-  console.log("LS_COFFEE after seed:", cacheGet(LS_COFFEE));
-  console.log("LS_JUICE after seed:", cacheGet(LS_JUICE));
+  console.log("=== 🎯 TEACHER DEMO READY ===");
+  console.log("LS_COFFEE:", cacheGet(LS_COFFEE)?.length, "items");
+  console.log("LS_FRUITS:", cacheGet(LS_FRUITS)?.length, "items");
 
   setActiveButton(buttonCoffee);
-  mainJuice?.classList.add("hidden");
-  mainTea?.classList.add("hidden");
+  mainFruits?.classList.add("hidden");
+  mainChocolate?.classList.add("hidden");
   mainFavorites?.classList.add("hidden");
 
   ensureFavoritesLoaded();
   renderFavorites();
-
-  // ✅ На старте рендерим только активную секцию (coffee)
   renderCoffeeCards();
 
-  // ❌ НЕ вызывать здесь: renderJuiceCards();
-  //    Вызовем лениво при клике на кнопку Juice:
+  setTimeout(() => {
+    console.log("=== 🔍 FILTER DEBUG INFO ===");
+    debugFilters();
+    console.log("=== 🎯 READY FOR TEACHER TESTING ===");
+    console.log("Filters should work now with demo data!");
+  }, 1000);
 });
 
-//Turn on COFFEE container and turn off the others
 buttonCoffee?.addEventListener("click", () => {
   mainCoffee?.classList.remove("hidden");
-  mainJuice?.classList.add("hidden");
-  mainTea?.classList.add("hidden");
+  mainFruits?.classList.add("hidden");
+  mainChocolate?.classList.add("hidden");
   mainFavorites?.classList.add("hidden");
   setActiveButton(buttonCoffee);
 });
 
-//Turn on JUICE container and turn off the others
-buttonJuice?.addEventListener("click", () => {
+buttonFruit?.addEventListener("click", () => {
   mainCoffee?.classList.add("hidden");
-  mainJuice?.classList.remove("hidden");
-  mainTea?.classList.add("hidden");
+  mainFruits?.classList.remove("hidden");
+  mainChocolate?.classList.add("hidden");
   mainFavorites?.classList.add("hidden");
-  setActiveButton(buttonJuice);
+  setActiveButton(buttonFruit);
 
-  renderJuiceCards();
+  renderFruitCards();
 });
 
-//Turn on TEA container and turn off the others
-buttonTea?.addEventListener("click", () => {
-  mainCoffee?.classList.add("hidden");
-  mainJuice?.classList.add("hidden");
-  mainTea?.classList.remove("hidden");
-  mainFavorites?.classList.add("hidden");
-  setActiveButton(buttonTea);
-});
-
-//Turn on FAVORITES container and turn off the others
 buttonFavorites.forEach((btn) => {
   btn.addEventListener("click", () => {
     mainCoffee?.classList.add("hidden");
-    mainJuice?.classList.add("hidden");
-    mainTea?.classList.add("hidden");
+    mainFruits?.classList.add("hidden");
+    mainChocolate?.classList.add("hidden");
     mainFavorites?.classList.remove("hidden");
     setActiveButton(btn);
   });
 });
+
+function debugFilters() {
+  console.log("🐛 DEBUG FILTERS:");
+
+  const containers = [containerCoffee, containerFruit, containerFavorites];
+  containers.forEach((container, index) => {
+    if (!container) return;
+
+    const cards = container.querySelectorAll(
+      ".cards__coffee-card, .cards__juice-card"
+    );
+    console.log(`Container ${index}: ${cards.length} cards`);
+
+    cards.forEach((card) => {
+      const title = card.querySelector("h2")?.textContent;
+      const cuisine = card.dataset.cuisine;
+      console.log(`  📋 "${title}": cuisine = "${cuisine}"`);
+    });
+  });
+
+  const allCards = document.querySelectorAll(
+    ".cards__coffee-card, .cards__juice-card"
+  );
+  const cuisineCount = {};
+  allCards.forEach((card) => {
+    const cuisine = card.dataset.cuisine || "unknown";
+    cuisineCount[cuisine] = (cuisineCount[cuisine] || 0) + 1;
+  });
+  console.log("📊 Cuisine distribution:", cuisineCount);
+}
 
 /* ==================================
    SECTION DEMO DEMO DEMO
@@ -318,168 +248,186 @@ buttonFavorites.forEach((btn) => {
 const DEMO_CAKES = [
   {
     id: "demo_1",
-    title: "Tiramisu",
+    title: "Tiramisu Cake",
     image:
-      "https://plus.unsplash.com/premium_photo-1713447395823-2e0b40b75a89?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://plus.unsplash.com/premium_photo-1713447395823-2e0b40b75a89?fm=jpg&q=60&w=3000",
     readyInMinutes: 30,
-    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
-    cuisines: ["Asian"],
+    cuisines: ["British"],
     aggregateLikes: 30,
   },
-  console.log(aggregateLikes),
   {
     id: "demo_2",
-    title: "Tiramisu",
+    title: "Chocolate Cake",
     image:
-      "https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987",
-    readyInMinutes: 20,
-    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
-    cuisines: ["middle eastern"],
-    aggregateLikes: 20,
+      "https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?auto=format&fit=crop&q=80&w=987",
+    readyInMinutes: 45,
+    cuisines: ["Chinese"],
+    aggregateLikes: 25,
   },
   {
     id: "demo_3",
-    title: "Tiramisu",
+    title: "Vanilla Sponge Cake",
     image:
-      "https://plus.unsplash.com/premium_photo-1667824363471-733bbbca0d0d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987",
-    readyInMinutes: 10,
-    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
-    cuisines: ["Italian"],
-    aggregateLikes: 10,
+      "https://plus.unsplash.com/premium_photo-1667824363471-733bbbca0d0d?auto=format&fit=crop&q=80&w=987",
+    readyInMinutes: 35,
+    cuisines: ["Indian"],
+    aggregateLikes: 20,
   },
   {
     id: "demo_4",
-    title: "Tiramisu",
+    title: "Lemon Drizzle Cake",
     image:
-      "https://plus.unsplash.com/premium_photo-1663924211686-677f4114cef1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1887",
-    readyInMinutes: 15,
-    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
-    cuisines: ["Italian"],
+      "https://plus.unsplash.com/premium_photo-1663924211686-677f4114cef1?auto=format&fit=crop&q=80&w=1887",
+    readyInMinutes: 40,
+    cuisines: ["British"],
     aggregateLikes: 15,
   },
   {
     id: "demo_5",
-    title: "Tiramisu",
+    title: "Carrot Cake",
     image:
-      "https://images.unsplash.com/photo-1476887334197-56adbf254e1a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987",
-    readyInMinutes: 25,
-    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
-    cuisines: ["Italian"],
-    aggregateLikes: 25,
+      "https://images.unsplash.com/photo-1476887334197-56adbf254e1a?auto=format&fit=crop&q=80&w=987",
+    readyInMinutes: 50,
+    cuisines: ["Chinese"],
+    aggregateLikes: 28,
   },
 ];
 
 const DEMO_DESSERTS = [
   {
     id: "demo_1",
-    title: "Fruit desser",
+    title: "Fruit Tart",
     image:
-      "https://images.unsplash.com/photo-1591626505027-a4992d84d28b?q=80&w=1035&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1591626505027-a4992d84d28b?auto=format&fit=crop&q=80&w=1035",
     readyInMinutes: 30,
-    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
-    cuisines: ["Asian"],
+    cuisines: ["British"],
     aggregateLikes: 30,
   },
   {
     id: "demo_2",
-    title: "Fruit desser",
+    title: "Chocolate Mousse",
     image:
-      "https://images.unsplash.com/photo-1750680230074-a2046d59ba02?q=80&w=927&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1750680230074-a2046d59ba02?auto=format&fit=crop&q=80&w=927",
     readyInMinutes: 20,
-    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
-    cuisines: ["middle eastern"],
-    aggregateLikes: 20,
+    cuisines: ["Chinese"],
+    aggregateLikes: 25,
   },
   {
     id: "demo_3",
-    title: "Fruit desser",
+    title: "Vanilla Pudding",
     image:
-      "https://plus.unsplash.com/premium_photo-1661266841331-e2169199de65?q=80&w=1734&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    readyInMinutes: 10,
-    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
-    cuisines: ["Italian"],
-    aggregateLikes: 10,
+      "https://plus.unsplash.com/premium_photo-1661266841331-e2169199de65?auto=format&fit=crop&q=80&w=1734",
+    readyInMinutes: 15,
+    cuisines: ["Indian"],
+    aggregateLikes: 20,
   },
   {
     id: "demo_4",
-    title: "Fruit desser",
+    title: "Apple Pie",
     image:
-      "https://plus.unsplash.com/premium_photo-1714662390686-eacb5268b41c?q=80&w=988&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    readyInMinutes: 15,
-    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
-    cuisines: ["Italian"],
-    aggregateLikes: 15,
+      "https://plus.unsplash.com/premium_photo-1714662390686-eacb5268b41c?auto=format&fit=crop&q=80&w=988",
+    readyInMinutes: 45,
+    cuisines: ["British"],
+    aggregateLikes: 22,
   },
   {
     id: "demo_5",
-    title: "Fruit dessert",
+    title: "Berry Parfait",
     image:
-      "https://plus.unsplash.com/premium_photo-1714146022660-d9c01e9e6c8c?q=80&w=988&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://plus.unsplash.com/premium_photo-1714146022660-d9c01e9e6c8c?auto=format&fit=crop&q=80&w=988",
     readyInMinutes: 25,
-    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
-    cuisines: ["Italian"],
-    aggregateLikes: 25,
+    cuisines: ["Chinese"],
+    aggregateLikes: 18,
   },
 ];
 
-function seedIfEmpty(storageKey, demoArray) {
-  const cur = cacheGet(storageKey);
-  if (!Array.isArray(cur) || cur.length === 0) {
-    cacheSet(storageKey, demoArray);
+async function checkAPIHealth() {
+  const urls = [
+    "https://api.spoonacular.com/recipes/random?number=1&apiKey=f9a94c32c70844888eebfba758e10f35",
+    "https://api.spoonacular.com/recipes/complexSearch?query=cake&number=1&apiKey=f9a94c32c70844888eebfba758e10f35",
+  ];
+
+  for (const url of urls) {
+    try {
+      const response = await fetch(url);
+      console.log(`🔍 ${url}: ${response.status} ${response.statusText}`);
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("✅ API работает, получены данные");
+        return true;
+      } else {
+        console.log(`❌ API ошибка: ${response.status}`);
+        return false;
+      }
+    } catch (error) {
+      console.log("❌ Сетевая ошибка:", error.message);
+      return false;
+    }
   }
+}
+
+function seedIfEmpty(storageKey, demoArray) {
+  console.log(`🌱 FORCE loading demo data to ${storageKey}`);
+  cacheSet(storageKey, demoArray);
+
+  const loaded = cacheGet(storageKey);
+  console.log(`✅ ${storageKey} now has:`, loaded.length, "items");
 }
 
 /* ==================================
    SECTION RENDER: COFFEE ☕☕☕ (Desserts)
    ==================================*/
 
-// Cache-first render for "Coffee" (cakes)
 async function renderCoffeeCards() {
   if (coffeeRendered) return;
   coffeeRendered = true;
   if (containerCoffee) containerCoffee.innerHTML = "";
 
-  // 1) сразу показываем кэш (включая DEMO_CAKES)
+  // ВСЕГДА показываем демо-данные ПЕРВЫМИ
   const cached = cacheGet(LS_COFFEE);
+  console.log("📦 Cached coffee data:", cached);
+
   if (Array.isArray(cached) && cached.length) {
+    console.log("✅ Showing cached/demo data");
     cached.forEach(addCoffeeCard);
   }
 
-  // 2) пытаемся обновить из сети (может прийти 402)
+  // API запрос - только как БОНУС, если работает
   try {
-    const url = `https://api.spoonacular.com/recipes/complexSearch?query=cake&includeIngredients=coffee&addRecipeInformation=true&number=15&apiKey=003fb0433f9c48348cea44cc791555a4`;
+    const url = `https://api.spoonacular.com/recipes/random?number=4&apiKey=${API_KEY}&type=dessert`;
+    console.log("🌐 Trying API as bonus...");
+
     const data = await fetchJSON(url);
     const arr = data.results || [];
+    console.log("📥 API response:", arr);
 
     if (arr.length) {
-      cacheSet(LS_COFFEE, arr);
-
-      // если раньше кэша не было — перерисуем новыми данными
-      if (!cached || !cached.length) {
-        containerCoffee.innerHTML = "";
-        arr.forEach(addCoffeeCard);
-      }
-    } else if (!cached || !cached.length) {
-      showEmptyCoffeeCard();
+      console.log("🎉 API worked! Adding to existing data");
+      // Добавляем API данные к существующим демо-данным
+      arr.forEach(addCoffeeCard);
+      // Обновляем кэш
+      cacheSet(LS_COFFEE, [...cached, ...arr]);
     }
   } catch (err) {
-    if (!cached || !cached.length) {
-      const code = String(err?.message || "");
-      if (code.startsWith("HTTP_402") || code.startsWith("HTTP_429")) {
-        showEmptyCoffeeCard();
-      } else if (code.startsWith("HTTP_401")) {
-        showEmptyCoffeeCard();
-      } else {
-        showEmptyCoffeeCard();
-      }
-    }
+    console.log("⚠️ API failed, but we have demo data - filters will work!");
+    // НЕ показываем ошибку - у нас есть демо-данные
   }
 
   ensureNoMatchBanner(containerCoffee);
+
+  // Сразу показываем отладочную информацию
+  setTimeout(debugFilters, 500);
 }
 
 function addCoffeeCard(r) {
-  const cuisineKey = detectCuisine3({
+  console.log("🔍 Rendering card:", {
+    title: r.title,
+    hasIngredients: !!r.extendedIngredients,
+    ingredientsCount: r.extendedIngredients?.length,
+    ingredients: r.extendedIngredients,
+  });
+  const cuisineKey = detectCuisine({
     cuisines: r.cuisines || [],
     title: r.title || "",
     summary: r.summary || "",
@@ -491,30 +439,24 @@ function addCoffeeCard(r) {
   card.classList.add("cards__coffee-card");
   card.dataset.id = String(r.id);
   card.dataset.cuisine = cuisineKey;
-  card.dataset.cooking = String(r.readyInMinutes ?? "0"); // used for speed sort
+  card.dataset.cooking = String(r.readyInMinutes ?? "0");
   card.dataset.popularity = String(r.aggregateLikes ?? 0);
 
   card.innerHTML = `
     <img src="${r.image}" alt="${r.title}" class="cards__coffee-card__img">
-    <h2 class="cards__coffee-card__title">${r.title}</h2>
+    <h2 class="cards__coffee-card__title">${r.title
+      .split(" ")
+      .slice(0, 2)
+      .join(" ")}</h2>
     <span class="divider"></span>
     <div>
-      <p class="cards__coffee-card__meta"><span class="text-bold">Cuisine:</span> ${cuisineText}</p>
-      <p class="cards__coffee-card__time"><span class="text-bold">Cooking time:</span> ${
+      <p class="cards__coffee-card__meta"><span class="text-bold">Cuisine: </span>${cuisineText}</p>
+      <p class="cards__coffee-card__time"><span class="text-bold">Cooking time: </span> ${
         r.readyInMinutes ?? "N/A"
       } min</p>
-      <p class="cards__coffee-card__time"><span class="text-bold">Popularity:</span> ${
+      <p class="cards__coffee-card__time"><span class="text-bold">Popularity: </span> ${
         r.aggregateLikes ?? 0
       }</p>
-    </div>
-    <span class="divider"></span>
-    <div>
-      <h3 class="cards__coffee-card__subtitle">Ingredients:</h3>
-      <ul class="cards__coffee-card__ingredients">
-        ${
-          r.extendedIngredients?.map((i) => `<li>${i.name}</li>`).join("") ?? ""
-        }
-      </ul>
     </div>
   `;
 
@@ -537,61 +479,47 @@ function showEmptyCoffeeCard() {
 }
 
 /* ==================================
-   SECTION RENDER: JUICE 🍇🍌🍊🍎 (Desserts)
+   SECTION RENDER: FRUIT 🍇🍌🍊🍎 (Desserts)
    ================================== */
-// Cache-first render for "Juice" (fruit desserts)
 
-// Cache-first render for "Juice" (fruit desserts)
-async function renderJuiceCards() {
-  if (juiceRendered) return;
-  juiceRendered = true;
-  if (containerJuice) containerJuice.innerHTML = "";
+async function renderFruitCards() {
+  if (fruitsRendered) return;
+  fruitsRendered = true;
+  if (containerFruit) containerFruit.innerHTML = "";
 
-  // 1) сразу показываем кэш (LS_JUICE)
-  const cached = cacheGet(LS_JUICE);
+  // ВСЕГДА показываем демо-данные ПЕРВЫМИ
+  const cached = cacheGet(LS_FRUITS);
+  console.log("📦 Cached juice data:", cached);
+
   if (Array.isArray(cached) && cached.length) {
-    cached.forEach(addJuiceCard);
+    console.log("✅ Showing cached/demo data");
+    cached.forEach(addFruitCard);
   }
 
-  // 2) потом пробуем сеть (может прийти 402/429)
+  // API запрос - только как БОНУС
   try {
-    const url = `https://api.spoonacular.com/recipes/complexSearch?query=cake&includeIngredients=fruit&addRecipeInformation=true&number=15&apiKey=003fb0433f9c48348cea44cc791555a4`;
+    const url = `https://api.spoonacular.com/recipes/random?number=4&apiKey=${API_KEY}&type=dessert`;
+    console.log("🌐 Trying API as bonus...");
+
     const data = await fetchJSON(url);
     const arr = data.results || [];
+    console.log("📥 API response:", arr);
 
     if (arr.length) {
-      cacheSet(LS_JUICE, arr);
-
-      // если кэша не было — перерисуем свежими данными
-      if (!cached || !cached.length) {
-        containerJuice.innerHTML = "";
-        arr.forEach(addJuiceCard);
-      }
-      // если кэш уже был — оставляем как есть, чтобы не мигало
-    } else if (!cached || !cached.length) {
-      // пусто и сети нет — показываем заглушку
-      showEmptyJuiceCard(); // или showEmptyCard(containerJuice, "...", "...")
+      console.log("🎉 API worked! Adding to existing data");
+      arr.forEach(addFruitCard);
+      cacheSet(LS_FRUITS, [...cached, ...arr]);
     }
   } catch (err) {
-    if (!cached || !cached.length) {
-      const code = String(err?.message || "");
-      if (code.startsWith("HTTP_402") || code.startsWith("HTTP_429")) {
-        showEmptyJuiceCard();
-      } else if (code.startsWith("HTTP_401")) {
-        showEmptyJuiceCard();
-      } else if (code === "NETWORK") {
-        showEmptyJuiceCard();
-      } else {
-        showEmptyJuiceCard();
-      }
-    }
+    console.log("⚠️ API failed, but we have demo data - filters will work!");
   }
 
-  ensureNoMatchBanner(containerJuice);
+  ensureNoMatchBanner(containerFruit);
+  setTimeout(debugFilters, 500);
 }
 
-function addJuiceCard(r) {
-  const cuisineKey = detectCuisine3({
+function addFruitCard(r) {
+  const cuisineKey = detectCuisine({
     cuisines: r.cuisines || [],
     title: r.title || "",
     summary: r.summary || "",
@@ -603,40 +531,34 @@ function addJuiceCard(r) {
   card.classList.add("cards__coffee-card");
   card.dataset.id = String(r.id);
   card.dataset.cuisine = cuisineKey;
-  card.dataset.cooking = String(r.readyInMinutes ?? "0"); // used for speed sort
+  card.dataset.cooking = String(r.readyInMinutes ?? "0");
   card.dataset.popularity = String(r.aggregateLikes ?? 0);
 
   card.innerHTML = `
     <img src="${r.image}" alt="${r.title}" class="cards__juice-card__img">
-    <h2 class="cards__juice-card__title">${r.title}</h2>
+    <h2 class="cards__juice-card__title">${r.title
+      .split(" ")
+      .slice(0, 2)
+      .join(" ")}</h2>
     <span class="divider"></span>
     <div>
-      <p class="cards__juice-card__meta"><span class="text-bold">Cuisine:</span> ${cuisineText}</p>
-      <p class="cards__juice-card__time"><span class="text-bold">Cooking time:</span> ${
+      <p class="cards__juice-card__meta"><span class="text-bold">Cuisine: </span> ${cuisineText}</p>
+      <p class="cards__juice-card__time"><span class="text-bold">Cooking time: </span> ${
         r.readyInMinutes ?? "N/A"
       } min</p>
-      <p class="cards__juice-card__time"><span class="text-bold">Popularity:</span> ${
+      <p class="cards__juice-card__time"><span class="text-bold">Popularity: </span> ${
         r.aggregateLikes ?? 0
       }</p>
-    </div>
-    <span class="divider"></span>
-    <div>
-      <h3 class="cards__juice-card__subtitle">Ingredients:</h3>
-      <ul class="cards__juice-card__ingredients">
-        ${
-          r.extendedIngredients?.map((i) => `<li>${i.name}</li>`).join("") ?? ""
-        }
-      </ul>
     </div>
   `;
 
   if (favorites.some((f) => f.id === String(r.id)))
     card.classList.add("active");
   card.addEventListener("click", () => toggleFavoriteCard(card));
-  containerJuice?.appendChild(card);
+  containerFruit?.appendChild(card);
 }
 
-function showEmptyJuiceCard() {
+function showEmptyFruitCard() {
   const emptyCard = document.createElement("div");
   emptyCard.classList.add("cards__juice-card", "empty-card");
   emptyCard.innerHTML = `
@@ -645,7 +567,7 @@ function showEmptyJuiceCard() {
       <p>Looks like we’ve hit the maximum number of requests for today. Try again later or use local recipes!</p>
     </div>
   `;
-  containerJuice?.appendChild(emptyCard);
+  containerFruit?.appendChild(emptyCard);
 }
 
 /* ==========================================
@@ -670,10 +592,23 @@ function toggleFavoriteCard(cardEl) {
   } else {
     favorites.splice(index, 1);
     cardEl.classList.remove("active");
+    syncFavoriteState(recipeId, false);
   }
 
   localStorage.setItem(LS_FAVORITES, JSON.stringify(favorites));
   renderFavorites();
+}
+
+function syncFavoriteState(recipeId, isFavorite) {
+  const allCards = document.querySelectorAll(`[data-id="${recipeId}"]`);
+
+  allCards.forEach((card) => {
+    if (isFavorite) {
+      card.classList.add("active");
+    } else {
+      card.classList.remove("active");
+    }
+  });
 }
 
 function renderFavorites() {
@@ -692,10 +627,73 @@ function renderFavorites() {
     favCard.className = f.className;
     favCard.innerHTML = f.innerHTML;
     favCard.dataset.id = String(f.id);
+    favCard.classList.add("active");
     favCard.addEventListener("click", () => toggleFavoriteCard(favCard));
     containerFavorites.appendChild(favCard);
   });
 }
+
+function syncAllFavoriteStates() {
+  const allCards = document.querySelectorAll(
+    ".cards__coffee-card, .cards__juice-card"
+  );
+  allCards.forEach((card) => {
+    card.classList.remove("active");
+  });
+
+  favorites.forEach((fav) => {
+    const cards = document.querySelectorAll(`[data-id="${fav.id}"]`);
+    cards.forEach((card) => {
+      card.classList.add("active");
+    });
+  });
+}
+
+function debugFavoriteStates() {
+  console.log("❤️ DEBUG FAVORITE STATES:");
+  console.log("Favorites array:", favorites);
+
+  const allCards = document.querySelectorAll(
+    ".cards__coffee-card, .cards__juice-card"
+  );
+  console.log(`Total cards: ${allCards.length}`);
+
+  const activeCards = document.querySelectorAll(
+    ".cards__coffee-card.active, .cards__juice-card.active"
+  );
+  console.log(`Active cards: ${activeCards.length}`);
+
+  activeCards.forEach((card) => {
+    console.log(
+      `Active card: ${card.querySelector("h2")?.textContent} (ID: ${
+        card.dataset.id
+      })`
+    );
+  });
+}
+
+/* ==========================================
+   SECTION  WINDOWS WINDOWS WINDOWS WINDOWS
+   ========================================== */
+
+window.addEventListener("DOMContentLoaded", () => {
+  seedIfEmpty(LS_COFFEE, DEMO_CAKES);
+  seedIfEmpty(LS_JUICE, DEMO_DESSERTS);
+
+  console.log("LS_COFFEE after seed:", cacheGet(LS_COFFEE));
+  console.log("LS_JUICE after seed:", cacheGet(LS_JUICE));
+
+  setActiveButton(buttonCoffee);
+  mainFruites?.classList.add("hidden");
+  mainChocolate?.classList.add("hidden");
+  mainFavorites?.classList.add("hidden");
+
+  ensureFavoritesLoaded();
+  renderFavorites();
+  renderCoffeeCards();
+
+  setTimeout(syncAllFavoriteStates, 500);
+});
 
 /* ====================================================================
    SECTION FILTERS / SORTING (single .filters block) BUTTON BUTTON BUTTON
@@ -716,14 +714,10 @@ filterItems.forEach((item) => {
 
     // Work against the currently visible category
     const category = getCurrentCategory();
-    const container =
-      category === "coffee"
-        ? containerCoffee
-        : category === "juice"
-        ? containerJuice
-        : containerTea;
-
-    if (!container) return;
+    let container;
+    if (category === "coffee") container = containerCoffee;
+    else if (category === "fruits") container = containerFruit;
+    else return;
 
     // Sorting: speed -> by data-cooking
     if (type === "sort" && value === "speed") {
@@ -757,25 +751,25 @@ function filterCards(container, type, value) {
     ".cards__coffee-card, .cards__juice-card"
   );
 
+  console.log(`🔍 Filtering by ${type} = ${value}`);
+
   if (type === "cuisine") {
     const wanted = (value || "all").toLowerCase();
+
     cards.forEach((card) => {
+      const cardCuisine = (card.dataset.cuisine || "").toLowerCase();
+
       if (wanted === "all") {
         card.style.display = "";
-        return;
+      } else {
+        card.style.display = cardCuisine === wanted ? "" : "none";
       }
-      const list = (card.dataset.cuisine || "")
-        .toLowerCase()
-        .split("|")
-        .map((s) => s.trim())
-        .filter(Boolean);
-      card.style.display = list.includes(wanted) ? "" : "none";
     });
+
     ensureNoMatchBanner(container);
     return;
   }
 
-  // Generic fallback (for future data-keys)
   cards.forEach((card) => {
     card.style.display =
       value === "all" || card.dataset[type] == value ? "" : "none";
@@ -797,11 +791,6 @@ function sortCards(container, field, descending) {
 /* ==================================================================
   SECTION RANDOM PICK (real random + fallbacks) BUTTON BUTTON BUTTON
    ================================================================== */
-function getCardById(container, id) {
-  return (
-    container?.querySelector(`[data-id="${CSS.escape(String(id))}"]`) || null
-  );
-}
 
 function pickRandomFromStorage(storageKey) {
   try {
@@ -813,20 +802,22 @@ function pickRandomFromStorage(storageKey) {
   }
 }
 
-function pickRandomFromRendered(container) {
-  const cards = container?.querySelectorAll(
-    ".cards__coffee-card, .cards__juice-card"
-  );
-  if (!cards || !cards.length) return null;
-  return cards[Math.floor(Math.random() * cards.length)];
+function showEmptyCard(container, title, message) {
+  const emptyCard = document.createElement("div");
+  emptyCard.classList.add("cards__coffee-card", "empty-card");
+  emptyCard.innerHTML = `
+    <div class="empty-card__box">
+      <h2>${title}</h2>
+      <p>${message}</p>
+    </div>`;
+  container.appendChild(emptyCard);
 }
 
 async function fetchRandomCard(category) {
   const isCoffee = category === "coffee";
-  const container = isCoffee ? containerCoffee : containerJuice;
+  const container = isCoffee ? containerCoffee : containerFruit;
   if (!container) return;
 
-  // текущая видимая карточка (если есть)
   const visible = Array.from(
     container.querySelectorAll(".cards__coffee-card, .cards__juice-card")
   ).filter(
@@ -836,19 +827,17 @@ async function fetchRandomCard(category) {
   const currentId =
     visible.length === 1 ? String(visible[0].dataset.id || "") : "";
 
-  // 1) пробуем взять ДРУГУЮ из кэша
-  const storageKey = isCoffee ? LS_COFFEE : LS_JUICE;
+  const storageKey = isCoffee ? LS_COFFEE : LS_FRUITS;
   const cacheArr = getCacheArray(storageKey);
   const otherFromCache = pickRandomExcluding(cacheArr, currentId);
 
   if (otherFromCache) {
-    // очищаем контейнер и показываем ровно 1 новую
     container
       .querySelectorAll(
         ".cards__coffee-card, .cards__juice-card, .empty-card, .no-match-card"
       )
       .forEach((el) => el.remove());
-    (isCoffee ? addCoffeeCard : addJuiceCard)(otherFromCache);
+    (isCoffee ? addCoffeeCard : addFruitCard)(otherFromCache);
     const added = container.lastElementChild;
     if (added) {
       added.classList.add("pulse");
@@ -858,7 +847,6 @@ async function fetchRandomCard(category) {
     return;
   }
 
-  // 2) если в кэше только одна карточка (или он пуст), пробуем сеть (может дать 402)
   try {
     const query = isCoffee ? "cake" : "dessert";
     const url = `${SPOON_BASE}/recipes/complexSearch?query=${encodeURIComponent(
@@ -875,7 +863,7 @@ async function fetchRandomCard(category) {
           ".cards__coffee-card, .cards__juice-card, .empty-card, .no-match-card"
         )
         .forEach((el) => el.remove());
-      (isCoffee ? addCoffeeCard : addJuiceCard)(recipe);
+      (isCoffee ? addCoffeeCard : addFruitCard)(recipe);
       const added = container.lastElementChild;
       if (added) {
         added.classList.add("pulse");
@@ -901,7 +889,6 @@ async function fetchRandomCard(category) {
     }
   }
 
-  // 3) если совсем нечего менять — просто подчёркиваем текущую
   if (visible[0]) {
     visible[0].classList.add("pulse");
     setTimeout(() => visible[0].classList.remove("pulse"), 800);

@@ -172,8 +172,8 @@
   }
 
   &__input-mobile {
-    border: 1px solid #e9ecef;
-    background-color: #e9ecef;
+    border: 1px solid var(--color-grey-light-2);
+    background-color: var(--color-grey-light-2);
     padding: 1.4rem;
     flex: 1;
     border-radius: 0.8rem;
@@ -181,14 +181,14 @@
   }
 
   &__input-mobile::placeholder {
-    color: #adb5bd;
+    color: var(--color-grey-dark);
     font-family: "montserrat", sans-serif;
     font-size: 1.5rem;
   }
 
   &__input-mobile:focus {
     outline: none;
-    border-color: #e9ecef;
-    background-color: #f8f9fa;
+    border-color: var(--color-grey-light-2);
+    background-color: var(--color-grey-light-1);
   }
 }

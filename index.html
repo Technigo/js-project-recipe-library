@@ -10,11 +10,12 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" href="img/cake-slice.png" type="image/x-icon">
     <title>Yor favorate drink</title>
   </head>
   <body>
-    <main class="middlebox">
-      <div class="sidebar">
+    <div class="middlebox">
+      <aside class="sidebar">
         <div class="sidebar__desktop">
           <div class="sidebar__logo"></div>
           <p class="sidebar__title">Perfect dessert</p>
@@ -87,12 +88,12 @@
                   </li>
 
                   <li class="sidebar__submenu-item">
-                    <a class="sidebar__submenu-link" id="button-juice" href="#"
+                    <a class="sidebar__submenu-link" id="button-fruit" href="#"
                       >🍰 Fruit</br>desserts</a
                     >
                   </li>
                   <li class="sidebar__submenu-item">
-                    <a class="sidebar__submenu-link" id="button-tea" href="#"
+                    <a class="sidebar__submenu-link" id="button-choco" href="#"
                       >🍰 Chocolate desserts</a
                     >
                   </li>
@@ -216,8 +217,8 @@
             </svg>
           </div>
         </div>
-      </div>
-      <div class="content">
+      </aside>
+      <main class="content">
         <header class="header">
           <div class="header__desktop">
             <h1 class="header__title">
@@ -316,16 +317,16 @@
           </div>
         </header>
 
-        <div class="filters">
+        <section class="filters">
           
             <!-- first filter for cuisine -->
             <div class="filter">
 <h3 class="filter__title">Cuisine</h3>
   <ul class="filter__list" data-filter="cuisine">
     <li class="filter__item filter__item-blue active" data-type="cuisine" data-value="all">All</li>
-    <li class="filter__item filter__item-blue" data-type="cuisine" data-value="Italian">Italy</li>
-    <li class="filter__item filter__item-blue" data-type="cuisine" data-value="Asian">Asian</li>
-    <li class="filter__item filter__item-blue" data-type="cuisine" data-value="Middle Eastern">Middle East</li>
+    <li class="filter__item filter__item-blue" data-type="cuisine" data-value="british">British</li>
+    <li class="filter__item filter__item-blue" data-type="cuisine" data-value="chinese">Chinese</li>
+    <li class="filter__item filter__item-blue" data-type="cuisine" data-value="indian">Indian</li>
   </ul>
             </div>
             <!-- второй фильтр: Sorting -->
@@ -338,26 +339,29 @@
               </ul>
             </div>
           
-        </div>
+        </section>
 
-        <div class="main-coffee">
-          <div class="cards" id="coffee-container"></div>
-        </div>
+        <section class="main-container main-coffee">
+          <article class="cards" id="coffee-container"></article>
+        </section>
 
-        <div class="main-tea">
-          <div class="cards" id="tea-container"></div>
-        </div>
+        <section class="main-container main-fruites">
+          <article class="cards" id="fruit-container"></article>
+        </section>
 
-        <div class="main-juice">
-          <div class="cards" id="juice-container"></div>
-        </div>
+        <section class="main-container main-chocolate">
+          <article class="cards" id="choco-container"></article>
+        </section>
 
-        <div class="main-favorites">
-          <div class="cards" id="favorites-container"></div>
-        </div>
+        <section class="main-container main-favorites">
+          <article class="cards" id="favorites-container"></article>
+        </section>
         <!-- <footer class="footer">footer</footer> -->
-      </div>
+      </main>
     </main>
-    <script src="js/script.js"></script>
+    <div id="demo-status" style="position: fixed; top: 10px; left: 10px; background: #28a745; color: white; padding: 10px 15px; border-radius: 5px; z-index: 10000; font-family: Arial; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+  ✅ Demo Data Loaded - Filters Ready!
+</div>
+    <script type="module" src="js/script.js"></script>
   </body>
 </html>

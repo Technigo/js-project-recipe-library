@@ -1,20 +1,21 @@
 @charset "UTF-8";
 /* ------------------------------------------------------
-  | THEME VARIABLES: базовые (light) ☀️
+  | THEME VARIABLES: (light) ☀️
   ------------------------------------------------------ */
 :root {
+  --color-salad-green: #ccffe2;
+  --color-dark-yellow: #f6a400;
+  --color-light-yellow: #fdf8e1;
   --color-primary-first-light: #fafbff;
   --color-primary-first: #0018a4;
   --color-primary-second-light: #ffecea;
   --color-primary-second: #ff6589;
   --color-white: #ffffff;
-  --color-white-base: #ffffff;
   --color-grey-light-1: #f8f9fa;
   --color-grey-light-2: #e9ecef;
   --color-grey-light-3: #dee2e6;
   --color-grey-light-4: #ced4da;
   --color-grey-dark: #868e96;
-  --color-grey-dark-base: #868e96;
   --color-font: #212529;
   --color-font-base: #212529;
   --color-button: #8d9271;
@@ -29,17 +30,6 @@
   --box-shadow: 0 0.5rem 1rem #0019a453;
 }
 
-/* ------------------------------------------------------
-  | THEME VARIABLES: dark mode 🌙
-  ------------------------------------------------------ */
-:root[data-theme=dark] {
-  --color-primary-light: #252525;
-  --color-primary: #8d9271;
-  --color-white: #424242;
-  --color-grey-dark: #adb5bd;
-  --color-font: #ffffff;
-}
-
 /* -------------------------------
   |  1️⃣ GRID FOR BASE DESKTOP 1️⃣ |
   ------------------------------- */
@@ -50,53 +40,23 @@
   |  3️⃣ GRID FOR Tablet portrait: ≤ 900px 3️⃣ |
   -------------------------------------------- */
 /* ---------------------------------------
-  |  4️⃣ Phone: ≤ 600px ГОРИЗОНТАЛЬНАЯ 4️⃣ |
+  |  4️⃣ Phone: ≤ 600px HORIZONTAL 4️⃣ |
   -------------------------------------- */
 /* -------------------------------------
   |  5️⃣ Extra small phone: ≤ 320px 5️⃣ |
   ------------------------------------ */
-/* 
-
-ПЕРЕКЛЮЧЕНИЯ МЕЖДУ КАРТОЧКАМИ
-
-class= "btn-method"
-
-1. Пассивный доход от аренды --> data-method="rent"
-2. Доход от перепродажи --> data-method="resale"
-3. Доход от «Золотого якоря» --> data-method="golden-anchor"
-
-ПЕРЕКЛЮЧЕНИЯ МЕЖДУ ГОРОДАМИ
-
-class= "btn-city"
-
-1. Все города --> data-city="all"
-2. Дубай --> data-city="dubai"
-3. Абу-Даби --> data-city="abu-dabi"
-4. Шарджа --> data-city="sharjah"
-5. Аджман --> data-city="ajman"
-6. Фуджейра --> data-city="fujairah"
-
-ЧТО ПИСАТЬ В САМИ КАРТОЧКИ
-
-data-id="card-invest-1" ПИСАТЬ ЧИСЛА ПО ПОРЯДКУ
-data-city="dubai"
-data-method="rent
-
-*/
 /* ------------------------------------------------------
    MEDIA QUERY MANAGER
    ------------------------------------------------------
 
-   Брейкпоинты (по ширине экрана):
+   Breakpoints (by screen width):
 
-   0 - 320px: Extra small (мини-телефоны)
+   0 - 320px: Extra small (mini phones)
    0 - 600px: Phone
    600px - 900px: Tablet portrait
    900px - 1200px: Tablet landscape
-   1200px - 1800px:  Desktop (базовый дизайн) is where our normal style apply 
+   1200px - 1800px: Desktop (base design) is where our normal styles apply
    1800px + : Big desktop
-
-
 
    $breakpoint argument choices:
    - xs-phone
@@ -137,19 +97,13 @@ body {
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(14rem, 23rem));
-  justify-content: start;
-  align-items: start;
   gap: 2rem;
-  flex-wrap: wrap;
-  height: auto;
-  max-height: 60vh; /* высота, например 80% от экрана */
-  overflow-y: auto; /* вертикальный скролл */
   scrollbar-width: none;
   cursor: pointer;
 }
 @media (max-width: 25.8125em) {
   .cards {
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(auto, 1fr));
     gap: 1rem;
   }
 }
@@ -169,6 +123,7 @@ body {
   display: flex;
   flex-direction: column;
   transition: 0.3s;
+  min-height: 36rem;
 }
 .cards__coffee-card:hover {
   border-color: var(--color-primary-first);
@@ -179,7 +134,6 @@ body {
   border-color: var(--color-primary-second);
   background-color: var(--color-primary-second-light);
   box-shadow: var(--box-shadow);
-  transform: translateY(-1rem);
 }
 .cards__coffee-card__title {
   font-size: 2rem;
@@ -229,7 +183,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ccffe2;
+  background-color: var(--color-salad-green);
   border-radius: 2rem;
   border: 2px solid var(--color-primary-first);
   padding: 2rem 3rem;
@@ -256,7 +210,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ccffe2;
+  background-color: var(--color-salad-green);
   border: 2px solid var(--color-primary-first);
 }
 .empty-card-juice h2,
@@ -387,12 +341,6 @@ body {
   height: 100vh;
 }
 
-.cards {
-  flex: 3;
-  height: 100%;
-  border-radius: 2rem 2rem 0 0;
-  padding: 5rem 1rem;
-}
 @media only screen and (max-width: 56.25em) {
   .cards {
     flex: 2;
@@ -404,8 +352,29 @@ body {
   }
 }
 
-.footer {
-  background-color: greenyellow;
+#demo-status {
+  opacity: 0;
+  animation: fadeInOut 4s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.main-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 5rem 2rem;
 }
 
 .filters {
@@ -442,28 +411,28 @@ body {
   background-color: var(--color-primary-first);
 }
 .filter__item-blue.active {
-  background-color: #ccffe2;
+  background-color: var(--color-salad-green);
   border-color: var(--color-primary-first);
   color: var(--color-primary-first);
 }
 .filter__item-blue:hover {
-  background-color: #ccffe2;
+  background-color: var(--color-salad-green);
   border-color: var(--color-primary-first);
   color: var(--color-primary-first);
 }
 .filter__item-yellow {
-  color: #fdf8e1;
-  background-color: #fdb833;
+  color: var(--color-light-yellow);
+  background-color: var(--color-dark-yellow);
 }
 .filter__item-yellow.active {
-  background-color: #fdf8e1;
-  border-color: #fdb833;
-  color: #fdb833;
+  background-color: var(--color-light-yellow);
+  border-color: var(--color-dark-yellow);
+  color: var(--color-dark-yellow);
 }
 .filter__item-yellow:hover {
-  background-color: #fdf8e1;
-  border-color: #fdb833;
-  color: #fdb833;
+  background-color: var(--color-light-yellow);
+  border-color: var(--color-dark-yellow);
+  color: var(--color-dark-yellow);
 }
 
 .sidebar__desktop {
@@ -486,9 +455,9 @@ body {
   height: 6rem;
   width: 6rem;
   background-image: url(../img/technig-logo.png);
-  background-size: cover; /* изображение масштабируется, чтобы покрыть весь блок */
-  background-position: center; /* центрирование изображения */
-  background-repeat: no-repeat; /* не повторять */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-radius: 1rem;
   margin-bottom: 1rem;
 }
@@ -581,9 +550,9 @@ body {
   width: 4rem;
   border-radius: 0.8rem;
   background-image: url(../img/technig-logo.png);
-  background-size: cover; /* изображение масштабируется, чтобы покрыть весь блок */
-  background-position: center; /* центрирование изображения */
-  background-repeat: no-repeat; /* не повторять */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   margin-bottom: -22rem;
 }
 .sidebar__icons-short {
@@ -769,22 +738,22 @@ body {
   width: 2rem;
 }
 .header__input-mobile {
-  border: 1px solid #e9ecef;
-  background-color: #e9ecef;
+  border: 1px solid var(--color-grey-light-2);
+  background-color: var(--color-grey-light-2);
   padding: 1.4rem;
   flex: 1;
   border-radius: 0.8rem;
   padding-left: 4rem;
 }
 .header__input-mobile::placeholder {
-  color: #adb5bd;
+  color: var(--color-grey-dark);
   font-family: "montserrat", sans-serif;
   font-size: 1.5rem;
 }
 .header__input-mobile:focus {
   outline: none;
-  border-color: #e9ecef;
-  background-color: #f8f9fa;
+  border-color: var(--color-grey-light-2);
+  background-color: var(--color-grey-light-1);
 }
 
 /*# sourceMappingURL=style.css.map */

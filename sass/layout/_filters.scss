@@ -38,31 +38,31 @@
   }
 
   &__item-blue.active {
-    background-color: #ccffe2;
+    background-color: var(--color-salad-green);
     border-color: var(--color-primary-first);
     color: var(--color-primary-first);
   }
 
   &__item-blue:hover {
-    background-color: #ccffe2;
+    background-color: var(--color-salad-green);
     border-color: var(--color-primary-first);
     color: var(--color-primary-first);
   }
 
   &__item-yellow {
-    color: #fdf8e1;
-    background-color: #fdb833;
+    color: var(--color-light-yellow);
+    background-color: var(--color-dark-yellow);
   }
 
   &__item-yellow.active {
-    background-color: #fdf8e1;
-    border-color: #fdb833;
-    color: #fdb833;
+    background-color: var(--color-light-yellow);
+    border-color: var(--color-dark-yellow);
+    color: var(--color-dark-yellow);
   }
 
   &__item-yellow:hover {
-    background-color: #fdf8e1;
-    border-color: #fdb833;
-    color: #fdb833;
+    background-color: var(--color-light-yellow);
+    border-color: var(--color-dark-yellow);
+    color: var(--color-dark-yellow);
   }
 }
