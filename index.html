@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Library</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="top-nav">
+      <img src="images/aprikos.jpg" alt="aprikos" class="food" />
+      <h1>Recipe Library</h1>
+
+      <div class="search-area">
+        <h2>Search recipes</h2>
+        <input type="text" id="search" placeholder="🔍...." class="search" />
+      </div>
+    </header>
+
+    <section class="filters">
+      <div>
+        <h2>Filter on kitchen</h2>
+        <select id="cuisine" class="kitchen">
+          <option value="all">All</option>
+          <option value="Italian">Italian</option>
+          <option value="american">American</option>
+          <option value="china">China</option>
+          <option value="korean">Korean</option>
+          <option value="southern">Southern</option>
+          <option value="asian">Asian</option>
+          <option value="south american">South american</option>
+          <option value="mexican">Mexican</option>
+          <option value="mediterranean">Mediterranean</option>
+        </select>
+      </div>
+
+      <div>
+        <h2>Filter on Diets</h2>
+        <select id="diet" class="diet">
+          <option value="diet-all">All</option>
+          <option value="vegan">Vegan</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="gluten free">Gluten-free</option>
+          <option value="dairy free">Dairy-free</option>
+        </select>
+      </div>
+
+      <div>
+        <h2>Sort on time</h2>
+        <select id="sortTime" class="time">
+          <option value="asc">Ascending (fastest first)</option>
+          <option value="desc">Descending (slowest first)</option>
+        </select>
+      </div>
+
+      <div>
+        <h2>Sort by popularity</h2>
+        <select id="sortPop" class="popular">
+          <option value="most">Most popular</option>
+          <option value="least">Least popular</option>
+        </select>
+      </div>
+      <div>
+        <h2>Random</h2>
+        <button id="btn-random" class="random" data-random="random">
+          Random Recipes
+        </button>
+      </div>
+      <button id="btn-show-all" class="show-all" style="display: none">
+        Show all Recipe again
+      </button>
+    </section>
+
+    <section>
+      <div id="cards" class="recipes-boxes"></div>
+    </section>
+    <script src="script.js"></script>
+  </body>
+</html>
