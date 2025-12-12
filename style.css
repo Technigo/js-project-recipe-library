@@ -1,0 +1,267 @@
+/* ==================================================
+   1. Global Styles & Variables
+   ================================================== */
+
+/* :root is a global settings panel for my CSS */
+:root {
+    /* Colors */
+    --clr-primary: rgba(0, 24, 164, 1);
+    --clr-primary-1: rgba(204, 255, 226, 1);
+    --clr-secondary: rgba(255, 101, 137, 1);
+    --clr-secondary-1: rgba(255, 236, 234, 1);
+
+    /* Font */
+    --ff-: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+}
+
+/* '*' selects ALL elements on the page for a basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic styling for the entire page */
+body {
+    min-height: 100vh;
+    font-family: var(--ff-);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    /* Always show scrollbar to prevent layout shifts */
+}
+
+/* ==================================================
+   2. Main Layout & Header
+   ================================================== */
+
+.container {
+    max-width: 1300px;
+    width: 100%;
+}
+
+header {
+    margin-left: 2.5rem;
+    margin-top: 1rem;
+}
+
+h1 {
+    font-style: bold;
+    color: var(--clr-primary);
+}
+
+/* ==================================================
+   3. Filter & Sort Section
+   ================================================== */
+
+.select-section {
+    margin-top: 1rem;
+}
+
+.select-section h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+/* General styling for all buttons in the filter/sort section */
+.select-section button {
+    font-weight: 500;
+    font-style: medium;
+    padding: 0.65rem 1rem;
+    border-radius: 19px;
+    font-family: var(--ff-);
+    border: 2px solid transparent;
+    /* Transparent border prevents jumping on hover */
+}
+
+.filter{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Forces the h2 to take up the whole width */
+.filter h2{
+    flex-basis: 100%;
+}
+
+.filter button {
+    background-color: var(--clr-primary-1);
+    color: var(--clr-primary);
+}
+
+.sort button {
+    background-color: var(--clr-secondary-1);
+    color: var(--clr-primary);
+}
+
+/* States for buttons (hover, active) */
+button:hover {
+    border: 2px solid var(--clr-primary);
+}
+
+.filter button.active {
+    background-color: var(--clr-primary);
+    color: white;
+}
+
+.sort button.active {
+    background-color: var(--clr-secondary);
+    color: white;
+}
+
+/* ==================================================
+   4. Recipe Grid & Cards
+   ================================================== */
+
+.recipe-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.recipe-card {
+    margin-top: 1rem;
+    width: 300px;
+    min-height: 621px;
+    border-radius: 16px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(179, 179, 179);
+}
+
+.recipe-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0px 0px 30px 0px rgba(0, 24, 164, 0.2);
+    border: 2px solid var(--clr-primary);
+}
+
+/* Content inside the recipe cards */
+.recipe-card h2 {
+    padding-top: 1rem;
+}
+
+.recipe-title {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.473);
+}
+
+.recipe-time {
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.diet-answer,
+.time-answer {
+    font-weight: 400;
+}
+
+.recipe-card h3,
+.overlay-card-content h3 {
+    border-top: 1px solid rgba(0, 0, 0, 0.527);
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.recipe-ingredients {
+    margin-top: 0.5rem;
+    list-style-type: none;
+}
+
+.recipe-ingredients li {
+    font-weight: 500;
+    font-style: medium;
+    font-size: 1rem;
+}
+
+/* ==================================================
+   5. Overlay / Modal
+   ================================================== */
+
+.card-overlay {
+    display: none;
+    /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.card-overlay.visible {
+    display: flex;
+    /* Made visible with JavaScript */
+}
+
+.card-content {
+    background-color: rgb(243, 236, 236);
+    padding: 1.5rem;
+    border-radius: 10px;
+    width: 90%;
+    height: 80%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Content inside the overlay */
+.overlay-card-content {
+    width: 100%;
+    max-width: 500px;
+}
+
+.overlay-card-content img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.recipe-instructions{
+    margin-top: 1rem;
+}
+
+/* ==================================================
+   6. Responsive Styles (Media Queries)
+   ================================================== */
+
+@media (min-width: 600px) {
+
+    header {
+        margin-left: 1.9rem;
+    }
+
+    h1 {
+        font-size: 54px;
+        margin: 0;
+    }
+
+    .select-section {
+        display: flex;
+        gap: 1rem;
+        margin-left: 0.2rem;
+        align-items: flex-end;
+        /* Aligns filter/sort/random sections along the bottom */
+    }
+
+    .filter{
+        flex-basis: 390px;
+        flex-grow: 0;
+    }
+
+    .recipe-container {
+        gap: 0.8rem;
+    }
+
+    .card-content {
+        width: 800px;
+    }
+}

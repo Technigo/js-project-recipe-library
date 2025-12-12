@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Recipe Library</title> 
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ==================================================
+           Header Section
+           ================================================== -->
+        <header>
+            <h1>Recipe Library</h1>
+
+        <!-- ==================================================
+           Controls Section (Filter, Sort, Random)
+           ================================================== -->
+        <section class="select-section">
+
+            <div class="filter">
+                <h2>Filter on diets</h2>
+                <button id="filter-btn">All</button>
+                <button id="gluten-btn">Gluten free</button>
+                <button id="dairy-btn">Dairy free</button>
+                <button id="veg-btn">Vegetarian</button>
+            </div>
+
+            <!-- Sorting controls -->
+            <div class="sort">
+                <h2>Sort on time</h2>
+                <button id="descending-btn">Descending</button>
+                <button id="ascending-btn">Ascending</button>
+            </div>
+
+            <!-- Random recipe control -->
+            <div class="random-section">
+                <h2>Random Recipe</h2>
+                <button id="random-recipe">Random</button>
+            </div>
+
+        </section>
+        </header>
+
+        <!-- ==================================================
+           Main Content (Recipe Grid)
+           ================================================== -->
+        <!-- The main area where all recipe cards will be displayed -->
+        <main id="recipe-container" class="recipe-container"></main>
+
+        <!-- ==================================================
+           Overlay / Modal Section
+           ================================================== -->
+        <!-- An overlay that covers the entire page. It's invisible by default -->
+        <div id="card-overlay" class="card-overlay">
+            <!-- The white box inside the overlay that will contain the detailed recipe card -->
+            <div id="card-content" class="card-content"></div>
+        </div>
+
+    </div> 
+
+    <!-- ==================================================
+       Scripts
+       ================================================== -->
+    <script src="backup-script.js"></script>
+    
+</body>
+</html>
