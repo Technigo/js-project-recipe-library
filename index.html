@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Recipe Library</title>
+</head>
+<body>
+    <header>
+        <h1>Recipe Library</h1>
+        <div class="favorites">❤️ My favorites</div>
+    </header>
+        <!-- search field -->
+        <form 
+            action="#"
+            class="search-form">
+            <input 
+                type="text" 
+                id="text-input"
+                placeholder="Find a recipe or ingredient">
+            <button
+                type="button"
+                class="search-button">
+                    <span class="search-emoji">🔍</span>
+            </button>
+        </form>
+
+        <div class="button-container">
+        <!-- filter on kitchen -->
+            <div class="filter-container">
+                <div class="filter">
+                    <div class="filter-text">
+                    <h3>Filter on kitchen</h3>
+                    </div>
+                </div>
+                <div class="filter-buttons">
+                    <ul class="filter">
+                    <li><button class="filter-btn" id="all">All</button></li>
+                    <li><button class="filter-btn" id="american">American</button></li>
+                    <li><button class="filter-btn" id="asian">Asian</button></li>
+                    <li><button class="filter-btn" id="european">European</button></li>
+                    <li><button class="filter-btn" id="mexican">Mexican</button></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- sort on time -->
+            <div class="sort-container">
+                <div class="sort-text">
+                    <h3>Sort on time</h3>
+                </div>
+                <div class="sort-buttons">
+                    <ul class="sort">
+                        <li><button class="sort-btn" id="desc">Descending</button></li>
+                        <li><button class="sort-btn" id="asc">Ascending</button></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- random recipe -->
+            <div class="random-container">
+                <div class="random-text">
+                    <h3>Try Random Recipe</h3>
+                </div>
+                <div class="random-button">
+                    <ul class="random">
+                        <li>
+                            <button class="random-btn">Surprise me!</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!-- articles -->
+    <article class="cards">
+        <div id="recipe-container">
+            Loading...
+        </div>
+        <p id="no-results">Oops... 😣 No recipes found</p>
+    </article>
+    <script src="script.js"></script>  
+</body>
+</html>
