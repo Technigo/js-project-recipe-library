@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Recipe Library</h1>
+
+    <button class="button source" id="toggleBtn">Use API</button>
+
+    <input type="text" id="searchInput" placeholder="Search Recipe Here">
+
+    <nav class="navBar">
+        <div class="navBox" name="original-cuisine" id="originalCuisineSorter">
+            <h3>Filter on kitchen</h3>
+            <button class="button" data-cuisine="All">All</button>
+            <button class="button" data-cuisine="Italian">Italy</button>
+            <button class="button" data-cuisine="American">USA</button>
+            <button class="button" data-cuisine="Chinese">China</button>
+        </div>
+        <div class="navBox">
+            <h3>Sort on time</h3>
+            <button class="button descending" id="dscBtn">Descending</button>
+            <button class="button ascending" id="ascBtn">Ascending</button>
+        </div>
+    </nav>
+    
+  <section class="container" id="container">
+    <!-- Info in javascript -->
+  </section>            
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

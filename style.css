@@ -1,0 +1,106 @@
+body {
+    background-color: #f7f8ff;
+}
+
+h1 {
+    font-size: 64px;
+    font-style: bold;
+    color: #0018A4;
+}
+
+#searchInput {
+  padding: 12px 20px;
+  border: 2px solid #ccc;
+  border-radius: 50px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  width: 250px;
+  outline: none;
+  margin-top: 10px;
+}
+
+
+h4 {
+    display: flex;
+    align-items: center;
+}
+
+.navBar {
+    display: flex;
+}
+
+.navBox {
+    padding: 1%;
+}
+
+.button {
+width: fit-content;
+Height: 40px;
+border-radius: 50px;
+Padding: 8px 16px 8px 16px;
+Gap: 10px;
+}
+
+.button[data-cuisine="All"] {
+    background-color: #0018A4;
+    color: white;
+}
+
+.button[data-cuisine="Italian"] 
+{
+    background-color: #CCFFE2;
+    color: #0018A4;
+}
+
+.button[data-cuisine="American"] 
+{
+    background-color: #CCFFE2;
+    color: #0018A4;
+}
+
+.button[data-cuisine="Chinese"] 
+{
+    background-color: #CCFFE2;
+    color: #0018A4;
+}
+
+.button.descending {
+    background-color: #FF6589;
+}
+
+.button.ascending,
+.button.source {
+    background-color: #FFECEA;
+    color: #0018A4;
+}
+
+.button:hover {
+    text-decoration: underline;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    justify-content: center;
+    gap: 20px; 
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+}
