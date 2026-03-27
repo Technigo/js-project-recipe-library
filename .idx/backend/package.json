@@ -1,0 +1,17 @@
+{
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^30.0.5",
+    "@eslint/js": "^9.31.0",
+    "eslint": "^9.31.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.3.0",
+    "typescript-eslint": "^8.38.0"
+  }
+}
+{
+  "packageManager": "yarn@3.2.3+sha224.953c8233f7a92884eee2de69a1b92d1f2ec1655e66d08071ba9a02fa"
+}
+{
+  "packageManager": "yarn@https://registry.npmjs.org/@yarnpkg/cli-dist/-/cli-dist-3.2.3.tgz#sha224.16a0797d1710d1fb7ec40ab5c3801b68370a612a9b66ba117ad9924b"
+}

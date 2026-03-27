@@ -1,0 +1,19 @@
+{
+  "name": "specialgardengroup-recipe-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "babel-node server.js",
+    "dev": "nodemon server.js --exec babel-node",
+    "test": "jest"
+  },
+  "author": "Code-lab-web",
+  "license": "(ISC OR GPL-3.0)",
+  "dependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "nodemon": "^2.0.2"
+  }
+}

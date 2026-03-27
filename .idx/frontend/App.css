@@ -1,0 +1,34 @@
+
+@import "tailwindcss";
+.img{
+    width: 100%;
+    height: 5rem;
+}
+
+/* Mobile (320px - 767px) */
+@media (max-width: 767px) {
+  .img {
+    height: 5rem;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .img {
+    height: 10rem;
+  }
+}
+
+/* Desktop (1024px and up) */
+@media (min-width: 1024px) {
+  .img {
+    height: 15rem;
+  }
+}
+
+/* Large Desktops (1600px and up) */
+@media (min-width: 1600px) {
+  .img {
+    height: 20rem;
+  }
+}

@@ -1,0 +1,39 @@
+.App {
+  padding: 20px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.recipe-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.recipe-card img {
+  max-width: 100%;
+}
+
+.error {
+  color: red;
+}
+
+.empty-state {
+  text-align: center;
+  margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+  }
+}

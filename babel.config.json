@@ -1,0 +1,398 @@
+{
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "edge": "17",
+            "firefox": "60",
+            "chrome": "67",
+            "safari": "11.1"
+          },
+          "useBuiltIns": "usage",
+          "corejs": "3.6.5"
+        }
+      ]
+    ]
+  }
+const presets = [
+    [
+      "@babel/preset-env",
+      {
+        targets: {
+          edge: "17",
+          firefox: "60",
+          chrome: "67",
+          safari: "11.1",
+        },
+        useBuiltIns: "usage",
+        corejs: "3.6.4",
+      },
+    ],
+  ];
+  
+  module.exports = { presets };
+{
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "edge": "17",
+            "firefox": "60",
+            "chrome": "67",
+            "safari": "11.1"
+          }
+        }
+      ]
+    ]
+  }
+{
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "edge": "17",
+            "firefox": "60",
+            "chrome": "67",
+            "safari": "11.1"
+          },
+          "useBuiltIns": "usage"
+        }
+      ]
+    ]
+  }
+{
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "edge": "17",
+            "firefox": "60",
+            "chrome": "67",
+            "safari": "11.1"
+          },
+          "useBuiltIns": "entry"
+        }
+      ]
+    ]
+  }
+{
+    "presets": [...],
+    "plugins": [...]
+  }
+module.exports = function (api) {
+    api.cache(true);
+  
+    const presets = [ ... ];
+    const plugins = [ ... ];
+  
+    return {
+      presets,
+      plugins
+    };
+  }
+babel.config.js
+module.exports = function (api) {
+  api.cache(true);
+
+  const presets = [ ... ];
+  const plugins = [ ... ];
+
+  if (process.env["ENV"] === "prod") {
+    plugins.push(...);
+  }
+
+  return {
+    presets,
+    plugins
+  };
+}
+module.exports = {
+    presets: ["@babel/env"], // "@babel/preset-env"
+    plugins: ["@babel/transform-arrow-functions"], // same as "@babel/plugin-transform-arrow-functions"
+  };
+{
+    "plugins": ["@babel/plugin-transform-runtime"]
+  }
+module.exports = function(api) {
+    return {};
+  };
+{
+    "targets": "> 0.25%, not dead"
+  }
+{
+    "targets": {
+      "chrome": "58",
+      "ie": "11"
+    }
+  }
+{
+    "presets": ["@babel/preset-env"]
+  }
+{
+    "targets": "defaults"
+  }
+{
+    // Resolve to "Chrome 61+, FF60+, Safari 11+"
+    "targets": {
+      "esmodules": "intersect", // Chrome 61+, FF 60+, Safari 10.1+
+      "browsers": "chrome 58, firefox 60, safari 11"
+    }
+  }
+{
+    "targets": "node 12" // not recommended
+  }
+{
+    "targets": "node 12.0"
+  }
+{
+    "targets": {
+      "deno": "1.9"
+    }
+  }
+{
+    "assumptions": {
+      "iterableIsArray": true
+    },
+    "presets": ["@babel/preset-env"]
+  }
+{
+    "plugins": ["babel-plugin-myPlugin", "@babel/plugin-transform-runtime"]
+  }
+{
+    "plugins": ["./node_modules/asdf/plugin"]
+  }
+{
+    "plugins": ["transform-decorators-legacy", "transform-class-properties"]
+  }
+{
+    "presets": ["@babel/preset-env", "@babel/preset-react"]
+  }
+{
+    "plugins": ["pluginA", ["pluginA"], ["pluginA", {}]]
+  }
+{
+    "plugins": [
+      [
+        "transform-async-to-module-method",
+        {
+          "module": "bluebird",
+          "method": "coroutine"
+        }
+      ]
+    ]
+  }
+{
+    "presets": [
+      [
+        "env",
+        {
+          "loose": true,
+          "modules": false
+        }
+      ]
+    ]
+  }
+{
+    "targets": ">0.5%",
+    "assumptions": {
+      "noDocumentAll": true,
+      "noClassCalls": true
+    },
+    "presets": ["@babel/preset-env"]
+  }
+{
+    "presets": ["babel-preset-myPreset", "@babel/preset-env"]
+  }
+{
+    "presets": ["./myProject/myPreset"]
+  }
+{
+    "presets": ["a", "b", "c"]
+  }
+{
+  "presets": [
+    "presetA", // bare string
+    ["presetA"], // wrapped in array
+    ["presetA", {}] // 2nd argument is an empty options object
+  ]
+}
+{
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "loose": true,
+          "modules": false
+        }
+      ]
+    ]
+  }
+{
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "entry",
+          "corejs": "3.22"
+        }
+      ]
+    ]
+  }
+{
+    "plugins": ["@babel/plugin-transform-explicit-resource-management"]
+  }
+{
+    "plugins": ["@babel/plugin-transform-duplicate-named-capturing-groups-regex"]
+  }
+{
+    "plugins": ["@babel/plugin-transform-json-modules"]
+  }
+{
+    "plugins": ["@babel/plugin-transform-regexp-modifiers"]
+  }
+{
+    "plugins": ["@babel/plugin-syntax-import-attributes"]
+  }
+  {
+    "plugins": ["@babel/plugin-bugfix-firefox-class-in-computed-class-key"]
+  }
+  {
+    "plugins": ["@babel/plugin-bugfix-safari-class-field-initializer-scope"]
+  }
+  {
+    "plugins": ["@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression"]
+  }
+  {
+    "plugins": ["@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining"]
+  }
+  {
+    "presets": ["@babel/preset-react"]
+  }
+  {
+    "presets": [
+      [
+        "@babel/preset-react",
+        {
+          "pragma": "dom", // default pragma is React.createElement (only in classic runtime)
+          "pragmaFrag": "DomFrag", // default is React.Fragment (only in classic runtime)
+          "throwIfNamespace": false, // defaults to true
+          "runtime": "classic" // defaults to classic
+          // "importSource": "custom-jsx-library" // defaults to react (only in automatic runtime)
+        }
+      ]
+    ]
+  }
+  babel.config.js
+module.exports = {
+  presets: [
+    [
+      "@babel/preset-react",
+      {
+        development: process.env.BABEL_ENV === "development",
+      },
+    ],
+  ],
+};
+{
+    "presets": ["@babel/preset-react"],
+    "env": {
+      "development": {
+        "presets": [["@babel/preset-react", { "development": true }]]
+      }
+    }
+  }
+  {
+    "plugins": ["@babel/plugin-transform-react-jsx"]
+  }
+  {
+    "plugins": [
+      [
+        "@babel/plugin-transform-react-jsx",
+        {
+          "throwIfNamespace": false, // defaults to true
+          "runtime": "automatic", // defaults to classic
+          "importSource": "custom-jsx-library" // defaults to react
+        }
+      ]
+    ]
+  }
+  {
+    "plugins": ["@babel/plugin-transform-react-jsx-development"]
+  }
+  {
+    "plugins": [
+      [
+        "@babel/plugin-transform-react-jsx-development",
+        {
+          "throwIfNamespace": false, // defaults to true
+          "runtime": "automatic", // defaults to classic
+          "importSource": "custom-jsx-library" // defaults to react
+        }
+      ]
+    ]
+  }
+  {
+    "presets": ["@babel/preset-typescript"]
+  }
+  {
+    "presets": ["@babel/preset-react"],
+    "overrides": [{
+      "test": "*.vue",
+      "presets": [
+        ["@babel/preset-typescript"], { "ignoreExtensions": true }
+      ]
+    }]
+  }
+  {
+    "presets": [
+      ["@babel/preset-typescript", {
+        "rewriteImportExtensions": true
+      }]
+    ]
+  }
+  {
+    "plugins": ["@babel/plugin-transform-typescript"]
+  }
+  {
+    "presets": ["@babel/preset-flow"]
+  }
+  {
+    "plugins": ["@babel/plugin-transform-flow-strip-types"]
+  }
+  {
+    "plugins": ["@babel/plugin-transform-runtime"]
+  }
+  {
+    "plugins": [
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          "absoluteRuntime": false,
+          "corejs": false,
+          "helpers": true,
+          "regenerator": true,
+          "version": "7.0.0-beta.0"
+        }
+      ]
+    ]
+  }
+  {
+    "plugins": [
+      ["@babel/plugin-transform-runtime", {
+        "version": "^7.24.0"
+      }]
+    ]
+  }
+  module.exports = api => {
+    const targets = api.targets();
+    // The targets have native optional chaining support
+    // if `transform-optional-chaining` is _not_ required
+    const optionalChainingSupported = !isRequired(
+      "transform-optional-chaining",
+      targets
+    );
+  };

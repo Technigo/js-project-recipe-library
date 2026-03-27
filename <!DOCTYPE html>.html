@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title>Recipe Library</title>
+</head>
+<body>
+  <h1>Recipe Library</h1>
+  <section class="filters">
+    <div>
+      <h2>Filter on kitchen</h2>
+      <button
+        class="filter"
+        id="all">
+        All
+      </button>
+      <button
+        class="filter"
+        id="italy">
+        Italy
+      </button>
+      <button
+        class="filter"
+        id="usa">
+        USA
+      </button>
+      <button
+        class="filter"
+        id="china">
+        China
+      </button>
+    </div>
+    <div>
+      <h2>Sort on time</h2>
+      <button
+      class="sort" id="highToLow">Descending</button>
+      <button
+      class="sort"
+      id="lowToHigh">Ascending</button>
+    </div>
+  </section>
+  <section class="recipes" id="recipes">
+    <section id="messages" class="card">
+      <h2>Temporary placeholder for filters/sorting options</h2>
+    </section>
+    <a href="http://www.jamieoliver.com/recipes/vegetables-recipes/individual-vegetarian-lasagnes/" target="_blank">
+      <section class="card">
+        <img src="./chicken.webp"/>
+        <img src="./eaters-collective-12eHC6FxPyg-unsplash (1).jpg"/>
+        <h2>Temporary placeholder recipe</h2>
+        <hr>
+        <p class="details">
+          <span class="bold">Cuisine: </span>American
+        </p>
+        <p class="details">
+          <span class="bold">Time:</span> 1h 30min
+        </p>
+        <hr>
+        <div class="ingredients">
+          <p class="details bold">Ingredients</p>
+          <ul>
+            <li>6 bone-in chicken breast halves, or 6 chicken thighs and wings, skin-on</li>
+            <li>1/2 teaspoon coarse salt</li>
+            <li>1/2 teaspoon Mrs. Dash seasoning</li>
+            <li>1/4 teaspoon freshly ground black pepper</li>
+          </ul>
+        </div> 
+      </section>
+    </a>
+  </section>
+  <script src="./script.js"></script>
+  <script src="./noDOM.js"></script>
+</body>
+</html>
