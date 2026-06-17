@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Recipe Library</title>
+  <link
+    rel="stylesheet"
+    href="./style.css"
+  >
+
+</head>
+
+<body>
+  <header>
+    <h1>Recipe Library</h1>
+  </header>
+  <!-- Filter and sort buttons -->
+  <section class="filters">
+    <div class="filter-group">
+      <h2>Filter on diets</h2>
+      <div class="tags">
+        <input
+          type="checkbox"
+          id="filter-all"
+          value="All"
+        >
+        <label
+          class="btn"
+          for="filter-all"
+        >All</label>
+        <button
+          id="random-btn"
+          class="btn"
+        >Random</button>
+        <input
+          type="checkbox"
+          id="filter-vegan"
+          value="vegan"
+        >
+        <label
+          class="btn"
+          for="filter-vegan"
+        >Vegan</label>
+        <input
+          type="checkbox"
+          id="filter-vegetarian"
+          value="vegetarian"
+        >
+        <label
+          class="btn"
+          for="filter-vegetarian"
+        >Vegetarian</label>
+        <input
+          type="checkbox"
+          id="filter-gluten-free"
+          value="gluten free"
+        >
+        <label
+          class="btn"
+          for="filter-gluten-free"
+        >Gluten-free</label>
+        <input
+          type="checkbox"
+          id="filter-dairy-free"
+          value="dairy-free"
+        >
+        <label
+          class="btn"
+          for="filter-dairy-free"
+        >Dairy-free</label>
+        <input
+          type="checkbox"
+          id="filter-pescatarian"
+          value="pescatarian"
+        >
+        <label
+          class="btn"
+          for="filter-pescatarian"
+        >Pescatarian</label>
+      </div>
+    </div>
+    <div class="sort-group">
+      <h2>Sort by cooking time</h2>
+      <div class="tags">
+        <input
+          type="radio"
+          id="sort-shortest"
+          name="sort"
+          value="Shortest"
+        >
+        <label
+          class="btn"
+          for="sort-shortest"
+        >Shortest</label>
+        <input
+          type="radio"
+          id="sort-longest"
+          name="sort"
+          value="Longest"
+        >
+        <label
+          class="btn"
+          for="sort-longest"
+        >Longest</label>
+      </div>
+    </div>
+  </section>
+
+  <main class="recipes">
+    <article class="recipe-card companion">
+
+      <section id="message-section">
+      </section>
+    </article>
+
+    <section id="recipeAPI">
+    </section>
+
+
+  </main>
+  <script src="./script.js"></script>
+</body>
+
+</html>
